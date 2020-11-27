@@ -1,8 +1,0 @@
-2020-11-27 14:23:25.961 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_Alex.local1606458059126 paused.
-2020-11-27 14:23:26.007 [SpringContextShutdownHook] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
-2020-11-27 14:23:26.015 [SpringContextShutdownHook] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
-2020-11-27 14:23:26.015 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_Alex.local1606458059126 shutting down.
-2020-11-27 14:23:26.016 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_Alex.local1606458059126 paused.
-2020-11-27 14:23:26.017 [SpringContextShutdownHook] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_Alex.local1606458059126 shutdown complete.
-2020-11-27 14:23:26.075 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2020-11-27 14:23:26.106 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

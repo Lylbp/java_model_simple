@@ -33,3 +33,5 @@ build/
 
 src/main/resources/application-mysql.yml
 src/main/resources/application-oracle.yml
+
+logSavePath_IS_UNDEFINED
