@@ -1,6 +1,5 @@
 package com.lylbp.project.entity;
 
-import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.manger.security.entity.PermissionAuthority;
 import com.lylbp.project.enums.TrueOrFalseEnum;
 import com.lylbp.project.vo.RoleVO;
