@@ -1,0 +1,80 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${cfg.VOPackage}.${entity}VO;
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+        @Override
+        public Boolean edit(${entity} entity) {
+            //TODO 新增或编辑之前需要进行的逻辑
+            return saveOrUpdate(entity);
+        }
+
+        @Override
+        public List<${entity}VO> get${entity}VOListByParams(Page<${entity}VO> page, Map<String, Object> params) {
+            return getBaseMapper().query${entity}VOByParams(page, params);
+        }
+
+        @Override
+        public ${entity}VO getOne${entity}VOByParams(Map<String, Object> params) {
+            ${entity}VO entityVO = null;
+            List<${entity}VO> list = get${entity}VOListByParams(null,params);
+            if (ObjectUtil.isNotEmpty(list)){
+                entityVO = list.get(0);
+            }
+
+            return entityVO;
+        }
+
+        @Override
+        public ${entity}VO getOne${entity}VOBy(String columnName, Object columnValue){
+            HashMap<String, Object> params = new HashMap<>(1);
+            params.put(columnName, columnValue);
+
+            return getOne${entity}VOByParams(params);
+        }
+
+        @Override
+        public Boolean isExist(String id) {
+            return ObjectUtil.isNotEmpty(this.getById(id));
+        }
+
+        @Override
+        public Boolean columnHasRepeat(String notId, SFunction<${entity}, ?> columnName, Object columnValue) {
+            LambdaQueryWrapper<${entity}> wrapper = new QueryWrapper<${entity}>().lambda().eq(columnName, columnValue);
+            #foreach($field in ${table.fields})
+                #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
+                        wrapper.eq(${entity}::get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)},TrueOrFalseEnum.TRUE.getCode());
+                #end
+            #end
+
+            if (StrUtil.isNotEmpty(notId)) {
+                #foreach($field in ${table.fields})
+                    #if(${field.keyFlag})
+                            wrapper.ne(${entity}::get${field.propertyName.substring(0,1).toUpperCase()}${field.propertyName.substring(1)}, notId);
+                    #end
+                #end
+            }
+            List<${entity}> entities = getBaseMapper().selectList(wrapper);
+
+            return ObjectUtil.isNotEmpty(entities);
+        }
+}
+#end

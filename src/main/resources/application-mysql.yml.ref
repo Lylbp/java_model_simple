@@ -1,0 +1,85 @@
+#服务器端口号
+server:
+  port: 8072
+
+#spring基本配置
+spring:
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/lylbp_oa?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
+  #redis配置（无则不配）
+  redis:
+    #Redis服务器地址
+    host: 127.0.0.1
+    #Redis服务器连接端口
+    port: 6379
+    #Redis服务器密码
+    password:
+    #连接超时时间（毫秒）
+    timeout: 10000
+    #Redis数据库索引（默认为0）
+    database: 0
+    jedis:
+      pool:
+        #连接池中的最小空闲连接
+        min-idle: 2
+        #连接池中的最大空闲连接
+        max-idle: 20
+        #连接池最大连接数（使用负值表示没有限制）
+        max-active: 50
+        #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+
+#是否开启swagger开发文档
+swagger:
+  enabled: true
+
+#地址相关
+path:
+  #日志存储地址[必须配置]
+  log-save-path:  /Library/WebServer/log
+
+hbase:
+  zookeeper:
+    quorum: Alex
+    property:
+      clientPort: 2181
+
+zookeeper:
+  znode:
+    parent: /hbase
+
+#极光推送配置[无则不配]
+jpush:
+  appKey: 6b39f662fae26ba94c30bac3
+  masterKey: dd2e19e6d47b2eb0cc94d178
+
+#minio基本配置[无则不配]
+minio:
+  accessKey: BCIAIOSFODNN7EXAMPLE
+  secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  endpoint: http://192.168.1.172:9001/
+
+#hls反项代理域名地址
+hlsResourceUrl: http://117.71.99.26:10057/
+
+# 视频临时切割存储地址[注意!!! 需要配置自己的地址]
+audioVideoCache: /Library/WebServer/java_project/audioVideoCache
+
+# ffmpegPath地址 若无可不填写[线上服务器必填]
+ffmpegPath: /usr/local/bin/ffmpeg
+
+
+lylbp-security:
+  enabled: true
+  super-admin-id: 475B24EB704145D3B858AD8F76D98BBE
+  allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
+    /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
+    classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
+  allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd
+
+
+

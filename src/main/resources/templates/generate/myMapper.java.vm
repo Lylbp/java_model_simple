@@ -1,0 +1,31 @@
+package ${package.Mapper};
+
+import ${package.Entity}.${entity};
+import ${cfg.VOPackage}.${entity}VO;
+import ${superMapperClassPackage};
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+import java.util.Map;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+/**
+ * <p>
+ * $!{table.comment} Mapper 接口
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.mapperName} : ${superMapperClass}<${entity}>
+#else
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+    /**
+    * 条件查询List<${entity}VO>
+    *
+    * @param params 查询参数
+    * @return List<${entity}VO>
+    */
+    List<${entity}VO> query${entity}VOByParams(@Param("page")Page<${entity}VO> page, @Param("params") Map<String, Object> params);
+}
+#end

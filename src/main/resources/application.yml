@@ -1,0 +1,79 @@
+#spring基本配置
+spring:
+  #配置文件相关配置
+  profiles:
+    active: mysql
+    #jackson:
+    #查询数据是否去掉null(因为自定义了configureMessageConverters所以这里不配)
+    #    default-property-inclusion: non_null
+    #配置时间格式化(因为自定义了configureMessageConverters所以这里不配)
+    #date-format: yyyy-MM-dd HH:mm:ss
+    #time-zone: GMT+8
+  #资源相关配置
+  resources:
+    static-locations: classpath:/resources/,classpath:/static/
+  #servlet相关配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+  quartz:
+    job-store-type: jdbc #持久化到数据库
+    jdbc:
+      initialize-schema: ALWAYS
+    properties:
+      org:
+        quartz:
+          scheduler:
+            #调度器实例名称
+            instancName: clusteredScheduler
+            #默认主机名和时间戳生成实例ID,可以是任何字符串，但对于所有调度程序来说，必须是唯一的 对应qrtz_scheduler_state INSTANCE_NAME字段
+            instanceId: AUTO
+          jobStore:
+            #调度信息存储处理类
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            #数据库方言(使用完全兼容JDBC的驱动)
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            #数据库表前缀
+            tablePrefix: qrtz_
+            #是否打开群集功能
+            isClustered: true
+            #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
+            clusterCheckinInterval: 10000
+            #是否将JobDataMap中的属性转为字符串存储
+            useProperties: false
+          threadPool:
+            #指定线程池实现类，对调度器提供固定大小的线程池
+            class: org.quartz.simpl.SimpleThreadPool
+            #设置并发线程数量
+            threadCount: 10
+            #指定线程优先级
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+
+# MyBatis
+mybatis-plus:
+  #实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.lylbp.project.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapper-locations: classpath:mapper/*.xml
+  # 通用枚举的扫描,支持统配符 * 或者 ; 分割
+  type-enums-package: com.lylbp.project.enums
+  # mybatisPlus-config.xml配置文件地址
+  config-location: classpath:mybatis-config.xml
+  #全局配置
+  global-config:
+    #数据库配置
+    db-config:
+      #主键类型
+      id-type: UUID
+      select-strategy: not_empty
+      #数据库大写下划线转换
+      capital-mode: true
+      #全局逻辑删除字段值 如果实体类上有 @TableLogic 则以实体上的为准，忽略全局。
+      logic-delete-field: is_valid
+      #逻辑已删除值（默认为1）
+      logic-delete-value: 0
+      #逻辑未删除值（默认为0）
+      logic-not-delete-value: 1

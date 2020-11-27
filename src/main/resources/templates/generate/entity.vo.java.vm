@@ -1,0 +1,33 @@
+package ${cfg.VOPackage};
+
+import ${package.Entity}.${entity};
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import io.swagger.annotations.*;
+#end
+
+/**
+ * <p>
+ * $!{table.comment}VO类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${entityLombokModel})
+@Data
+#if(${superEntityClass})
+@EqualsAndHashCode(callSuper = true)
+#else
+@EqualsAndHashCode(callSuper = false)
+#end
+#if(${chainModel})
+@Accessors(chain = true)
+#end
+#end
+#if(${swagger2})
+@ApiModel(value="${entity}VO对象")
+#end
+public class ${entity}VO extends ${entity} {
+}

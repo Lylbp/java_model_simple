@@ -1,0 +1,34 @@
+package ${cfg.QOPackage};
+
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import io.swagger.annotations.*;
+#end
+
+/**
+ * <p>
+ * $!{table.comment}QO类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${entityLombokModel})
+@Data
+#if(${superEntityClass})
+@EqualsAndHashCode(callSuper = true)
+#else
+@EqualsAndHashCode(callSuper = false)
+#end
+#if(${chainModel})
+@Accessors(chain = true)
+#end
+#end
+#if(${swagger2})
+@ApiModel(value="${entity}QO对象", description = "注意！！当该对象作为body传参时，对象名称并不是key,直接将对象值json字符串放入body实体即可！！")
+#end
+public class ${entity}QO {
+    @ApiModelProperty(value = "示列请对应修改")
+    private String example;
+}

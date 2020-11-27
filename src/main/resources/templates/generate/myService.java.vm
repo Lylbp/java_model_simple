@@ -1,0 +1,74 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${cfg.VOPackage}.${entity}VO;
+import ${superServiceClassPackage};
+
+import java.util.List;
+import java.util.Map;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+        /**
+         * 新增或编辑
+         *
+         * @param entity
+         * @return Boolean
+         */
+        Boolean edit(${entity} entity);
+
+        /**
+         * 通过查询参数获取列表
+         * @param page   分页对象,传null代表不分页
+         * @param params 参数
+         * @return List<${entity}VO>
+         */
+        List<${entity}VO> get${entity}VOListByParams(Page<${entity}VO> page, Map<String, Object> params);
+
+        /**
+         * 通过查询参数获取单个${entity}VO对象
+         *
+         * @param params 参数
+         * @return ${entity}VO
+         */
+        ${entity}VO getOne${entity}VOByParams(Map<String, Object> params);
+
+        /**
+         * 通过字段名称与值获取单个${entity}VO对象
+         *
+         * @param columnName 名称
+         * @param columnValue 值
+         * @return ${entity}VO
+         */
+        ${entity}VO getOne${entity}VOBy(String columnName, Object columnValue);
+
+        /**
+         * 通过主键判断是否存在
+         *
+         * @param id 主键
+         * @return Boolean
+         */
+        Boolean isExist(String id);
+
+        /**
+         * 判断字段是否重复 true:重复 false:不重复
+         *
+         * @param notId       id
+         * @param columnName  字段名称
+         * @param columnValue 字段值
+         * @return Boolean
+         */
+        Boolean columnHasRepeat(String notId, SFunction<${entity}, ?> columnName, Object columnValue);
+}
+#end

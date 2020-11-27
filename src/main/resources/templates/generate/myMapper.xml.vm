@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package.Mapper}.${table.mapperName}">
+    #if(${enableCache})
+        <!-- 开启二级缓存 -->
+        <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    #end
+
+    #if(${baseResultMap})
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="${package.Entity}.${entity}">
+            #foreach($field in ${table.fields})
+                #if(${field.keyFlag})##生成主键排在第一位
+                    #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                        <!-- ${field.comment} -->
+                    #end
+                    <id column="${field.name}" property="${field.propertyName}"/>
+                #end
+            #end
+            #foreach($field in ${table.commonFields})##生成公共字段
+                #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                    <!-- ${field.comment} -->
+                #end
+                <result column="${field.name}" property="${field.propertyName}"/>
+            #end
+            #foreach($field in ${table.fields})
+                #if(!${field.keyFlag})##生成普通字段
+                    #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                        <!-- ${field.comment} -->
+                    #end
+                    <result column="${field.name}" property="${field.propertyName}"/>
+                #end
+            #end
+        </resultMap>
+
+    #end
+
+    #if(${baseColumnList})
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+        #foreach($field in ${table.fields})
+            t.${field.columnName}#if($foreach.hasNext),#end
+        #end
+        </sql>
+    #end
+
+    <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Base_Where_List">
+        #foreach($field in ${table.fields})
+            #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
+                <!-- 删除状态查询 -->
+                AND t.${cfg.FieldlogicDeleteName} = 1
+            #end
+
+            #if(${field.keyFlag})
+                #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                    <!-- ${field.comment}查询 -->
+                #end
+                <if test="params.containsKey('${field.propertyName}')">
+                    AND t.${field.columnName} = #{params.${field.propertyName}}
+                </if>
+            #end
+
+            #if(!${field.keyFlag} && ${field.columnName} != ${cfg.FieldlogicDeleteName})
+                ##不为日期类型
+                #if(${field.type.indexOf("DATE")} == -1 && ${field.type.indexOf("date")} == -1 && ${field.type.indexOf(
+                    "datetime")} == -1 && ${field.type.indexOf("DATETIME")} == -1)
+                    #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                        <!-- ${field.comment}查询 -->
+                    #end
+                    <if test="params.${field.propertyName} != null and params.${field.propertyName} != ''">
+                        AND t.${field.columnName} = #{params.${field.propertyName}}
+                    </if>
+
+                    ##varchar类型加入模糊查询
+                    #if(${field.type.indexOf("varchar")} != -1
+                    || ${field.type.indexOf("VARCHAR")} != -1
+                    || ${field.type.indexOf("varchar2")} != -1
+                    || ${field.type.indexOf("VARCHAR2")} != -1 )
+                        #if(${cfg.DBType} == "mysql")
+                            #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                                <!-- ${field.comment}模糊查询 -->
+                            #end
+                            <if test="params.${field.propertyName}Like != null and params.${field.propertyName}Like != ''">
+                                AND t.${field.columnName} LIKE CONCAT('%', #{params.${field.propertyName}Like}, '%')
+                            </if>
+                        #end
+
+                        #if(${cfg.DBType} == "oracle" || ${cfg.DBType} == "oracle12c")
+                            #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                                <!-- ${field.comment}模糊查询 -->
+                            #end
+                            <if test="params.${field.propertyName}Like != null and params.${field.propertyName}Like != ''">
+                                AND t.${field.columnName} LIKE '%' || #{params.${field.propertyName}Like} || '%'
+                            </if>
+                        #end
+                    #end
+                #end
+
+                ##为日期类型
+                #if(${field.type.indexOf("DATE")} != -1
+                || ${field.type.indexOf("date")} != -1
+                || ${field.type.indexOf("datetime")} != -1
+                || ${field.type.indexOf("DATETIME")} != -1 )
+                    #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                        <!-- ${field.comment}开始时间查询 -->
+                    #end
+                    <if test="params.${field.propertyName}Start != null and params.${field.propertyName}Start != ''">
+                        AND t.${field.columnName} &gt;= to_date(#{params.${field.propertyName}Start}, 'yyyy-mm-dd HH24:MI:SS')
+                    </if>
+
+                    #if(${field.comment} != "" && ${field.comment.indexOf("?")} == -1)
+                        <!-- ${field.comment}结束时间查询 -->
+                    #end
+                    <if test="params.${field.propertyName}End != null and params.${field.propertyName}End != ''">
+                        AND t.${field.columnName} &lt;= to_date(#{params.${field.propertyName}End}, 'yyyy-mm-dd HH24:MI:SS')
+                    </if>
+                #end
+            #end
+        #end
+    </sql>
+
+    <!-- ${entity}VO查询语句 -->
+    <select id="query${entity}VOByParams" parameterType="java.util.Map" resultType="${cfg.VOPackage}.${entity}VO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ${table.name} t
+        <where>
+            <include refid="Base_Where_List"/>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,62 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.lylbp.manger.swagger.SwaggerProperties",
+      "name": "swagger",
+      "type": "com.lylbp.manger.swagger.SwaggerProperties"
+    },
+    {
+      "sourceType": "com.lylbp.core.properties.ProjectProperties",
+      "name": "project",
+      "type": "com.lylbp.core.properties.ProjectProperties"
+    },
+    {
+      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "name": "security",
+      "type": "com.lylbp.manger.security.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.lylbp.manger.swagger.SwaggerProperties",
+      "name": "swagger.enabled",
+      "defaultValue": true,
+      "description": "是否开启swagger",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.lylbp.core.properties.ProjectProperties",
+      "name": "project.log-save-path",
+      "defaultValue": "",
+      "description": "日志存储地址",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lylbp.core.properties.ProjectProperties",
+      "name": "project.super-admin-id",
+      "defaultValue": "",
+      "description": "超级管理员id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "name": "lylbp-security.enabled",
+      "defaultValue": false,
+      "description": "是否开始security权限验证",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "name": "lylbp-security.allow-static",
+      "description": "不需要权限验证的静态资源集合",
+      "type": "java.util.List<java.lang.String>"
+    },
+    {
+      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "name": "lylbp-security.allow-api",
+      "description": "不需要权限验证的api",
+      "type": "java.util.List<java.lang.String>"
+    }
+  ]
+}

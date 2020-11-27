@@ -1,0 +1,63 @@
+#服务器端口号
+server:
+  port: 8072
+
+#spring基本配置
+spring:
+  datasource:
+    #oracle驱动
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    #oracle数据库用户名
+    username: C##dar
+    #oracle数据库密码
+    password: 1qaz2wsx
+    #oracle数据库url
+    url: jdbc:oracle:thin:@192.168.1.151:1521:cdb1
+
+#日志地址 (注意!!! 需要配置自己的日志地址)
+project.log: /Library/WebServer/log
+
+#是否开启swagger开发文档
+swagger:
+  enable: true
+
+#redis配置（无则不配）
+redis:
+  host: localhost
+  password: weiwenbin945
+  poolMaxIdle: 10
+  poolMaxTotal: 10
+  poolMaxWait: 3
+  port: 6379
+  timeout: 3
+
+#极光推送配置（无则不配）
+jpush:
+  appKey: 6b39f662fae26ba94c30bac3
+  masterKey: dd2e19e6d47b2eb0cc94d178
+
+#minio基本配置（无则不配）
+minio:
+  accessKey: BCIAIOSFODNN7EXAMPLE
+  secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  endpoint: http://192.168.1.172:9001/
+
+#hls反项代理域名地址
+hlsResourceUrl: http://117.71.99.26:10057/
+
+# 视频临时切割存储地址(注意!!! 需要配置自己的地址)
+audioVideoCache: /Library/WebServer/java_project/audioVideoCache
+
+# ffmpegPath地址 若无可不填写（线上服务器必填）
+ffmpegPath: /usr/local/bin/ffmpeg
+
+#权限管理配置（无则security-open配false）
+#权限管理-security权限验证是否开启 spring boot 2.0之后已去除security.basic.enabled配置
+security-open: false
+#权限管理-security-open为true需配置所有用户都可访问的静态资源路径
+security-allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
+  /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,classpath:/META-INF/resources/webjars/
+#权限管理-security-open为true需配置所有用户都可访问的api路径
+security-allow-api: /public/**, /bg/auth/login,/bg/auth/changePassWd, /user/**
+#权限管理-security-open为true时需配置内置数据超级管理员默认信息
+super-admin-id: 475B24EB704145D3B858AD8F76D98BBE
