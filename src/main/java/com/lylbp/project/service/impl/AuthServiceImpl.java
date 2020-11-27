@@ -3,7 +3,7 @@ package com.lylbp.project.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.core.exception.ResResultException;
-
+import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.service.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,13 +15,18 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
+ * 登录相关
+ *
  * @Author weiwenbin
- * @Date: 2020/11/26 下午1:14
+ * @Date 2020/6/30 下午5:31
  */
 @Service
 public class AuthServiceImpl implements AuthService {
     @Resource
     private AuthenticationManager authenticationManager;
+
+    @Resource
+    private ProjectProperties projectProperties;
 
     @Override
     public SecurityUser login(String username, String pwd) {

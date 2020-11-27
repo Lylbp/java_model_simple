@@ -11,7 +11,7 @@ import java.util.List;
  * @Author weiwenbin
  * @Date 2020/9/1 上午11:28
  */
-@ConfigurationProperties(prefix = "lylbp-security")
+@ConfigurationProperties(prefix = "security")
 @Component
 @Data
 public class SecurityProperties {

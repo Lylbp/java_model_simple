@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lylbp</groupId>
-    <artifactId>javaModel</artifactId>
+    <artifactId>java_model_simple</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>oa</name>
+    <name>java_model_simple</name>
     <description>Life cycle management of oa</description>
     <packaging>jar</packaging>
 

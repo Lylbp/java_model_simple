@@ -41,20 +41,20 @@
     },
     {
       "sourceType": "com.lylbp.manger.security.SecurityProperties",
-      "name": "lylbp-security.enabled",
+      "name": "security.enabled",
       "defaultValue": false,
       "description": "是否开始security权限验证",
       "type": "java.lang.Boolean"
     },
     {
       "sourceType": "com.lylbp.manger.security.SecurityProperties",
-      "name": "lylbp-security.allow-static",
+      "name": "security.allow-static",
       "description": "不需要权限验证的静态资源集合",
       "type": "java.util.List<java.lang.String>"
     },
     {
       "sourceType": "com.lylbp.manger.security.SecurityProperties",
-      "name": "lylbp-security.allow-api",
+      "name": "security.allow-api",
       "description": "不需要权限验证的api",
       "type": "java.util.List<java.lang.String>"
     }

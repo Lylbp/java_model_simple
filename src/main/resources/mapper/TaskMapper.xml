@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.project.mapper.TaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lylbp.project.entity.Task">
+        <!-- 任务id -->
+        <id column="task_id" property="taskId"/>
+        <!-- 任务名称 -->
+        <result column="name" property="name"/>
+        <!-- 任务描述 -->
+        <result column="description" property="description"/>
+        <!-- 任务备注 -->
+        <result column="remark" property="remark"/>
+        <!-- 执行时间cron表达式 -->
+        <result column="execution_time" property="executionTime"/>
+        <!-- 执行类名称 -->
+        <result column="execution_class_name" property="executionClassName"/>
+        <!-- 任务状态(0: 暂停 1:启动) -->
+        <result column="status" property="status"/>
+        <!-- 创建人 -->
+        <result column="create_by" property="createBy"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
+        <!-- 更新人 -->
+        <result column="update_by" property="updateBy"/>
+        <!-- 更新时间 -->
+        <result column="update_time" property="updateTime"/>
+        <!-- 是否有效数据 -->
+        <result column="is_valid" property="isValid"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            t.task_id,
+            t.name,
+            t.description,
+            t.remark,
+            t.execution_time,
+            t.execution_class_name,
+            t.status,
+            t.create_by,
+            t.create_time,
+            t.update_by,
+            t.update_time,
+            t.is_valid
+        </sql>
+
+    <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Base_Where_List">
+
+        <!-- 任务id查询 -->
+        <if test="params.containsKey('taskId')">
+            AND t.task_id = #{params.taskId}
+        </if>
+
+
+        <!-- 任务名称查询 -->
+        <if test="params.name != null and params.name != ''">
+            AND t.name = #{params.name}
+        </if>
+
+        <!-- 任务名称模糊查询 -->
+        <if test="params.nameLike != null and params.nameLike != ''">
+            AND t.name LIKE CONCAT('%', #{params.nameLike}, '%')
+        </if>
+
+
+        <!-- 任务描述查询 -->
+        <if test="params.description != null and params.description != ''">
+            AND t.description = #{params.description}
+        </if>
+
+        <!-- 任务描述模糊查询 -->
+        <if test="params.descriptionLike != null and params.descriptionLike != ''">
+            AND t.description LIKE CONCAT('%', #{params.descriptionLike}, '%')
+        </if>
+
+
+        <!-- 任务备注查询 -->
+        <if test="params.remark != null and params.remark != ''">
+            AND t.remark = #{params.remark}
+        </if>
+
+        <!-- 任务备注模糊查询 -->
+        <if test="params.remarkLike != null and params.remarkLike != ''">
+            AND t.remark LIKE CONCAT('%', #{params.remarkLike}, '%')
+        </if>
+
+
+        <!-- 执行时间cron表达式查询 -->
+        <if test="params.executionTime != null and params.executionTime != ''">
+            AND t.execution_time = #{params.executionTime}
+        </if>
+
+        <!-- 执行时间cron表达式模糊查询 -->
+        <if test="params.executionTimeLike != null and params.executionTimeLike != ''">
+            AND t.execution_time LIKE CONCAT('%', #{params.executionTimeLike}, '%')
+        </if>
+
+
+        <!-- 执行类名称查询 -->
+        <if test="params.executionClassName != null and params.executionClassName != ''">
+            AND t.execution_class_name = #{params.executionClassName}
+        </if>
+
+        <!-- 执行类名称模糊查询 -->
+        <if test="params.executionClassNameLike != null and params.executionClassNameLike != ''">
+            AND t.execution_class_name LIKE CONCAT('%', #{params.executionClassNameLike}, '%')
+        </if>
+
+
+        <!-- 任务状态(0: 暂停 1:启动)查询 -->
+        <if test="params.status != null and params.status != ''">
+            AND t.status = #{params.status}
+        </if>
+
+
+        <!-- 创建人查询 -->
+        <if test="params.createBy != null and params.createBy != ''">
+            AND t.create_by = #{params.createBy}
+        </if>
+
+        <!-- 创建人模糊查询 -->
+        <if test="params.createByLike != null and params.createByLike != ''">
+            AND t.create_by LIKE CONCAT('%', #{params.createByLike}, '%')
+        </if>
+
+
+        <!-- 创建时间开始时间查询 -->
+        <if test="params.createTimeStart != null and params.createTimeStart != ''">
+            AND t.create_time &gt;= to_date(#{params.createTimeStart}, 'yyyy-mm-dd HH24:MI:SS')
+        </if>
+
+        <!-- 创建时间结束时间查询 -->
+        <if test="params.createTimeEnd != null and params.createTimeEnd != ''">
+            AND t.create_time &lt;= to_date(#{params.createTimeEnd}, 'yyyy-mm-dd HH24:MI:SS')
+        </if>
+
+
+        <!-- 更新人查询 -->
+        <if test="params.updateBy != null and params.updateBy != ''">
+            AND t.update_by = #{params.updateBy}
+        </if>
+
+        <!-- 更新人模糊查询 -->
+        <if test="params.updateByLike != null and params.updateByLike != ''">
+            AND t.update_by LIKE CONCAT('%', #{params.updateByLike}, '%')
+        </if>
+
+
+        <!-- 更新时间开始时间查询 -->
+        <if test="params.updateTimeStart != null and params.updateTimeStart != ''">
+            AND t.update_time &gt;= to_date(#{params.updateTimeStart}, 'yyyy-mm-dd HH24:MI:SS')
+        </if>
+
+        <!-- 更新时间结束时间查询 -->
+        <if test="params.updateTimeEnd != null and params.updateTimeEnd != ''">
+            AND t.update_time &lt;= to_date(#{params.updateTimeEnd}, 'yyyy-mm-dd HH24:MI:SS')
+        </if>
+        <!-- 删除状态查询 -->
+        AND t.is_valid = 1
+    </sql>
+
+    <!-- TaskVO查询语句 -->
+    <select id="queryTaskVOByParams" parameterType="java.util.Map" resultType="com.lylbp.project.vo.TaskVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_s_task t
+        <where>
+            <include refid="Base_Where_List"/>
+        </where>
+    </select>
+</mapper>

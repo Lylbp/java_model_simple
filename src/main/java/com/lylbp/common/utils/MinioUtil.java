@@ -7,6 +7,7 @@ import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
@@ -20,14 +21,13 @@ import java.security.NoSuchAlgorithmException;
  */
 @Slf4j
 public class MinioUtil {
-
     /**
      * 获取链接
      *
-     * @param endpoint
-     * @param accessKey
-     * @param secretKey
-     * @return
+     * @param endpoint  地址
+     * @param accessKey accessKey
+     * @param secretKey secretKey
+     * @return MinioClient
      */
     public static MinioClient getClient(String endpoint, String accessKey, String secretKey) {
         MinioClient minioClient;
@@ -43,18 +43,20 @@ public class MinioUtil {
     /**
      * 上传文件
      *
-     * @param file
-     * @param bucketName
-     * @param fileName
-     * @param saveFilePath
-     * @param client
-     * @return
+     * @param file         文件
+     * @param bucketName   桶名
+     * @param fileName     文件名
+     * @param saveFilePath 保存地址
+     * @param client       client
+     * @return String
      */
     public static String uploadFile(MultipartFile file, String bucketName, String fileName, String saveFilePath, MinioClient client) {
-        InputStream inputStream = null;//文件流
+        //文件流
+        InputStream inputStream = null;
         try {
             inputStream = file.getInputStream();
-            String contentType = StringUtil.getContentType(fileName);//文件contentType
+            //文件contentType
+            String contentType = StringUtil.getContentType(fileName);
             // 检查存储桶是否已经存在
             boolean isExist = client.bucketExists(bucketName);
             if (!isExist) {
@@ -73,18 +75,20 @@ public class MinioUtil {
     /**
      * 上传文件
      *
-     * @param file
-     * @param bucketName
-     * @param saveFilePath
-     * @param client
-     * @return
+     * @param file         文件
+     * @param bucketName   桶名
+     * @param saveFilePath 保存地址
+     * @param client       client
+     * @return String
      */
     public static String uploadFile(File file, String bucketName, String saveFilePath, MinioClient client) {
-        InputStream inputStream = null;//文件流
+        //文件流
+        InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(file);
             String fileName = file.getName();
-            String contentType = StringUtil.getContentType(fileName);//文件contentType
+            //文件contentType
+            String contentType = StringUtil.getContentType(fileName);
             // 检查存储桶是否已经存在
             boolean isExist = client.bucketExists(bucketName);
             if (!isExist) {
@@ -102,10 +106,10 @@ public class MinioUtil {
     /**
      * 获取文件流
      *
-     * @param client
-     * @param bucketName
-     * @param saveFilePath
-     * @return
+     * @param client       client
+     * @param bucketName   桶名
+     * @param saveFilePath 保存地址
+     * @return InputStream
      */
     public static InputStream getFileStream(MinioClient client, String bucketName, String saveFilePath) {
         InputStream inputStream = null;
@@ -120,10 +124,10 @@ public class MinioUtil {
     /**
      * 获取图片真实访问地址(有效1天)
      *
-     * @param client
-     * @param bucketName
-     * @param fileName
-     * @return
+     * @param client     client
+     * @param bucketName 桶名
+     * @param fileName   文件名
+     * @return String
      */
     public static String presignedGetObject(MinioClient client, String bucketName, String fileName) {
         String objectUrl;
@@ -139,14 +143,15 @@ public class MinioUtil {
     /**
      * 向浏览器输出流
      *
-     * @param client
-     * @param bucketName
-     * @param filePath
-     * @param response
+     * @param client     client
+     * @param bucketName 桶名
+     * @param filePath   文件名
+     * @param response   响应
      */
     public static void outImgByStream(MinioClient client, String bucketName, String filePath, HttpServletResponse response) {
         String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-        String contentType = StringUtil.getContentType(fileName);//文件contentType
+        //文件contentType
+        String contentType = StringUtil.getContentType(fileName);
         try {
             client.statObject(bucketName, filePath);
             String objUrl = presignedGetObject(client, bucketName, filePath);
@@ -164,5 +169,4 @@ public class MinioUtil {
             throw new ResResultException(ResResultEnum.RESOURCE_NOT_EXIT);
         }
     }
-
 }

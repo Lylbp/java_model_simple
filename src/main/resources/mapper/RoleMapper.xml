@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.project.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lylbp.project.entity.Role">
+        <!-- 角色id -->
+        <id column="role_id" property="roleId"/>
+        <!-- 角色名称 -->
+        <result column="role_name" property="roleName"/>
+        <!-- 角色描述 -->
+        <result column="role_description" property="roleDescription"/>
+        <!-- 创建人 -->
+        <result column="create_by" property="createBy"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
+        <!-- 更新人 -->
+        <result column="update_by" property="updateBy"/>
+        <!-- 更新时间 -->
+        <result column="update_time" property="updateTime"/>
+        <!-- 是否有效数据 -->
+        <result column="is_valid" property="isValid"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            t.role_id,
+            t.role_name,
+            t.role_description,
+            t.create_by,
+            t.create_time,
+            t.update_by,
+            t.update_time,
+            t.is_valid
+        </sql>
+
+    <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Base_Where_List">
+
+        <!-- 角色id查询 -->
+        <if test="params.containsKey('roleId')">
+            AND t.role_id = #{params.roleId}
+        </if>
+
+
+        <!-- 角色名称查询 -->
+        <if test="params.roleName != null and params.roleName != ''">
+            AND t.role_name = #{params.roleName}
+        </if>
+
+        <!-- 角色名称模糊查询 -->
+        <if test="params.roleNameLike != null and params.roleNameLike != ''">
+            AND t.role_name LIKE CONCAT('%', #{params.roleNameLike}, '%')
+        </if>
+
+
+        <!-- 角色描述查询 -->
+        <if test="params.roleDescription != null and params.roleDescription != ''">
+            AND t.role_description = #{params.roleDescription}
+        </if>
+
+        <!-- 角色描述模糊查询 -->
+        <if test="params.roleDescriptionLike != null and params.roleDescriptionLike != ''">
+            AND t.role_description LIKE CONCAT('%', #{params.roleDescriptionLike}, '%')
+        </if>
+
+
+        <!-- 创建人查询 -->
+        <if test="params.createBy != null and params.createBy != ''">
+            AND t.create_by = #{params.createBy}
+        </if>
+
+        <!-- 创建人模糊查询 -->
+        <if test="params.createByLike != null and params.createByLike != ''">
+            AND t.create_by LIKE CONCAT('%', #{params.createByLike}, '%')
+        </if>
+
+
+        <!-- 创建时间查询 -->
+        <if test="params.createTime != null and params.createTime != ''">
+            AND t.create_time = #{params.createTime}
+        </if>
+
+
+        <!-- 更新人查询 -->
+        <if test="params.updateBy != null and params.updateBy != ''">
+            AND t.update_by = #{params.updateBy}
+        </if>
+
+        <!-- 更新人模糊查询 -->
+        <if test="params.updateByLike != null and params.updateByLike != ''">
+            AND t.update_by LIKE CONCAT('%', #{params.updateByLike}, '%')
+        </if>
+
+
+        <!-- 更新时间查询 -->
+        <if test="params.updateTime != null and params.updateTime != ''">
+            AND t.update_time = #{params.updateTime}
+        </if>
+    </sql>
+
+    <!-- RoleVO查询语句 -->
+    <select id="queryRoleVOByParams" parameterType="java.util.Map" resultType="com.lylbp.project.vo.RoleVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_rbac_role t
+        <where>
+            <!-- 删除状态查询 -->
+            AND t.is_valid = 1
+
+            <include refid="Base_Where_List"/>
+        </where>
+        ORDER BY t.create_time
+    </select>
+</mapper>

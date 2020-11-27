@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.project.mapper.MenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lylbp.project.entity.Menu">
+        <!-- 菜单id -->
+        <id column="menu_id" property="menuId"/>
+        <!-- 菜单上级id -->
+        <result column="menu_pid" property="menuPid"/>
+        <!-- 菜单名称 -->
+        <result column="menu_name" property="menuName"/>
+        <!-- 前端url -->
+        <result column="menu_url" property="menuUrl"/>
+        <!-- 创建人 -->
+        <result column="create_by" property="createBy"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
+        <!-- 更新人 -->
+        <result column="update_by" property="updateBy"/>
+        <!-- 更新时间 -->
+        <result column="update_time" property="updateTime"/>
+        <!-- 是否有效数据 -->
+        <result column="is_valid" property="isValid"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            t.menu_id,
+            t.menu_pid,
+            t.menu_name,
+            t.menu_url,
+            t.create_by,
+            t.create_time,
+            t.update_by,
+            t.update_time,
+            t.is_valid
+        </sql>
+
+    <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Base_Where_List">
+        <!-- 菜单id查询 -->
+        <if test="params.containsKey('menuId')">
+            AND t.menu_id = #{params.menuId}
+        </if>
+
+
+        <!-- 菜单上级id查询 -->
+        <if test="params.menuPid != null and params.menuPid != ''">
+            AND t.menu_pid = #{params.menuPid}
+        </if>
+
+        <!-- 菜单上级id模糊查询 -->
+        <if test="params.menuPidLike != null and params.menuPidLike != ''">
+            AND t.menu_pid LIKE CONCAT('%', #{params.menuPidLike}, '%')
+        </if>
+
+
+        <!-- 菜单名称查询 -->
+        <if test="params.menuName != null and params.menuName != ''">
+            AND t.menu_name = #{params.menuName}
+        </if>
+
+        <!-- 菜单名称模糊查询 -->
+        <if test="params.menuNameLike != null and params.menuNameLike != ''">
+            AND t.menu_name LIKE CONCAT('%', #{params.menuNameLike}, '%')
+        </if>
+
+
+        <!-- 前端url查询 -->
+        <if test="params.menuUrl != null and params.menuUrl != ''">
+            AND t.menu_url = #{params.menuUrl}
+        </if>
+
+        <!-- 前端url模糊查询 -->
+        <if test="params.menuUrlLike != null and params.menuUrlLike != ''">
+            AND t.menu_url LIKE CONCAT('%', #{params.menuUrlLike}, '%')
+        </if>
+
+
+        <!-- 创建人查询 -->
+        <if test="params.createBy != null and params.createBy != ''">
+            AND t.create_by = #{params.createBy}
+        </if>
+
+        <!-- 创建人模糊查询 -->
+        <if test="params.createByLike != null and params.createByLike != ''">
+            AND t.create_by LIKE CONCAT('%', #{params.createByLike}, '%')
+        </if>
+
+
+        <!-- 创建时间查询 -->
+        <if test="params.createTime != null and params.createTime != ''">
+            AND t.create_time = #{params.createTime}
+        </if>
+
+
+        <!-- 更新人查询 -->
+        <if test="params.updateBy != null and params.updateBy != ''">
+            AND t.update_by = #{params.updateBy}
+        </if>
+
+        <!-- 更新人模糊查询 -->
+        <if test="params.updateByLike != null and params.updateByLike != ''">
+            AND t.update_by LIKE CONCAT('%', #{params.updateByLike}, '%')
+        </if>
+
+
+        <!-- 更新时间查询 -->
+        <if test="params.updateTime != null and params.updateTime != ''">
+            AND t.update_time = #{params.updateTime}
+        </if>
+
+    </sql>
+
+    <!-- MenuVO查询语句 -->
+    <select id="queryMenuVOByParams" parameterType="java.util.Map" resultType="com.lylbp.project.vo.MenuVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_rbac_menu t
+        <where>
+            <!-- 删除状态查询 -->
+            AND t.is_valid = 1
+            <include refid="Base_Where_List"/>
+        </where>
+        ORDER BY t.create_time
+    </select>
+</mapper>

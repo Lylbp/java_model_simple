@@ -1,6 +1,9 @@
 package com.lylbp.project.entity;
 
+import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.manger.security.entity.PermissionAuthority;
+import com.lylbp.project.enums.TrueOrFalseEnum;
+import com.lylbp.project.vo.RoleVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.*;
 
@@ -22,29 +25,45 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SecurityUser implements UserDetails, Serializable {
+    @Resource
+    private ProjectProperties projectProperties;
+
+    @ApiModelProperty("用户对象")
+    private Admin admin;
+
+    @ApiModelProperty("用户对应的角色集合")
+    private List<RoleVO> roleList;
+
     @ApiModelProperty("用户权限地址集合")
     private List<PermissionAuthority> authorities;
+
+    public SecurityUser(Admin admin, List<RoleVO> roleList, List<PermissionAuthority> authorities) {
+        this.admin = admin;
+        this.roleList = roleList;
+        this.authorities = authorities;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+
     @Override
     public String getPassword() {
-        return new BCryptPasswordEncoder().encode("admin");
+        return admin.getPwd();
     }
 
     @Override
     public String getUsername() {
-        return "admin";
+        return admin.getLoginAccount();
     }
 
     /**
      * 账号是否为超级管理员
      */
     public boolean isSupperAdmin() {
-        return false;
+        return projectProperties.getSuperAdminId().equals(admin.getAdminId());
     }
 
     /**
@@ -76,7 +95,7 @@ public class SecurityUser implements UserDetails, Serializable {
      */
     @Override
     public boolean isEnabled() {
-        return true;
+        return admin.getIsEnabled().equals(TrueOrFalseEnum.TRUE.getCode());
     }
 }
 
