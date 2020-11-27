@@ -25,7 +25,6 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@Component
 public class SecurityUser implements UserDetails, Serializable {
     @ApiModelProperty("账号是否为超级管理员")
     private Boolean isSupperAdmin;
