@@ -34,16 +34,13 @@ public class AuthController {
     @Resource
     SecurityProperties securityProperties;
 
-    @Resource
-    private AdminService adminService;
-
     @PostMapping("/login")
     @ApiOperation("后台用户登录")
     public ResResult<String> login(@RequestBody @Validated AdminLoginDTO adminLoginDTO) {
         SecurityUser securityUser = authService.login(adminLoginDTO.getLoginName(), adminLoginDTO.getPwd());
 
         //不为超级管理员且权限验证已开启且当前权限为空
-        if (!adminService.isSupperAdmin(securityUser.getAdmin().getAdminId())){
+        if (!securityUser.getIsSupperAdmin()){
             if (securityProperties.getEnabled() && securityUser.getAuthorities().size() == 0) {
                 return ResResultUtil.error(ResResultEnum.NO_ANY_AUTHENTICATION);
             }

@@ -94,7 +94,7 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
         if (null != authentication) {
             if (authentication.getPrincipal() instanceof SecurityUser) {
                 SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
-                if (securityUser.isSupperAdmin()) {
+                if (securityUser.getIsSupperAdmin()) {
                     fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
                     return;
                 }

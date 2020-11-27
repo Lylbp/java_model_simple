@@ -167,7 +167,7 @@ public class AdminController {
         String adminId = securityUser.getAdmin().getAdminId();
         //超级管理员或未开始权限验证查全部
         List<MenuVO> menuVOList;
-        if (securityUser.isSupperAdmin() || !securityProperties.getEnabled()) {
+        if (securityUser.getIsSupperAdmin() || !securityProperties.getEnabled()) {
             menuVOList = menuService.getMenuVOListByParams(null, new HashMap<>(1));
         } else {
             menuVOList = adminService.getUserAssignMenuList(adminId, TrueOrFalseEnum.TRUE.getCode(),

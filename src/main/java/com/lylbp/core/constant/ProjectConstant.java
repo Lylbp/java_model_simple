@@ -10,7 +10,7 @@ public class ProjectConstant {
     /**
      * token过期时间，单位：秒
      */
-    public static final long JWT_EXPIRE_TIME = 24 * 60 * 60;
+    public static final long JWT_EXPIRE_TIME = 24 * 60 * 60 * 1000;
 
     /**
      * redis所有权限

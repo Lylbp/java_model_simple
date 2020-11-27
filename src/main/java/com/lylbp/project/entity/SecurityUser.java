@@ -9,10 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.*;
 
@@ -24,9 +25,10 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@Component
 public class SecurityUser implements UserDetails, Serializable {
-    @Resource
-    private ProjectProperties projectProperties;
+    @ApiModelProperty("账号是否为超级管理员")
+    private Boolean isSupperAdmin;
 
     @ApiModelProperty("用户对象")
     private Admin admin;
@@ -37,17 +39,11 @@ public class SecurityUser implements UserDetails, Serializable {
     @ApiModelProperty("用户权限地址集合")
     private List<PermissionAuthority> authorities;
 
-    public SecurityUser(Admin admin, List<RoleVO> roleList, List<PermissionAuthority> authorities) {
-        this.admin = admin;
-        this.roleList = roleList;
-        this.authorities = authorities;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
-
 
     @Override
     public String getPassword() {
@@ -57,13 +53,6 @@ public class SecurityUser implements UserDetails, Serializable {
     @Override
     public String getUsername() {
         return admin.getLoginAccount();
-    }
-
-    /**
-     * 账号是否为超级管理员
-     */
-    public boolean isSupperAdmin() {
-        return projectProperties.getSuperAdminId().equals(admin.getAdminId());
     }
 
     /**

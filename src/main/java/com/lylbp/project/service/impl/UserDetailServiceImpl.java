@@ -4,7 +4,9 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lylbp.common.utils.TokenUtil;
 import com.lylbp.core.constant.ProjectConstant;
+import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.manger.security.MyUserDetailsService;
+import com.lylbp.manger.security.SecurityProperties;
 import com.lylbp.manger.security.entity.PermissionAuthority;
 import com.lylbp.project.entity.Admin;
 import com.lylbp.project.entity.SecurityUser;
@@ -40,9 +42,11 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
     @Resource
     private PermissionService permissionService;
 
-
     @Resource
     private RoleService roleService;
+
+    @Resource
+    private ProjectProperties projectProperties;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -59,7 +63,8 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
         List<PermissionVO> userHasPermission;
         //是否为超级管理员,若为超级管理员查全部
         HashMap<String, Object> params = new HashMap<>(1);
-        if (adminService.isSupperAdmin(adminId)) {
+        Boolean supperAdmin = adminService.isSupperAdmin(adminId);
+        if (supperAdmin) {
             roleVOList = roleService.getRoleVOListByParams(null, params);
             userHasPermission = permissionService.getPermissionVOListByParams(null, params);
         } else {
@@ -69,7 +74,7 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
 
         List<PermissionAuthority> permissionAuthorities = new ArrayList<>();
         userHasPermission.forEach(permissionVO -> permissionAuthorities.add(new PermissionAuthority(permissionVO.getPermissionUrl())));
-        return new SecurityUser(admin, roleVOList, permissionAuthorities);
+        return new SecurityUser(supperAdmin, admin, roleVOList, permissionAuthorities);
     }
 
     @Override
