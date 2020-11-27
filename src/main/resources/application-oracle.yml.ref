@@ -1,63 +1,85 @@
 #服务器端口号
 server:
-  port: 8072
+  port: 8073
 
 #spring基本配置
 spring:
+  #数据库配置
   datasource:
     #oracle驱动
     driver-class-name: oracle.jdbc.driver.OracleDriver
     #oracle数据库用户名
-    username: C##dar
+    username:
     #oracle数据库密码
-    password: 1qaz2wsx
+    password:
     #oracle数据库url
     url: jdbc:oracle:thin:@192.168.1.151:1521:cdb1
-
-#日志地址 (注意!!! 需要配置自己的日志地址)
-project.log: /Library/WebServer/log
+  #redis配置（无则不配）
+  redis:
+    #Redis服务器地址
+    host: 127.0.0.1
+    #Redis服务器连接端口
+    port: 6379
+    #Redis服务器密码
+    password:
+    #连接超时时间（毫秒）
+    timeout: 10000
+    #Redis数据库索引（默认为0）
+    database: 0
+    jedis:
+      pool:
+        #连接池中的最小空闲连接
+        min-idle: 2
+        #连接池中的最大空闲连接
+        max-idle: 20
+        #连接池最大连接数（使用负值表示没有限制）
+        max-active: 50
+        #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+  #es（无则不配 并删除manger中的包）
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
+      read-timeout: 10000
+  data:
+    elasticsearch:
+      repositories:
+        #开启仓库(默认值:true)
+        enabled: true
 
 #是否开启swagger开发文档
 swagger:
-  enable: true
+  enabled: true
 
-#redis配置（无则不配）
-redis:
-  host: localhost
-  password: weiwenbin945
-  poolMaxIdle: 10
-  poolMaxTotal: 10
-  poolMaxWait: 3
-  port: 6379
-  timeout: 3
+#地址相关
+project:
+  #日志存储地址[必须配置]
+  log-save-path: /Library/WebServer/log
+  #超级管理员id
+  super-admin-id: 475B24EB704145D3B858AD8F76D98BBE
 
-#极光推送配置（无则不配）
+#hbase（无则不配 并删除manger中的包）
+hbase:
+  zookeeper:
+    quorum: Alex
+    property:
+      clientPort: 2181
+zookeeper:
+  znode:
+    parent: /hbase
+
+#极光推送配置[无则不配]
 jpush:
   appKey: 6b39f662fae26ba94c30bac3
   masterKey: dd2e19e6d47b2eb0cc94d178
 
-#minio基本配置（无则不配）
-minio:
-  accessKey: BCIAIOSFODNN7EXAMPLE
-  secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-  endpoint: http://192.168.1.172:9001/
-
-#hls反项代理域名地址
-hlsResourceUrl: http://117.71.99.26:10057/
-
-# 视频临时切割存储地址(注意!!! 需要配置自己的地址)
-audioVideoCache: /Library/WebServer/java_project/audioVideoCache
-
-# ffmpegPath地址 若无可不填写（线上服务器必填）
-ffmpegPath: /usr/local/bin/ffmpeg
-
-#权限管理配置（无则security-open配false）
-#权限管理-security权限验证是否开启 spring boot 2.0之后已去除security.basic.enabled配置
-security-open: false
-#权限管理-security-open为true需配置所有用户都可访问的静态资源路径
-security-allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
-  /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,classpath:/META-INF/resources/webjars/
-#权限管理-security-open为true需配置所有用户都可访问的api路径
-security-allow-api: /public/**, /bg/auth/login,/bg/auth/changePassWd, /user/**
-#权限管理-security-open为true时需配置内置数据超级管理员默认信息
-super-admin-id: 475B24EB704145D3B858AD8F76D98BBE
+#权限管理配置
+security:
+  #是否开启
+  enabled: true
+  #权限管理security-open为true需配置所有用户都可访问的静态资源路径
+  allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
+    /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
+    classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
+  #权限管理-security-open为true需配置所有用户都可访问的api路径
+  allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd
