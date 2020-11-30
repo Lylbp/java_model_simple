@@ -2,7 +2,7 @@ package com.lylbp.common.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lylbp.core.entity.ResResult;
-import com.lylbp.manger.elasticsearch.EsPage;
+import com.lylbp.core.entity.DataPage;
 import com.lylbp.core.entity.PageResResult;
 import com.lylbp.common.enums.ResResultEnum;
 
@@ -59,8 +59,8 @@ public class ResResultUtil {
         return makePageRsp(new PageResResult<T>(page));
     }
 
-    public static <T> ResResult<PageResResult<T>> makePageRsp(EsPage<T> esPage) {
-        return makePageRsp( new PageResResult<T>(esPage));
+    public static <T> ResResult<PageResResult<T>> makePageRsp(DataPage<T> dataPage) {
+        return makePageRsp( new PageResResult<T>(dataPage));
     }
 
     public static <T> ResResult<PageResResult<T>> makePageRsp(PageResResult<T> pageResult) {

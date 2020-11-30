@@ -1,7 +1,6 @@
 package com.lylbp.core.entity;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lylbp.manger.elasticsearch.EsPage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -39,10 +38,10 @@ public class PageResResult<T> {
         this.setTotalCount(page.getTotal());
     }
 
-    public PageResResult(EsPage<T> esPage) {
-        this.setRecords(esPage.getRecords());
-        this.setPageSize(esPage.getSize());
-        this.setPageNum(esPage.getCurrent());
-        this.setTotalCount(esPage.getTotal());
+    public PageResResult(DataPage<T> dataPage) {
+        this.setRecords(dataPage.getRecords());
+        this.setPageSize(dataPage.getSize());
+        this.setPageNum(dataPage.getCurrent());
+        this.setTotalCount(dataPage.getTotal());
     }
 }

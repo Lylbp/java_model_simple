@@ -10,43 +10,43 @@
 
 <!--    <typeHandlers>-->
 <!--        <typeHandler jdbcType="DECIMAL" javaType="java.math.BigDecimal"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectBigDecimalTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectBigDecimalTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="NUMERIC" javaType="java.math.BigDecimal"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectBigDecimalTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectBigDecimalTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="BOOLEAN" javaType="java.lang.Boolean"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectBooleanTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectBooleanTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="DOUBLE" javaType="java.lang.Double"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectDoubleTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectDoubleTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="FLOAT" javaType="java.lang.Float"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectFloatTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectFloatTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="INTEGER" javaType="java.lang.Integer"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectIntegerTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectIntegerTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="TINYINT" javaType="java.lang.Integer"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectIntegerTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectIntegerTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="SMALLINT" javaType="java.lang.Integer"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectIntegerTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectIntegerTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="BIGINT" javaType="java.lang.Long"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectLongTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectLongTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="CHAR" javaType="java.lang.String"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectStringTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectStringTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="VARCHAR" javaType="java.lang.String"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectStringTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectStringTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="LONGVARCHAR" javaType="java.lang.String"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectStringTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectStringTypeHandler"/>-->
 
 <!--        <typeHandler jdbcType="TIMESTAMP" javaType="java.util.Date"-->
-<!--                     handler="com.lylbp.handler.mybatisPlus.ProjectDateTypeHandler"/>-->
+<!--                     handler="com.lylbp.handler.mybatisplus.ProjectDateTypeHandler"/>-->
 <!--    </typeHandlers>-->
 
 </configuration>

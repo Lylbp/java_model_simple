@@ -6,7 +6,7 @@ import cn.hutool.core.util.IdUtil;
 import com.lylbp.core.entity.PageResResult;
 import com.lylbp.core.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
-import com.lylbp.manger.elasticsearch.EsPage;
+import com.lylbp.core.entity.DataPage;
 import com.lylbp.manger.elasticsearch.demo.entity.ESTestUser;
 import com.lylbp.manger.elasticsearch.demo.qo.TestUserQO;
 import com.lylbp.manger.elasticsearch.demo.service.TestUserService;
@@ -67,14 +67,14 @@ public class HbaseTestController {
                                                            @RequestParam(defaultValue = "1") Integer current,
                                                            @RequestParam(defaultValue = "10") Integer size)
             throws Throwable {
-        EsPage<ESTestUser> esPage = new EsPage<>(current, size);
-        List<ESTestUser> list = testUserService.selectSearchHitsByScroll(BeanUtil.beanToMap(qo), esPage);
+        DataPage<ESTestUser> dataPage = new DataPage<>(current, size);
+        List<ESTestUser> list = testUserService.selectSearchHitsByScroll(BeanUtil.beanToMap(qo), dataPage);
 
         List<String> rowKeyList = list.stream().map(ESTestUser::getRowKey).collect(Collectors.toList());
         List<ESTestUser> hList = hbaseService.getByRowKeyList(ESTestUser.class, rowKeyList);
 
-        esPage.setRecords(hList);
-        return ResResultUtil.makePageRsp(esPage);
+        dataPage.setRecords(hList);
+        return ResResultUtil.makePageRsp(dataPage);
     }
 
     @GetMapping("/toPut")

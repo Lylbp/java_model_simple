@@ -3,7 +3,7 @@ package com.lylbp.manger.elasticsearch.demo.service.impl;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.manger.elasticsearch.BaseServiceImpl;
-import com.lylbp.manger.elasticsearch.EsPage;
+import com.lylbp.core.entity.DataPage;
 import com.lylbp.manger.elasticsearch.demo.entity.ESTestUser;
 import com.lylbp.manger.elasticsearch.demo.repository.TestUserRepository;
 import com.lylbp.manger.elasticsearch.demo.service.TestUserService;
@@ -26,7 +26,7 @@ import java.util.Map;
 @Service
 public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, ESTestUser, String> implements TestUserService {
     @Override
-    public List<ESTestUser> selectSearchHitsByScroll(Map<String, Object> params, EsPage<ESTestUser> esPage) {
+    public List<ESTestUser> selectSearchHitsByScroll(Map<String, Object> params, DataPage<ESTestUser> dataPage) {
         ArrayList<QueryBuilder> queryBuilders = new ArrayList<>(10);
         BoolQueryBuilder booQueryBuilder = QueryBuilders.boolQuery();
         if (params.containsKey("nameLike") && ObjectUtil.isNotEmpty(params.get("nameLike"))) {
@@ -45,11 +45,11 @@ public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, EST
         List<SortBuilder<?>> sortBuilders = new ArrayList<>(10);
         sortBuilders.add(SortBuilders.fieldSort("createTime").order(SortOrder.DESC));
 
-        return selectSearchHitsByScroll(queryBuilders, sortBuilders, esPage, ESTestUser.class);
+        return selectSearchHitsByScroll(queryBuilders, sortBuilders, dataPage, ESTestUser.class);
     }
 
     @Override
-    public List<ESTestUser> selectSearchHitsByScrollAndFrom(Map<String, Object> params, EsPage<ESTestUser> esPage) {
+    public List<ESTestUser> selectSearchHitsByScrollAndFrom(Map<String, Object> params, DataPage<ESTestUser> dataPage) {
         List<QueryBuilder> queryBuilders = new ArrayList<>(10);
         BoolQueryBuilder booQueryBuilder = QueryBuilders.boolQuery();
         if (params.containsKey("nameLike") && ObjectUtil.isNotEmpty(params.get("nameLike"))) {
@@ -67,7 +67,7 @@ public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, EST
         List<SortBuilder<?>> sortBuilders = new ArrayList<>(10);
         sortBuilders.add(SortBuilders.fieldSort("createTime").order(SortOrder.DESC));
 
-        return selectSearchHitsByScrollAndFrom(queryBuilders, sortBuilders, esPage, ESTestUser.class);
+        return selectSearchHitsByScrollAndFrom(queryBuilders, sortBuilders, dataPage, ESTestUser.class);
     }
 
     @Override

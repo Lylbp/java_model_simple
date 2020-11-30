@@ -1,4 +1,4 @@
-package com.lylbp.manger.elasticsearch;
+package com.lylbp.core.entity;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @Date: 2020/11/18 上午9:17
  */
 @Data
-public class EsPage<T> {
+public class DataPage<T> {
     /**
      * 记录
      */
@@ -32,10 +32,10 @@ public class EsPage<T> {
      */
     protected long current;
 
-    private EsPage() {
+    private DataPage() {
     }
 
-    public EsPage(long current, long size) {
+    public DataPage(long current, long size) {
         this();
         if (current <= 0) {
             throw new IllegalArgumentException("参数错误");

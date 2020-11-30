@@ -1,4 +1,4 @@
-package com.lylbp.manger.mybatisPlus;
+package com.lylbp.manger.mybatisplus;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;

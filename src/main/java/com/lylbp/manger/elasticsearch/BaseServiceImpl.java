@@ -1,6 +1,7 @@
 package com.lylbp.manger.elasticsearch;
 
 import cn.hutool.core.collection.ListUtil;
+import com.lylbp.core.entity.DataPage;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.springframework.data.domain.Page;
@@ -120,12 +121,12 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
 
     @Override
     public Object selectSearchHitsByScrollAndFrom(
-            NativeSearchQueryBuilder nativeSearchQueryBuilder, EsPage<T> esPage, Class<T> clazz) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz) {
         //获取index
         String indexName = clazz.getAnnotation(Document.class).indexName();
         IndexCoordinates indexCoordinates = IndexCoordinates.of(indexName);
 
-        if (null == esPage) {
+        if (null == dataPage) {
             //构建查询query
             NativeSearchQuery query = nativeSearchQueryBuilder.build();
             //游标集合
@@ -149,8 +150,8 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
 
             return dataList;
         } else {
-            long current = esPage.getCurrent();
-            long size = esPage.getSize();
+            long current = dataPage.getCurrent();
+            long size = dataPage.getSize();
             if (current > 0) {
                 current = current - 1;
             }
@@ -160,7 +161,7 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
             NativeSearchQuery query = nativeSearchQueryBuilder.build();
             //查询
             SearchHits<T> search = elasticsearchTemplate.search(query, clazz, indexCoordinates);
-            esPage.setTotal(operations.count(query, clazz));
+            dataPage.setTotal(operations.count(query, clazz));
 
             return search;
         }
@@ -168,14 +169,14 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<T> selectSearchHitsByScrollAndFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, EsPage<T> esPage, Class<T> clazz) {
+    public List<T> selectSearchHitsByScrollAndFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz) {
         NativeSearchQueryBuilder nativeSearchQueryBuilder = getNativeSearchQueryBuilder(queryBuilders, sortBuilders);
-        Object result = selectSearchHitsByScrollAndFrom(nativeSearchQueryBuilder, esPage, clazz);
+        Object result = selectSearchHitsByScrollAndFrom(nativeSearchQueryBuilder, dataPage, clazz);
         List<T> list = (List<T>) SearchHitSupport.unwrapSearchHits(result);
 
         //有分页设置数据
-        if (null != esPage) {
-            esPage.setRecords(list);
+        if (null != dataPage) {
+            dataPage.setRecords(list);
         }
 
         return list;
@@ -185,15 +186,15 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
     @SuppressWarnings("unchecked")
     @Override
     public Object selectSearchHitsByScroll(
-            NativeSearchQueryBuilder nativeSearchQueryBuilder, EsPage<T> esPage, Class<T> clazz) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz) {
         long size = 0;
         long current = 0;
-        if (null != esPage) {
-            size = esPage.getSize();
-            current = esPage.getCurrent();
+        if (null != dataPage) {
+            size = dataPage.getSize();
+            current = dataPage.getCurrent();
         }
         //添加分页
-        if (null != esPage) {
+        if (null != dataPage) {
             nativeSearchQueryBuilder.withPageable(PageRequest.of(0, (int) size));
         }
         //构建查询query
@@ -209,7 +210,7 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
         //当前游标
         String scrollId = searchScrollHits.getScrollId();
         //当前页数超过最大页数直接返回
-        if (null != esPage) {
+        if (null != dataPage) {
             long totalPage = 0;
             if (totalHits % size == 0) {
                 totalPage = totalHits / size;
@@ -231,15 +232,15 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
             scrollId = searchScrollHits.getScrollId();
             scrollIds.add(scrollId);
             i++;
-            if (esPage != null && i == esPage.getCurrent()) {
+            if (dataPage != null && i == dataPage.getCurrent()) {
                 break;
             }
         }
         //清除游标
         elasticsearchTemplate.searchScrollClear(scrollIds);
         //有分页设置总数
-        if (null != esPage) {
-            esPage.setTotal(totalHits);
+        if (null != dataPage) {
+            dataPage.setTotal(totalHits);
         }
 
         return searchHits;
@@ -248,14 +249,14 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<T> selectSearchHitsByScroll(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, EsPage<T> esPage, Class<T> clazz) {
+    public List<T> selectSearchHitsByScroll(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz) {
         NativeSearchQueryBuilder nativeSearchQueryBuilder = getNativeSearchQueryBuilder(queryBuilders, sortBuilders);
-        Object result = selectSearchHitsByScroll(nativeSearchQueryBuilder, esPage, clazz);
+        Object result = selectSearchHitsByScroll(nativeSearchQueryBuilder, dataPage, clazz);
         List<T> list = (List<T>) SearchHitSupport.unwrapSearchHits(result);
 
         //有分页设置数据
-        if (null != esPage) {
-            esPage.setRecords(list);
+        if (null != dataPage) {
+            dataPage.setRecords(list);
         }
 
         return list;

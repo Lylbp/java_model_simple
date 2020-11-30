@@ -1,4 +1,4 @@
-package com.lylbp.manger.mybatisPlus.mybatis.metaHandler;
+package com.lylbp.manger.mybatisplus.mybatis.metaHandler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.lylbp.common.utils.TokenUtil;

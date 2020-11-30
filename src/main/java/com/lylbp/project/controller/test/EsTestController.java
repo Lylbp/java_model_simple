@@ -5,7 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import com.lylbp.core.entity.PageResResult;
 import com.lylbp.core.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
-import com.lylbp.manger.elasticsearch.EsPage;
+import com.lylbp.core.entity.DataPage;
 import com.lylbp.manger.elasticsearch.demo.dto.TestUserDTO;
 import com.lylbp.manger.elasticsearch.demo.entity.ESTestUser;
 import com.lylbp.manger.elasticsearch.demo.qo.TestUserQO;
@@ -66,10 +66,10 @@ public class EsTestController {
     })
     public ResResult<PageResResult<ESTestUser>> selectSearchHitsByScrollPage(@RequestBody TestUserQO qo, @RequestParam(defaultValue = "1") Integer current,
                                                             @RequestParam(defaultValue = "10") Integer size) {
-        EsPage<ESTestUser> esPage = new EsPage<>(current, size);
-        service.selectSearchHitsByScroll(BeanUtil.beanToMap(qo), esPage);
+        DataPage<ESTestUser> dataPage = new DataPage<>(current, size);
+        service.selectSearchHitsByScroll(BeanUtil.beanToMap(qo), dataPage);
         
-        return ResResultUtil.makePageRsp(esPage);
+        return ResResultUtil.makePageRsp(dataPage);
     }
 
 
@@ -86,10 +86,10 @@ public class EsTestController {
     })
     public ResResult<PageResResult<ESTestUser>> selectSearchHitsByScrollAndFromPage(@RequestBody TestUserQO qo, @RequestParam(defaultValue = "1") Integer current,
                                                             @RequestParam(defaultValue = "10") Integer size) {
-        EsPage<ESTestUser> esPage = new EsPage<>(current, size);
-        service.selectSearchHitsByScrollAndFrom(BeanUtil.beanToMap(qo), esPage);
+        DataPage<ESTestUser> dataPage = new DataPage<>(current, size);
+        service.selectSearchHitsByScrollAndFrom(BeanUtil.beanToMap(qo), dataPage);
 
-        return ResResultUtil.makePageRsp(esPage);
+        return ResResultUtil.makePageRsp(dataPage);
     }
 
 

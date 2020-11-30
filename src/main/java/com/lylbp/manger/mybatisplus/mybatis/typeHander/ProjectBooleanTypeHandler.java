@@ -1,4 +1,4 @@
-package com.lylbp.manger.mybatisPlus.mybatis.typeHander;
+package com.lylbp.manger.mybatisplus.mybatis.typeHander;
 
 
 import org.apache.ibatis.type.BaseTypeHandler;

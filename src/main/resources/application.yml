@@ -19,9 +19,10 @@ spring:
       max-file-size: 500MB
       max-request-size: 500MB
   quartz:
-    job-store-type: jdbc #持久化到数据库
+    #持久化到数据库
+    job-store-type: jdbc
     jdbc:
-      initialize-schema: ALWAYS
+      initialize-schema: NEVER
     properties:
       org:
         quartz:
@@ -60,7 +61,7 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   # 通用枚举的扫描,支持统配符 * 或者 ; 分割
   type-enums-package: com.lylbp.project.enums
-  # mybatisPlus-config.xml配置文件地址
+  # mybatisplus-config.xml配置文件地址
   config-location: classpath:mybatis-config.xml
   #全局配置
   global-config:

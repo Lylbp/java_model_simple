@@ -1,5 +1,6 @@
 package com.lylbp.manger.elasticsearch;
 
+import com.lylbp.core.entity.DataPage;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.springframework.data.domain.Page;
@@ -120,11 +121,11 @@ public interface BaseService<T, ID> {
      * 优点:分页查询快
      *
      * @param nativeSearchQueryBuilder nativeSearchQueryBuilder
-     * @param esPage                   分页
+     * @param dataPage                   分页
      * @param clazz                    clazz
      * @return Object
      */
-    Object selectSearchHitsByScrollAndFrom(NativeSearchQueryBuilder nativeSearchQueryBuilder, EsPage<T> esPage, Class<T> clazz);
+    Object selectSearchHitsByScrollAndFrom(NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz);
 
     /**
      * 自定义：深分页与浅分页联合使用
@@ -133,11 +134,11 @@ public interface BaseService<T, ID> {
      *
      * @param queryBuilders 查询条件
      * @param sortBuilders  sortBuilders
-     * @param esPage        分页
+     * @param dataPage        分页
      * @param clazz         clazz
      * @return List<SearchHit < T>>
      */
-    List<T> selectSearchHitsByScrollAndFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, EsPage<T> esPage, Class<T> clazz);
+    List<T> selectSearchHitsByScrollAndFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz);
 
     /**
      * 自定义 深分页查询
@@ -145,11 +146,11 @@ public interface BaseService<T, ID> {
      * 优点:无数据量限制
      *
      * @param nativeSearchQueryBuilder nativeSearchQueryBuilder
-     * @param esPage                   分页
+     * @param dataPage                   分页
      * @param clazz                    clazz
      * @return List<SearchHit < T>>
      */
-    Object selectSearchHitsByScroll(NativeSearchQueryBuilder nativeSearchQueryBuilder, EsPage<T> esPage, Class<T> clazz);
+    Object selectSearchHitsByScroll(NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz);
 
     /**
      * 自定义 深分页查询
@@ -161,7 +162,7 @@ public interface BaseService<T, ID> {
      * @param clazz         clazz
      * @return List<SearchHit < T>>
      */
-    List<T> selectSearchHitsByScroll(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, EsPage<T> esPage, Class<T> clazz);
+    List<T> selectSearchHitsByScroll(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz);
 
     /**
      * 获取NativeSearchQueryBuilder
