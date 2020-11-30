@@ -3,7 +3,6 @@
 ├── common -- 项目常用工具与基类包
     ├── constant -- 常量
     ├── entity -- 项目中的自定义基类
-        ├── BaseEntity -- 所有数据库模型基类
         ├── LabelVO    -- 所有key-value对象可用
     ├── enums -- 枚举
         ├── ResResultEnum -- 结果集枚举
@@ -22,6 +21,7 @@
     ├── entity -- 系统自定义实体[非数据库模型]
         ├── PageResResult -- 页面结果集
         ├── ResResult -- 结果集
+        ├── DataPage  -- 数据分页对象
     ├── exception -- 自定义异常
         ├── ResResultException -- 结果集异常
         ├── ServiceException -- 服务异常
