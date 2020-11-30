@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @Author weiwenbin
- * @Date 2020/5/11 下午2:22
+ * @author weiwenbin
+ * @date 2020/5/11 下午2:22
  */
 @Data
 public class RoleAndPermissionVO extends RolePermission {

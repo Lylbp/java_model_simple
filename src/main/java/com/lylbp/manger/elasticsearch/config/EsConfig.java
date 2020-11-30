@@ -10,8 +10,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/13 下午2:39
+ * @author weiwenbin
+ * @date 2020/11/13 下午2:39
  */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.lylbp.manger.elasticsearch.demo.repository")

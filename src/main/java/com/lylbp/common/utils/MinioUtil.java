@@ -16,8 +16,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @Author weiwenbin
- * @Date 2020-03-23 14:32
+ * @author weiwenbin
+ * @date 2020-03-23 14:32
  */
 @Slf4j
 public class MinioUtil {

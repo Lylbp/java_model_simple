@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/13 上午9:39
+ * @author weiwenbin
+ * @date 2020/11/13 上午9:39
  */
 public interface TestUserService extends BaseService<ESTestUser, String> {
     /**

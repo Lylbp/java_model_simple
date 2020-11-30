@@ -8,8 +8,8 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * @Author weiwenbin
- * @Date 2020/7/1 下午7:31
+ * @author weiwenbin
+ * @date 2020/7/1 下午7:31
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

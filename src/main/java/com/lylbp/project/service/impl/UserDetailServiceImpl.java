@@ -31,8 +31,8 @@ import java.util.*;
 /**
  * UserDetailsService
  *
- * @Author weiwenbin
- * @Date 2020/6/30 下午5:25
+ * @author weiwenbin
+ * @date 2020/6/30 下午5:25
  */
 @Service
 public class UserDetailServiceImpl implements MyUserDetailsService {

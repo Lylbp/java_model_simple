@@ -10,8 +10,8 @@ import org.apache.hadoop.hbase.TableName;
 import java.io.IOException;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/4 上午8:53
+ * @author weiwenbin
+ * @date 2020/11/4 上午8:53
  */
 public class Test {
     public static void main(String[] args) throws IOException, HbaseAnnotationException, InstantiationException {

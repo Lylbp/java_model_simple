@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author weiwenbin
- * @Date 2020/9/1 上午11:28
+ * @author weiwenbin
+ * @date 2020/9/1 上午11:28
  */
 @ConfigurationProperties(prefix = "security")
 @Component

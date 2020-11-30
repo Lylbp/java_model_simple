@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Author weiwenbin
- * @Date 2019-12-04 10:43
+ * @author weiwenbin
+ * @date 2019-12-04 10:43
  */
 public class RegexUtil {
     // ------------------常量定义

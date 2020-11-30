@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
  * 配置该注解代表当前字段不存在于hbase
  * 非必须,不能于HColumn或HRowKey共用
  *
- * @Author weiwenbin
- * @Date 2020-11-01 12:09
+ * @author weiwenbin
+ * @date 2020-11-01 12:09
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

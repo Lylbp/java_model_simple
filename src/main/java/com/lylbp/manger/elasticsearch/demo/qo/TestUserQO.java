@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/17 上午9:01
+ * @author weiwenbin
+ * @date 2020/11/17 上午9:01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

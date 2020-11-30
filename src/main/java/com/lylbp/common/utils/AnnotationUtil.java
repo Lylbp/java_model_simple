@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 /**
- * @Author weiwenbin
- * @Date 2020/5/14 下午5:31
+ * @author weiwenbin
+ * @date 2020/5/14 下午5:31
  */
 @Component
 public class AnnotationUtil {

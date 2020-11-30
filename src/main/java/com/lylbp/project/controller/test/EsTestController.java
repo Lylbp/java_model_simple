@@ -22,7 +22,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
- * @author alex
+ * @author weiwenbin
  */
 @Slf4j
 @RequestMapping("/test/es")

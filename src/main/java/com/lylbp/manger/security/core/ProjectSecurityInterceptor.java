@@ -25,8 +25,8 @@ import java.util.List;
 /**
  * 权限拦截器
  *
- * @Author weiwenbin
- * @Date 2020/5/11 下午2:54
+ * @author weiwenbin
+ * @date 2020/5/11 下午2:54
  */
 @Component
 public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {

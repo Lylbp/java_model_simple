@@ -14,8 +14,8 @@ import java.util.Optional;
 /**
  * 基础服务类接口
  *
- * @Author weiwenbin
- * @Date: 2020/11/13 上午9:45
+ * @author weiwenbin
+ * @date 2020/11/13 上午9:45
  */
 public interface BaseService<T, ID> {
     /**

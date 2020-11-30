@@ -20,8 +20,8 @@ import javax.annotation.Resource;
 /**
  * springsecurity 配置文件
  *
- * @Author weiwenbin
- * @Date 2020/7/1 上午11:18
+ * @author weiwenbin
+ * @date 2020/7/1 上午11:18
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)

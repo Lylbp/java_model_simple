@@ -7,8 +7,8 @@ import java.lang.annotation.*;
  * 配置该注解代表当前字段是一个非rowKey的普通列
  * 理论上必写不然没意义,不能与HIgnore、HRowKey共用
  *
- * @Author weiwenbin
- * @Date 2020-11-01 12:09
+ * @author weiwenbin
+ * @date 2020-11-01 12:09
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

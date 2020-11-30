@@ -9,8 +9,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 import java.util.*;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/5 上午10:46
+ * @author weiwenbin
+ * @date 2020/11/5 上午10:46
  */
 public class HBaseUtil {
     /**

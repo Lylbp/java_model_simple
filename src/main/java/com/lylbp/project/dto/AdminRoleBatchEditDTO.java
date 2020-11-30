@@ -15,8 +15,8 @@ import java.util.List;
  * 管理员与角色关系批量编辑DTO对象
  * </p>
  *
- * @Author weiwenbin
- * @Date 2020/7/1 下午9:12
+ * @author weiwenbin
+ * @date 2020/7/1 下午9:12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

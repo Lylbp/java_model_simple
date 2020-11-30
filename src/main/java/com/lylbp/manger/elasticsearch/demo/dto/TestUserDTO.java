@@ -8,8 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/18 上午11:15
+ * @author weiwenbin
+ * @date 2020/11/18 上午11:15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

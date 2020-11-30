@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * @Author weiwenbin
- * @Date 2020/7/1 下午2:38
+ * @author weiwenbin
+ * @date 2020/7/1 下午2:38
  */
 @RestController
 @RequestMapping("/bg/auth")

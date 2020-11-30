@@ -8,8 +8,8 @@ import org.apache.hadoop.hbase.TableName;
 /**
  * es分页类
  *
- * @Author weiwenbin
- * @Date: 2020/11/18 上午9:17
+ * @author weiwenbin
+ * @date 2020/11/18 上午9:17
  */
 @Data
 public class HClazzMapping<T> {

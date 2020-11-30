@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
  * 字段的注解,配置代表该字段是hbase的rowKey
  * 必写,不能与HColumn、HIgnore共用
  *
- * @Author weiwenbin
- * @Date 2020-11-01 12:09
+ * @author weiwenbin
+ * @date 2020-11-01 12:09
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

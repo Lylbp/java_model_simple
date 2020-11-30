@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * 默认的处理器
  *
- * @Author weiwenbin
- * @Date 2020/11/4 上午9:28
+ * @author weiwenbin
+ * @date 2020/11/4 上午9:28
  */
 @Data
 public class DefaultHandler<T> implements HandlerInterface<T> {

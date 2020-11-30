@@ -19,8 +19,8 @@ import java.lang.reflect.Method;
 /**
  * 字段映射关系
  *
- * @Author weiwenbin
- * @Date 2020/11/4 上午11:14
+ * @author weiwenbin
+ * @date 2020/11/4 上午11:14
  */
 @Slf4j
 @Data

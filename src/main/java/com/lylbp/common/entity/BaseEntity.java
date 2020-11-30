@@ -14,8 +14,8 @@ import java.util.Date;
 /**
  * 实体类公共自动
  *
- * @Author weiwenbin
- * @Date 2020/7/9 上午10:27
+ * @author weiwenbin
+ * @date 2020/7/9 上午10:27
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

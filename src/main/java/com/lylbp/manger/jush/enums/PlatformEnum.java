@@ -3,8 +3,8 @@ package com.lylbp.manger.jush.enums;
 import lombok.Getter;
 
 /**
- * @Author weiwenbin
- * @Date 2020/5/28 下午2:45
+ * @author weiwenbin
+ * @date 2020/5/28 下午2:45
  */
 @Getter
 public enum PlatformEnum {

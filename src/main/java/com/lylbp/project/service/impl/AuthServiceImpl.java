@@ -17,8 +17,8 @@ import javax.annotation.Resource;
 /**
  * 登录相关
  *
- * @Author weiwenbin
- * @Date 2020/6/30 下午5:31
+ * @author weiwenbin
+ * @date 2020/6/30 下午5:31
  */
 @Service
 public class AuthServiceImpl implements AuthService {

@@ -4,8 +4,8 @@ package com.lylbp.common.enums;
 import lombok.Getter;
 
 /**
- * @Author weiwenbin
- * @Date 2020/6/30 上午8:49
+ * @author weiwenbin
+ * @date 2020/6/30 上午8:49
  */
 @Getter
 public enum TrueOrFalseEnum {

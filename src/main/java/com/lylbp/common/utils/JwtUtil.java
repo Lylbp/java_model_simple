@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Date;
 
 /**
- * @Author weiwenbin
- * @Date 2020-2-12 10:43
+ * @author weiwenbin
+ * @date 2020-2-12 10:43
  */
 @Slf4j
 public class JwtUtil {

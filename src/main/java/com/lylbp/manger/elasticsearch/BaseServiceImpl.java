@@ -23,8 +23,8 @@ import java.util.Optional;
 /**
  * 基础服务类实现
  *
- * @Author weiwenbin
- * @Date: 2020/11/13 上午9:45
+ * @author weiwenbin
+ * @date 2020/11/13 上午9:45
  */
 public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements BaseService<T, ID> {
     @Resource

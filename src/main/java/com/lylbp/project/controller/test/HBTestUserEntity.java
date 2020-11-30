@@ -13,8 +13,8 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.Date;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/3 下午2:18
+ * @author weiwenbin
+ * @date 2020/11/3 下午2:18
  */
 @HTable(tableName = "test_user")
 @Data

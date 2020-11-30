@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @Author weiwenbin
- * @Date 2020/5/28 上午10:03
+ * @author weiwenbin
+ * @date 2020/5/28 上午10:03
  */
 @Component
 public class JPushClientFactory {

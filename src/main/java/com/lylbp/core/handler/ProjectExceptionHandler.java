@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 项目全局异常处理
  *
- * @Author alex
+ * @author weiwenbin
  */
 @ControllerAdvice
 @ResponseBody

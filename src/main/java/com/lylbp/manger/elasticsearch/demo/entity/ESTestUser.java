@@ -15,8 +15,8 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.Date;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/13 上午9:30
+ * @author weiwenbin
+ * @date 2020/11/13 上午9:30
  */
 @Data
 @Document(indexName = "test_user")

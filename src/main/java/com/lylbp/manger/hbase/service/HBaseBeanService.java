@@ -28,8 +28,8 @@ import java.util.*;
 /**
  * HbaseService
  *
- * @Author weiwenbin
- * @Date 2020/11/2 下午1:34
+ * @author weiwenbin
+ * @date 2020/11/2 下午1:34
  */
 @Slf4j
 @Service

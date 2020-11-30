@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * 一般的转换服务
  *
- * @Author weiwenbin
- * @Date 2020/11/3 下午3:43
+ * @author weiwenbin
+ * @date 2020/11/3 下午3:43
  */
 @Data
 public class GenericConversionService implements ConversionService, ConverterRegistry {

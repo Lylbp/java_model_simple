@@ -7,8 +7,8 @@ import java.util.concurrent.CountDownLatch;
 /**
  * 多线程工具类
  *
- * @Author weiwenbin
- * @Date: 2020/10/20 下午3:29
+ * @author weiwenbin
+ * @date 2020/10/20 下午3:29
  */
 public class ThreadUtil {
     /**

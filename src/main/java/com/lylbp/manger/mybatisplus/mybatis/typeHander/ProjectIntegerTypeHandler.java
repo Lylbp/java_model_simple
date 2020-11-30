@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @Author weiwenbin
- * @Date 2020/6/3 下午4:41
+ * @author weiwenbin
+ * @date 2020/6/3 下午4:41
  */
 public class ProjectIntegerTypeHandler extends BaseTypeHandler<Integer> {
     @Override

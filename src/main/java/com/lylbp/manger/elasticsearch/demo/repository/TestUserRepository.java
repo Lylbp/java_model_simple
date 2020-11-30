@@ -5,8 +5,8 @@ import com.lylbp.manger.elasticsearch.demo.entity.ESTestUser;
 import org.springframework.data.elasticsearch.annotations.Query;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/13 上午9:31
+ * @author weiwenbin
+ * @date 2020/11/13 上午9:31
  */
 public interface TestUserRepository extends BaseRepository<ESTestUser, String> {
     /**

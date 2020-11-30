@@ -8,8 +8,8 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @Author weiwenbin
- * @Date 2020/7/1 下午10:03
+ * @author weiwenbin
+ * @date 2020/7/1 下午10:03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

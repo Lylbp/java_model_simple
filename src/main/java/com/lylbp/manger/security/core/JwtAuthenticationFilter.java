@@ -32,8 +32,8 @@ import java.util.List;
 /**
  * token验证
  *
- * @Author weiwenbin
- * @Date 2020/9/3 上午10:22
+ * @author weiwenbin
+ * @date 2020/9/3 上午10:22
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

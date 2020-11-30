@@ -18,8 +18,8 @@ import javax.annotation.Resource;
 /**
  * redis配置项目
  *
- * @Author weiwenbin
- * @Date: 2020/10/21 下午5:15
+ * @author weiwenbin
+ * @date 2020/10/21 下午5:15
  */
 @Configuration
 public class RedisConfig {

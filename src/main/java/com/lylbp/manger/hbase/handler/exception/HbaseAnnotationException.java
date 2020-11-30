@@ -3,7 +3,7 @@ package com.lylbp.manger.hbase.handler.exception;
 /**
  * hbase注解异常
  *
- * @Author weiwenbin
+ * @author weiwenbin
  */
 public class HbaseAnnotationException extends Exception {
 

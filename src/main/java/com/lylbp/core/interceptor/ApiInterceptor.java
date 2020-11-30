@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 拦截器
- * @Author weiwenbin
- * @Date 2020-03-13 12:09
+ * @author weiwenbin
+ * @date 2020-03-13 12:09
  */
 public class ApiInterceptor implements HandlerInterceptor {
     /**

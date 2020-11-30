@@ -15,8 +15,12 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @Author weiwenbin
- * @Date 2020/6/30 下午4:43
+ * UserDetails实现类
+ * 需要根据业务注入对应的用户实体并完善getPassword、getUsername。
+ * 可查看对应示例: https://github.com/Lylbp/java_model_simple
+ *
+ * @author weiwenbin
+ * @date 2020/6/30 下午4:43
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

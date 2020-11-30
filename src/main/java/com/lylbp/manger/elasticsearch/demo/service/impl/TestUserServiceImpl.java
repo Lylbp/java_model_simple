@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/12 下午5:23
+ * @author weiwenbin
+ * @date 2020/11/12 下午5:23
  */
 @Service
 public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, ESTestUser, String> implements TestUserService {

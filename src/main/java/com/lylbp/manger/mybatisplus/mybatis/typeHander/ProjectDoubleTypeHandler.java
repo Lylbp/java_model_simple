@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @Author weiwenbin
- * @Date 2020/6/3 下午4:43
+ * @author weiwenbin
+ * @date 2020/6/3 下午4:43
  */
 public class ProjectDoubleTypeHandler extends BaseTypeHandler<Double> {
     @Override

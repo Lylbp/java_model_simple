@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
  * 后台用户登录DTO对象
  * </p>
  *
- * @Author weiwenbin
- * @Date 2020/7/1 下午2:40
+ * @author weiwenbin
+ * @date 2020/7/1 下午2:40
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

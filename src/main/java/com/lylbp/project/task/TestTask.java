@@ -6,8 +6,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/10/19 下午2:47
+ * @author weiwenbin
+ * @date 2020/10/19 下午2:47
  */
 public class TestTask implements Job {
     @Override

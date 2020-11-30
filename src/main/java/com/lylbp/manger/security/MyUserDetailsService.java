@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/25 下午7:40
+ * @author weiwenbin
+ * @date 2020/11/25 下午7:40
  */
 public interface MyUserDetailsService extends UserDetailsService {
     /**

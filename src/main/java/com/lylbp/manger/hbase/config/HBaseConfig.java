@@ -16,8 +16,8 @@ import java.io.IOException;
 /**
  * habse的配置文件
  *
- * @Author weiwenbin
- * @Date 2020/11/2 上午10:49
+ * @author weiwenbin
+ * @date 2020/11/2 上午10:49
  */
 @Configuration
 @EnableConfigurationProperties(HbaseProperties.class)

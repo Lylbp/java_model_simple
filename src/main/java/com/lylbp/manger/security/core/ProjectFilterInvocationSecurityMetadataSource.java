@@ -14,8 +14,8 @@ import java.util.*;
 /**
  * 动态权限数据源，用于获取动态权限规则
  *
- * @Author weiwenbin
- * @Date 2020/5/11 下午2:18
+ * @author weiwenbin
+ * @date 2020/5/11 下午2:18
  */
 @Component
 public class ProjectFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {

@@ -35,6 +35,8 @@
 ├── project -- 项目代码
 ├── manger -- 三方集成
 ```
+### 代码生成器
+https://github.com/Lylbp/mybatis-plus-generator
 
 ### 项目初始化
 ``` lua

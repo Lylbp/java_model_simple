@@ -16,8 +16,8 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 /**
- * @Author weiwenbin
- * @Date 2020/5/28 上午9:50
+ * @author weiwenbin
+ * @date 2020/5/28 上午9:50
  */
 public class JPUshServiceImp implements JPUshService {
     protected JPushConfig jPushConfig;

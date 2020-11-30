@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * es分页类
+ * 数据分页类
  *
- * @Author weiwenbin
- * @Date: 2020/11/18 上午9:17
+ * @author weiwenbin
+ * @date 2020/11/18 上午9:17
  */
 @Data
 public class DataPage<T> {

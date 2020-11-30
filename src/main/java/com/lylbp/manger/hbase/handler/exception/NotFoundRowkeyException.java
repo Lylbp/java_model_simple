@@ -2,7 +2,7 @@ package com.lylbp.manger.hbase.handler.exception;
 
 /**
  * 未找到rowKey异常
- * @Author weiwenbin
+ * @author weiwenbin
  */
 public class NotFoundRowkeyException extends RuntimeException {
 

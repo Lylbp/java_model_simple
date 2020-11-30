@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * redisService实现类
  *
- * @Author weiwenbin
- * @Date 2020/8/31 上午10:25
+ * @author weiwenbin
+ * @date 2020/8/31 上午10:25
  */
 @Slf4j
 @Service

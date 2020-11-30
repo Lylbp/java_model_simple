@@ -16,8 +16,8 @@ import java.util.Date;
 /**
  * mybatis数据处理
  *
- * @Author weiwenbin
- * @Date 2020/7/9 上午10:42
+ * @author weiwenbin
+ * @date 2020/7/9 上午10:42
  */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
