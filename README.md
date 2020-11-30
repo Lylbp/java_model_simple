@@ -43,6 +43,8 @@
     进入 src/main/resources/application.yml修改active为mysql
     cp application-mysql.yml.ref application-mysql.yml
 注意application-mysql.yml不会提交到git中,请将文件中的配置项修改成自己的参数
+
+2.示例使用mysql数据库, 表结构在src/main/resources/java_model.sql
 ```
 
 ### 后端RBAC接口权限管理
