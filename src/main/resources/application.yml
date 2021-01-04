@@ -53,6 +53,16 @@ spring:
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
 
+  activiti:
+    #自动检查、部署流程定义文件
+    check-process-definitions: false
+    # 检测身份信息表是否存在
+    db-identity-used: false
+    #自动更新数据库结构
+    database-schema-update: true
+#    #流程定义文件存放目录
+#    process-definition-location-prefix: classpath:/processes/
+
 # MyBatis
 mybatis-plus:
   #实体扫描，多个package用逗号或者分号分隔

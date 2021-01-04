@@ -1,5 +1,6 @@
 package com.lylbp.core.aspect;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lylbp.common.utils.UserAgentUtil;
@@ -9,7 +10,10 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Aspect
@@ -51,8 +55,21 @@ public class LogAspect {
         // 记录下请求内容
         log.info("请求URL ： {}", request.getRequestURL());
         log.info("请求IP  ： {}", userAgentUtil.getIpAddr());
-        log.info("请求方法 ： {}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        log.info("请求参数 ： {}", JSON.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteNullStringAsEmpty));
+        log.info("请求方法 ： {}", joinPoint.getSignature().getDeclaringTypeName()
+                + "." + joinPoint.getSignature().getName());
+        // 获取参数, 只取自定义的参数, 自带的HttpServletRequest, HttpServletResponse不管
+        Object[] args = joinPoint.getArgs();
+        if (ObjectUtil.isNotEmpty(args)) {
+            if (args.length > 0) {
+                for (Object o : args) {
+                    if (o instanceof HttpServletRequest || o instanceof HttpServletResponse
+                            || o instanceof MultipartFile) {
+                        continue;
+                    }
+                    log.info("请求参数 : " + JSON.toJSONString(o, SerializerFeature.WriteNullStringAsEmpty));
+                }
+            }
+        }
     }
 
     /**

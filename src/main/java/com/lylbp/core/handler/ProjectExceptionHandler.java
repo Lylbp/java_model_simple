@@ -28,7 +28,8 @@ public class ProjectExceptionHandler {
             FieldError fieldError = result.getFieldError();
             if (fieldError != null) {
                 String field = fieldError.getField();
-                return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED.getCode(), field + fieldError.getDefaultMessage());
+                return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED.getCode(),
+                        field + fieldError.getDefaultMessage());
             }
         }
 
@@ -47,7 +48,7 @@ public class ProjectExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public Object exceptionHandle(Exception ex) {
-        log.info(ex.getMessage());
+        log.error(ex.getMessage(), ex);
         return ResResultUtil.makeRsp(ResResultEnum.SYSTEM_ERR.getCode(), ex.getMessage());
     }
 

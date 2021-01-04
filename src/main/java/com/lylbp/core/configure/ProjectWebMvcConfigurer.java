@@ -13,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 /**
+ * ProjectWebMvcConfigurer
+ *
  * @author weiwenbin
  * @date 2020-03-12 16:49
  */
