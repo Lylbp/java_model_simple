@@ -2,13 +2,13 @@ package com.lylbp.project.service.impl;
 
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
-import com.lylbp.core.annotation.CheckPermission;
-import com.lylbp.core.constant.ProjectConstant;
+import com.lylbp.common.annotation.CheckPermission;
+import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.utils.AnnotationUtil;
 import com.lylbp.project.entity.Permission;
-import com.lylbp.manger.redis.service.RedisService;
+import com.lylbp.manager.redis.service.RedisService;
 import com.lylbp.project.enums.TrueOrFalseEnum;
 import com.lylbp.project.vo.PermissionVO;
 import com.lylbp.project.mapper.PermissionMapper;

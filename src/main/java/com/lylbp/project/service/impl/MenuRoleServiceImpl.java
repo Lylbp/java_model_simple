@@ -1,7 +1,7 @@
 package com.lylbp.project.service.impl;
 
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.project.entity.MenuRole;
 import com.lylbp.project.entity.Role;
 import com.lylbp.project.service.MenuService;

@@ -170,7 +170,7 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="com.lylbp.core.aspect.ActionLogAspect" level="debug">
+    <logger name="com.lylbp.common.aspect.ActionLogAspect" level="debug">
         <appender-ref ref="ACTION_LOG"/>
     </logger>
 

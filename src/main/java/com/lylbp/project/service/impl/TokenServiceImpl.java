@@ -3,7 +3,7 @@ package com.lylbp.project.service.impl;//package com.lylbp.project.service.impl;
 //import cn.hutool.core.util.ObjectUtil;
 //import cn.hutool.json.JSONUtil;
 //import com.lylbp.common.enums.ResResultEnum;
-//import com.lylbp.core.exception.ResResultException;
+//import com.lylbp.common.exception.ResResultException;
 //import com.lylbp.common.utils.JwtUtil;
 //import com.lylbp.project.service.TokenService;
 //import org.springframework.stereotype.Service;

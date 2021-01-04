@@ -1,7 +1,7 @@
 package com.lylbp.core.handler;
 
 
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.enums.ResResultEnum;
 import lombok.extern.slf4j.Slf4j;

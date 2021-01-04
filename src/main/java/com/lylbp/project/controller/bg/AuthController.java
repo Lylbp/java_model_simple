@@ -2,14 +2,13 @@ package com.lylbp.project.controller.bg;
 
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.utils.TokenUtil;
-import com.lylbp.core.constant.ProjectConstant;
-import com.lylbp.core.entity.ResResult;
+import com.lylbp.common.constant.ProjectConstant;
+import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.project.dto.AdminLoginDTO;
-import com.lylbp.manger.security.SecurityProperties;
+import com.lylbp.manager.security.SecurityProperties;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.service.AuthService;
-import com.lylbp.project.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

@@ -3,8 +3,8 @@ package com.lylbp.project.controller.bg;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.common.utils.ResResultUtil;
-import com.lylbp.core.annotation.CheckPermission;
-import com.lylbp.core.entity.PageResResult;
+import com.lylbp.common.annotation.CheckPermission;
+import com.lylbp.common.entity.PageResResult;
 import com.lylbp.project.dto.MenuRoleBatchEditDTO;
 import com.lylbp.project.dto.RoleDTO;
 import com.lylbp.project.dto.RolePermissionBatchEditDTO;
@@ -27,7 +27,7 @@ import cn.hutool.core.bean.BeanUtil;
 import java.util.List;
 import java.util.Map;
 
-import com.lylbp.core.entity.ResResult;
+import com.lylbp.common.entity.ResResult;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

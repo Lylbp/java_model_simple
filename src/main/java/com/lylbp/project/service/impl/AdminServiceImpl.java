@@ -2,7 +2,7 @@ package com.lylbp.project.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.project.entity.Admin;
 import com.lylbp.project.enums.TrueOrFalseEnum;

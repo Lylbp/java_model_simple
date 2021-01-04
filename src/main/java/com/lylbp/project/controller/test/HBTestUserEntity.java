@@ -1,8 +1,8 @@
 package com.lylbp.project.controller.test;
 
-import com.lylbp.manger.hbase.annotion.HColumn;
-import com.lylbp.manger.hbase.annotion.HTable;
-import com.lylbp.manger.hbase.annotion.HRowKey;
+import com.lylbp.manager.hbase.annotion.HColumn;
+import com.lylbp.manager.hbase.annotion.HTable;
+import com.lylbp.manager.hbase.annotion.HRowKey;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Transient;

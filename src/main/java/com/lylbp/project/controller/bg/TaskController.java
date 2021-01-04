@@ -2,7 +2,7 @@ package com.lylbp.project.controller.bg;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.core.entity.PageResResult;
+import com.lylbp.common.entity.PageResResult;
 import com.lylbp.project.qo.TaskQO;
 import com.lylbp.project.vo.TaskVO;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import cn.hutool.core.bean.BeanUtil;
 import java.util.List;
 import java.util.Map;
 
-import com.lylbp.core.entity.ResResult;
+import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.project.service.TaskService;
 import com.lylbp.project.entity.Task;

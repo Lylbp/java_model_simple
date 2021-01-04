@@ -2,7 +2,7 @@ package com.lylbp.common.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.enums.ResResultEnum;
 
 import javax.servlet.http.HttpServletRequest;

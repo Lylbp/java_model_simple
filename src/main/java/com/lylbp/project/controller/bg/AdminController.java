@@ -1,14 +1,14 @@
 package com.lylbp.project.controller.bg;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.core.annotation.ActionLog;
-import com.lylbp.core.annotation.CheckPermission;
-import com.lylbp.core.constant.ProjectConstant;
+import com.lylbp.common.annotation.ActionLog;
+import com.lylbp.common.annotation.CheckPermission;
+import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.common.utils.TokenUtil;
-import com.lylbp.core.entity.PageResResult;
+import com.lylbp.common.entity.PageResResult;
 import com.lylbp.core.properties.ProjectProperties;
-import com.lylbp.manger.security.SecurityProperties;
+import com.lylbp.manager.security.SecurityProperties;
 import com.lylbp.project.dto.AdminRoleBatchEditDTO;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.enums.TrueOrFalseEnum;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lylbp.core.entity.ResResult;
+import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.project.service.AdminService;
 import com.lylbp.project.entity.Admin;

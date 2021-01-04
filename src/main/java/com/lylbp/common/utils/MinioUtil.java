@@ -1,6 +1,6 @@
 package com.lylbp.common.utils;
 
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.enums.ResResultEnum;
 import io.minio.MinioClient;
 import io.minio.errors.*;

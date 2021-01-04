@@ -1,6 +1,6 @@
 package com.lylbp.project.controller.bg;
 
-import com.lylbp.core.annotation.CheckPermission;
+import com.lylbp.common.annotation.CheckPermission;
 import com.lylbp.project.qo.PermissionQO;
 import com.lylbp.project.vo.PermissionVO;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ import cn.hutool.core.bean.BeanUtil;
 import java.util.List;
 import java.util.Map;
 
-import com.lylbp.core.entity.ResResult;
+import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.project.service.PermissionService;
 import com.lylbp.project.entity.Permission;

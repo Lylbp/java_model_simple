@@ -1,22 +1,14 @@
 package com.lylbp.project.service.impl;
 
-import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
-import com.lylbp.core.constant.ProjectConstant;
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.core.exception.ResResultException;
-import com.lylbp.project.entity.Permission;
-import com.lylbp.project.entity.Role;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.project.entity.RolePermission;
-import com.lylbp.manger.redis.service.RedisService;
 import com.lylbp.project.service.PermissionService;
 import com.lylbp.project.service.RoleService;
 import com.lylbp.project.vo.*;
 import com.lylbp.project.mapper.RolePermissionMapper;
 import com.lylbp.project.service.RolePermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

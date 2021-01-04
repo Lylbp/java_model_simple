@@ -2,9 +2,9 @@
   "hints": [],
   "groups": [
     {
-      "sourceType": "com.lylbp.manger.swagger.SwaggerProperties",
+      "sourceType": "com.lylbp.manager.swagger.SwaggerProperties",
       "name": "swagger",
-      "type": "com.lylbp.manger.swagger.SwaggerProperties"
+      "type": "com.lylbp.manager.swagger.SwaggerProperties"
     },
     {
       "sourceType": "com.lylbp.core.properties.ProjectProperties",
@@ -12,14 +12,14 @@
       "type": "com.lylbp.core.properties.ProjectProperties"
     },
     {
-      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "sourceType": "com.lylbp.manager.security.SecurityProperties",
       "name": "security",
-      "type": "com.lylbp.manger.security.SecurityProperties"
+      "type": "com.lylbp.manager.security.SecurityProperties"
     }
   ],
   "properties": [
     {
-      "sourceType": "com.lylbp.manger.swagger.SwaggerProperties",
+      "sourceType": "com.lylbp.manager.swagger.SwaggerProperties",
       "name": "swagger.enabled",
       "defaultValue": true,
       "description": "是否开启swagger",
@@ -40,20 +40,20 @@
       "type": "java.lang.String"
     },
     {
-      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "sourceType": "com.lylbp.manager.security.SecurityProperties",
       "name": "security.enabled",
       "defaultValue": false,
       "description": "是否开始security权限验证",
       "type": "java.lang.Boolean"
     },
     {
-      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "sourceType": "com.lylbp.manager.security.SecurityProperties",
       "name": "security.allow-static",
       "description": "不需要权限验证的静态资源集合",
       "type": "java.util.List<java.lang.String>"
     },
     {
-      "sourceType": "com.lylbp.manger.security.SecurityProperties",
+      "sourceType": "com.lylbp.manager.security.SecurityProperties",
       "name": "security.allow-api",
       "description": "不需要权限验证的api",
       "type": "java.util.List<java.lang.String>"
