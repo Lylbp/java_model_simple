@@ -4,8 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lylbp.common.utils.TokenUtil;
 import com.lylbp.common.constant.ProjectConstant;
-import com.lylbp.core.properties.ProjectProperties;
-import com.lylbp.manager.security.MyUserDetailsService;
+import com.lylbp.manager.security.interfaces.MyUserDetailsService;
 import com.lylbp.manager.security.entity.PermissionAuthority;
 import com.lylbp.project.entity.Admin;
 import com.lylbp.project.entity.SecurityUser;
@@ -43,9 +42,6 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
 
     @Resource
     private RoleService roleService;
-
-    @Resource
-    private ProjectProperties projectProperties;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

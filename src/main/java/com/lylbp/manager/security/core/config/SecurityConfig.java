@@ -1,6 +1,8 @@
-package com.lylbp.manager.security.core;
+package com.lylbp.manager.security.core.config;
 
-import com.lylbp.manager.security.SecurityProperties;
+import com.lylbp.manager.security.core.JwtAuthenticationFilter;
+import com.lylbp.manager.security.core.handler.ProjectAccessDeniedHandler;
+import com.lylbp.manager.security.core.handler.ProjectAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

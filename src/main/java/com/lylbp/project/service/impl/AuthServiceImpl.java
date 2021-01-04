@@ -3,7 +3,6 @@ package com.lylbp.project.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.common.exception.ResResultException;
-import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.service.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,17 +24,15 @@ public class AuthServiceImpl implements AuthService {
     @Resource
     private AuthenticationManager authenticationManager;
 
-    @Resource
-    private ProjectProperties projectProperties;
-
     @Override
     public SecurityUser login(String username, String pwd) {
-        Authentication authentication = null;
+        Authentication authentication;
         try {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, pwd));
         } catch (Exception e) {
-            ResResultEnum resResultEnum = e instanceof DisabledException ? ResResultEnum.ACCOUNT_DISABLE : ResResultEnum.ACCOUNT_LOGIN_ERR;
+            ResResultEnum resResultEnum = e instanceof DisabledException
+                    ? ResResultEnum.ACCOUNT_DISABLE : ResResultEnum.ACCOUNT_LOGIN_ERR;
             throw new ResResultException(resResultEnum);
         }
 

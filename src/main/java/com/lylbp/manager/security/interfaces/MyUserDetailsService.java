@@ -1,4 +1,4 @@
-package com.lylbp.manager.security;
+package com.lylbp.manager.security.interfaces;
 
 import com.lylbp.project.entity.SecurityUser;
 import org.springframework.security.access.ConfigAttribute;

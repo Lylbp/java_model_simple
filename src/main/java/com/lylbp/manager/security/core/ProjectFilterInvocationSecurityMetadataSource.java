@@ -1,6 +1,6 @@
 package com.lylbp.manager.security.core;
 
-import com.lylbp.manager.security.MyUserDetailsService;
+import com.lylbp.manager.security.interfaces.MyUserDetailsService;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
@@ -28,7 +28,6 @@ public class ProjectFilterInvocationSecurityMetadataSource implements FilterInvo
      *
      * @param o object对象
      * @return Collection<ConfigAttribute>
-     * @throws IllegalArgumentException
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {

@@ -1,6 +1,7 @@
 package com.lylbp.project.entity;
 
 import com.lylbp.manager.security.entity.PermissionAuthority;
+import com.lylbp.project.entity.Admin;
 import com.lylbp.project.enums.TrueOrFalseEnum;
 import com.lylbp.project.vo.RoleVO;
 import io.swagger.annotations.ApiModelProperty;

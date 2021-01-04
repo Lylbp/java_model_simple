@@ -1,7 +1,7 @@
 package com.lylbp.manager.security.core;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.manager.security.SecurityProperties;
+import com.lylbp.manager.security.core.config.SecurityProperties;
 import com.lylbp.project.entity.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -42,19 +42,8 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
-
-//    public void invoke(FilterInvocation fi) throws IOException, ServletException {
-//
-//        InterceptorStatusToken token = super.beforeInvocation(fi);
-//        try {
-//            //执行下一个拦截器
-//            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
-//        } finally {
-//            super.afterInvocation(token, null);
-//        }
-//    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -102,24 +91,17 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
         }
 
         if (ObjectUtil.isNotEmpty(fi)) {
-            /**
-             * beforeInvocation内部会调用FilterInvocationSecurityMetadataSource中getAttributes获取访问当前路由需要的权限
-             * 然后调用AccessDecisionManager中的decide方法进行鉴权操作
+            /*
+              beforeInvocation内部会调用FilterInvocationSecurityMetadataSource中getAttributes获取访问当前路由需要的权限
+              然后调用AccessDecisionManager中的decide方法进行鉴权操作
              */
             InterceptorStatusToken token = super.beforeInvocation(fi);
-//            if (token == null) {
-//                throw new AccessDeniedException(ResResultEnum.NO_AUTHENTICATION.getMsg());
-//            }
             try {
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             } finally {
                 super.afterInvocation(token, null);
             }
         }
-    }
-
-    @Override
-    public void destroy() {
     }
 
     @Override

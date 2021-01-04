@@ -1,4 +1,4 @@
-package com.lylbp.manager.security.core;
+package com.lylbp.manager.security.core.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

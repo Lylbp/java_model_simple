@@ -99,5 +99,5 @@ public interface PermissionService extends IService<Permission> {
      *
      * @return Boolean
      */
-    Boolean deleRedisAllPermissionVO();
+    Boolean delRedisAllPermissionVO();
 }

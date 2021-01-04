@@ -8,7 +8,7 @@ import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.common.utils.TokenUtil;
 import com.lylbp.common.entity.PageResResult;
 import com.lylbp.core.properties.ProjectProperties;
-import com.lylbp.manager.security.SecurityProperties;
+import com.lylbp.manager.security.core.config.SecurityProperties;
 import com.lylbp.project.dto.AdminRoleBatchEditDTO;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.enums.TrueOrFalseEnum;

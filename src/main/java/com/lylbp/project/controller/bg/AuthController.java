@@ -6,7 +6,7 @@ import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.project.dto.AdminLoginDTO;
-import com.lylbp.manager.security.SecurityProperties;
+import com.lylbp.manager.security.core.config.SecurityProperties;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.service.AuthService;
 import io.swagger.annotations.Api;

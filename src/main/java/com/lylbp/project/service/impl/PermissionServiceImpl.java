@@ -14,7 +14,6 @@ import com.lylbp.project.vo.PermissionVO;
 import com.lylbp.project.mapper.PermissionMapper;
 import com.lylbp.project.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.security.access.ConfigAttribute;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -138,7 +137,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             getBaseMapper().delete(wrapper);
 
             //删除缓存
-            deleRedisAllPermissionVO();
+            delRedisAllPermissionVO();
             return true;
         } catch (Exception exception) {
             return false;
@@ -149,22 +148,19 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     public List<PermissionVO> getRedisAllPermissionVO() {
         String redisKey = ProjectConstant.REDIS_ALL_PERMISSION;
         String redisStr = redisService.strGet(redisKey);
-        if (ObjectUtil.isEmpty(redisStr) || !JSONUtil.isJsonArray(redisStr) || JSONUtil.parseArray(redisStr).size() == 0) {
+        if (ObjectUtil.isEmpty(redisStr) || !JSONUtil.isJsonArray(redisStr)
+                || JSONUtil.parseArray(redisStr).size() == 0) {
             List<PermissionVO> permissionVOList = getPermissionVOListByParams(null, new HashMap<>(1));
             redisService.strSet(redisKey, JSON.toJSONString(permissionVOList), 0L);
 
             return permissionVOList;
         } else {
-            HashMap<String, Collection<ConfigAttribute>> map = new HashMap<>(16);
-            List<PermissionVO> permissionVOS = JSONUtil.toList(JSONUtil.parseArray(redisStr), PermissionVO.class);
-
-
-            return permissionVOS;
+            return JSONUtil.toList(JSONUtil.parseArray(redisStr), PermissionVO.class);
         }
     }
 
     @Override
-    public Boolean deleRedisAllPermissionVO() {
+    public Boolean delRedisAllPermissionVO() {
         String redisKey = ProjectConstant.REDIS_ALL_PERMISSION;
         return redisService.delete(redisKey);
     }

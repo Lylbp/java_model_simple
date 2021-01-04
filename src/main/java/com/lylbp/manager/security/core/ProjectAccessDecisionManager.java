@@ -29,8 +29,6 @@ public class ProjectAccessDecisionManager implements AccessDecisionManager {
      * @param authentication   包含了当前的用户信息，包括拥有的权限。这里的权限来源就是登录时UserDetailsService中设置的authorities
      * @param object           就是FilterInvocation对象，可以得到request等web资源
      * @param configAttributes configAttributes是本次访问需要的权限
-     * @throws AccessDeniedException
-     * @throws InsufficientAuthenticationException
      */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
@@ -54,8 +52,8 @@ public class ProjectAccessDecisionManager implements AccessDecisionManager {
     /**
      * 表示此AccessDecisionManager是否能够处理传递的ConfigAttribute呈现的授权请求
      *
-     * @param configAttribute
-     * @return
+     * @param configAttribute configAttribute
+     * @return boolean
      */
     @Override
     public boolean supports(ConfigAttribute configAttribute) {
@@ -65,8 +63,8 @@ public class ProjectAccessDecisionManager implements AccessDecisionManager {
     /**
      * 表示当前AccessDecisionManager实现是否能够为指定的安全对象（方法调用或Web请求）提供访问控制决策
      *
-     * @param aClass
-     * @return
+     * @param aClass aClass
+     * @return boolean
      */
     @Override
     public boolean supports(Class<?> aClass) {
