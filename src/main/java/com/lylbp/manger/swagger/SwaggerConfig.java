@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 /**
  * The type Swagger config.
  *
- * @author joy
+ * @author weiwenbin
  */
 @EnableSwagger2
 @Configuration
@@ -62,6 +62,18 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manger.activity.demo.controller"))
                 .build()
                 .groupName("activityDemo")
+                .pathMapping("/");
+    }
+
+    @Bean
+    public Docket minio() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("minioDemo", "minioDemo", "1.0", "韦文彬"))
+                .enable(swaggerProperties.getEnabled())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manger.minio.demo.controller"))
+                .build()
+                .groupName("minioDemo")
                 .pathMapping("/");
     }
 
