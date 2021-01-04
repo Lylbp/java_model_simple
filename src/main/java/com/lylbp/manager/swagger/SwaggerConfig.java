@@ -12,28 +12,21 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.annotation.Resource;
-
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 /**
  * swagger配置
  *
  * @author weiwenbin
  */
-@EnableSwagger2
+@EnableSwagger2WebMvc
 @Configuration
 @EnableKnife4j
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
-    @Resource
-    SwaggerProperties swaggerProperties;
-
     @Bean
     public Docket defaultApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("默认", "默认", "1.0", "韦文彬"))
-                .enable(swaggerProperties.getEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller"))
                 .build()
@@ -45,7 +38,6 @@ public class SwaggerConfig {
     public Docket bg() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("后台", "后台", "1.0", "韦文彬"))
-                .enable(swaggerProperties.getEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller.bg"))
                 .build()
@@ -57,7 +49,6 @@ public class SwaggerConfig {
     public Docket activity() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("activityDemo", "activityDemo", "1.0", "韦文彬"))
-                .enable(swaggerProperties.getEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.activity.demo.controller"))
                 .build()
@@ -69,7 +60,6 @@ public class SwaggerConfig {
     public Docket minio() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("minioDemo", "minioDemo", "1.0", "韦文彬"))
-                .enable(swaggerProperties.getEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.minio.demo.controller"))
                 .build()
@@ -81,7 +71,6 @@ public class SwaggerConfig {
     public Docket test() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("测试", "测试", "1.0", "韦文彬"))
-                .enable(swaggerProperties.getEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller.test"))
                 .build()

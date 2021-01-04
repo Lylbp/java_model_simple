@@ -150,28 +150,22 @@
         </dependency>
 
         <!--swagger -->
-        <!--        <dependency>-->
-        <!--            <groupId>com.spring4all</groupId>-->
-        <!--            <artifactId>swagger-spring-boot-starter</artifactId>-->
-        <!--            <version>1.9.0.RELEASE</version>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>2.10.5</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>2.10.5</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.4</version>
+            <version>2.0.8</version>
         </dependency>
 
         <!-- alibaba -->
@@ -247,39 +241,6 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
             <version>2.3.4.RELEASE</version>
         </dependency>
-
-        <!-- hadoop -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-hadoop-boot</artifactId>-->
-<!--            <version>2.5.0.RELEASE</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>javax.servlet</groupId>-->
-<!--                    <artifactId>servlet-api</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-hadoop</artifactId>-->
-<!--            <version>2.5.0.RELEASE</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.slf4j</groupId>-->
-<!--                    <artifactId>slf4j-log4j12</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>log4j</groupId>-->
-<!--                    <artifactId>log4j</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>javax.servlet</groupId>-->
-<!--                    <artifactId>servlet-api</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
 
         <!-- hadoop -->
         <dependency>

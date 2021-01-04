@@ -2,11 +2,6 @@
   "hints": [],
   "groups": [
     {
-      "sourceType": "com.lylbp.manager.swagger.SwaggerProperties",
-      "name": "swagger",
-      "type": "com.lylbp.manager.swagger.SwaggerProperties"
-    },
-    {
       "sourceType": "com.lylbp.core.properties.ProjectProperties",
       "name": "project",
       "type": "com.lylbp.core.properties.ProjectProperties"
@@ -18,13 +13,6 @@
     }
   ],
   "properties": [
-    {
-      "sourceType": "com.lylbp.manager.swagger.SwaggerProperties",
-      "name": "swagger.enabled",
-      "defaultValue": true,
-      "description": "是否开启swagger",
-      "type": "java.lang.Boolean"
-    },
     {
       "sourceType": "com.lylbp.core.properties.ProjectProperties",
       "name": "project.log-save-path",

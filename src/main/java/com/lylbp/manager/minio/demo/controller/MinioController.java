@@ -3,9 +3,7 @@ package com.lylbp.manager.minio.demo.controller;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.entity.ResResult;
 import com.lylbp.manager.minio.service.MinioService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,8 +32,7 @@ public class MinioController {
 
     @PostMapping(value = "/uploadFile")
     @ApiOperation("上传")
-    public ResResult<String> uploadFile(@NotNull @ApiParam(name = "file", value = "file", required = true)
-                                                MultipartFile file)
+    public ResResult<String> uploadFile(@NotNull @RequestParam(value = "file") MultipartFile file)
             throws IOException {
         String contentType = file.getContentType();
         return ResResultUtil.success(minioService.uploadFile(file, contentType, "test"));

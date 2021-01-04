@@ -43,9 +43,12 @@ spring:
         #开启仓库(默认值:true)
         enabled: true
 
-#是否开启swagger开发文档
-swagger:
-  enabled: true
+#knife4j文档注释
+knife4j:
+  # 开启增强配置
+  enable: true
+  # 开启生产环境屏蔽
+  production: false
 
 #地址相关
 project:
@@ -53,6 +56,13 @@ project:
   log-save-path: /Library/WebServer/log
   #超级管理员id
   super-admin-id: 475B24EB704145D3B858AD8F76D98BBE
+
+#minio
+minio:
+  accessKey: BCIAIOSFODNN7EXAMPLE
+  secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  endpoint: http://192.168.1.192:9000/
+  notAllow: php,java,class
 
 #hbase（无则不配 并删除manger中的包）
 hbase:
@@ -78,4 +88,4 @@ security:
     /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
     classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
   #权限管理-security-open为true需配置所有用户都可访问的api路径
-  allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd
+  allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**
