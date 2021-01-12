@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 /**
  * 获取客户端设备信息
  *
- * @author llmoe
+ * @author weiwenbin
  */
 public class UserAgentUtil {
     private final UserAgent userAgent;

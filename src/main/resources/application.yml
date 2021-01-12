@@ -88,3 +88,12 @@ mybatis-plus:
       logic-delete-value: 0
       #逻辑未删除值（默认为0）
       logic-not-delete-value: 1
+
+##秘匙
+#jasypt:
+#  encryptor:
+#    # 盐加密
+#    password: lylbp
+#    # 指定加密方式
+#    algorithm: PBEWithMD5AndDES
+#    iv-generator-classname: org.jasypt.iv.NoIvGenerator

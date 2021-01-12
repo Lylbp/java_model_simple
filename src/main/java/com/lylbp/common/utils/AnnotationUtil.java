@@ -12,9 +12,12 @@ import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 /**
+ * 注解工具类
+ *
  * @author weiwenbin
  * @date 2020/5/14 下午5:31
  */
@@ -27,13 +30,11 @@ public class AnnotationUtil {
 
     /**
      * 获取指定包下所有添加了执行注解的方法信息
-     * @param classPath 包名
+     *
+     * @param classPath          包名
      * @param tagAnnotationClass 指定注解类型
-     * @param <T>
-     * @return
-     * @throws Exception
      */
-    public  <T> Map<String, Map<String, Object>> getAllAddTagAnnotationUrl(String classPath, Class<T> tagAnnotationClass) throws Exception {
+    public <T> Map<String, Map<String, Object>> getAllAddTagAnnotationUrl(String classPath, Class<T> tagAnnotationClass) throws Exception {
         Map<String, Map<String, Object>> resMap = new HashMap<>();
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         MetadataReaderFactory metaReader = new CachingMetadataReaderFactory(resourceLoader);
@@ -59,11 +60,15 @@ public class AnnotationUtil {
                 annotationMetadata.getAnnotationAttributes(RequestMapping.class.getCanonicalName());
 
         //若类无RequestMapping注解
-        if (annotationAttributes == null) return resMap;
+        if (annotationAttributes == null) {
+            return resMap;
+        }
 
         //获取RequestMapping注解的value
         String[] pathParents = (String[]) annotationAttributes.get(VALUE);
-        if (0 == pathParents.length) return resMap;
+        if (0 == pathParents.length) {
+            return resMap;
+        }
 
         //获取RequestMapping注解的value
         String pathParent = pathParents[0];
@@ -76,7 +81,7 @@ public class AnnotationUtil {
             Map<String, Object> targetAttr = annotatedMethod.getAnnotationAttributes(tagAnnotationClassCanonicalName);
             //获取当前方法中要xxxMapping注解的属性
             Map<String, Object> mappingAttr = getPathByMethod(annotatedMethod);
-            if (mappingAttr == null){
+            if (mappingAttr == null) {
                 continue;
             }
 
@@ -88,7 +93,7 @@ public class AnnotationUtil {
             String path = pathParent + childPath[0];
 
             boolean isHas = resMap.containsKey(path);
-            if (isHas){
+            if (isHas) {
                 throw new Exception("重复定义了相同的映射关系");
             }
 

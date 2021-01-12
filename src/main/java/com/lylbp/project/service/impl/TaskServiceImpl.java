@@ -1,7 +1,7 @@
 package com.lylbp.project.service.impl;
 
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.common.utils.QuartzUtils;
+import com.lylbp.manager.quartz.util.QuartzUtils;
 import com.lylbp.common.exception.ResResultException;
 import com.lylbp.project.entity.Task;
 import com.lylbp.project.enums.TaskStatusEnum;

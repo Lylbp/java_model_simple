@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.Date;
 
 /**
@@ -21,9 +22,10 @@ public class JwtUtil {
 
     /**
      * 建立token
-     * @param jsonStr
-     * @param expireTime
-     * @return
+     *
+     * @param jsonStr    json字符串
+     * @param expireTime 过期时长
+     * @return String
      */
     public static String createToken(String jsonStr, Long expireTime) {
         Date date = new Date(System.currentTimeMillis() + expireTime);
@@ -36,8 +38,9 @@ public class JwtUtil {
 
     /**
      * 验证token是否有效
-     * @param token
-     * @return
+     *
+     * @param token token字符串
+     * @return DecodedJWT
      */
     public static DecodedJWT verifyToken(String token) {
         try {
@@ -52,18 +55,17 @@ public class JwtUtil {
     /**
      * 获取token令牌对应对象
      *
-     * @param token
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param token token字符串
+     * @param clazz 要转换的class
+     * @return T
      */
     public static <T> T getTokenClaimsObj(String token, Class<T> clazz) {
         DecodedJWT decode = JWT.decode(token);
         Claim claim = decode.getClaim(TOKEN_CLAIM_NAME);
         String claimStr = claim.asString();
-        if (clazz == String.class){
+        if (clazz == String.class) {
             return (T) claimStr;
-        }else {
+        } else {
             return JSON.parseObject(claim.asString(), clazz);
         }
     }

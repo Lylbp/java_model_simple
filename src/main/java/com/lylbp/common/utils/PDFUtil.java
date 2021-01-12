@@ -15,9 +15,9 @@ public class PDFUtil {
     /**
      * 获取pdf大小,先远程下载->读取大小->删除文件
      *
-     * @param pdfPath
-     * @param pdfSavePath
-     * @return
+     * @param pdfPath     远程pdf文件地址
+     * @param pdfSavePath 报错地址
+     * @return Integer
      */
     public static Integer getPDFSize(String pdfPath, String pdfSavePath) {
         FileUtil.downloadFile(pdfPath, pdfSavePath);
