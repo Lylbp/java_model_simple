@@ -50,6 +50,9 @@ public class ResResultUtil {
                 .setData(data);
     }
 
+    public static <T> ResResult<T> success(T data, String msg) {
+        return new ResResult<T>().setCode(ResResultEnum.SUCCESS.getCode()).setMsg(msg).setData(data);
+    }
 
     public static <T> ResResult<T> error() {
         return new ResResult<T>().setCode(ResResultEnum.SYSTEM_ERR.getCode())

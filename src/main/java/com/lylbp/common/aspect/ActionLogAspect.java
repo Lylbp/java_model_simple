@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lylbp.common.annotation.ActionLog;
 import com.lylbp.common.utils.UserAgentUtil;
+import eu.bitwalker.useragentutils.Browser;
+import eu.bitwalker.useragentutils.Version;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -58,21 +60,26 @@ public class ActionLogAspect {
             UserAgentUtil userAgentUtil = new UserAgentUtil(request);
             //IP地址
             String ipAddr = userAgentUtil.getIpAddr();
+
             //浏览器名称
-            String browserName = userAgentUtil.getBrowser().getName();
+            Browser browser = userAgentUtil.getBrowser();
+            if (null != browser) {
+                String browserName = browser.getName();
+            }
+
             //浏览器版本
-            String browserVersion = userAgentUtil.getBrowserVersion().toString();
+            Version version = userAgentUtil.getBrowserVersion();
+            if (null != version) {
+                String browserVersion = version.toString();
+            }
+
             //设备名称
             String device = userAgentUtil.getDevice();
             //请求参数
-            String params = JSON.toJSONString(
-                    joinPoint.getArgs(),
-                    SerializerFeature.WriteNullStringAsEmpty
-            );
+            String params = JSON.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteNullStringAsEmpty);
         } catch (Exception exception) {
             logger.info(exception.getMessage());
         }
-
     }
 
     /**
