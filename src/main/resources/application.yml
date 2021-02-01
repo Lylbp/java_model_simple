@@ -37,7 +37,7 @@ spring:
             #数据库方言(使用完全兼容JDBC的驱动)
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
             #数据库表前缀
-            tablePrefix: qrtz_
+            tablePrefix: QRTZ_
             #是否打开群集功能
             isClustered: true
             #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
