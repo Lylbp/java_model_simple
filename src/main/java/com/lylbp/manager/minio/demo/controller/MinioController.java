@@ -26,7 +26,6 @@ import java.io.IOException;
 public class MinioController {
     @Resource
     private MinioService minioService;
-
     @Resource
     private HttpServletResponse response;
 

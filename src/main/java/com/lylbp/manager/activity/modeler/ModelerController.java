@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 public class ModelerController {
     @Resource
     private ModelService modelService;
-    ////////////////////页面接口[必须安装官方页面接口形式编写]//////////////////////
+    ////////////////////页面接口[必须按照官方页面接口形式编写]//////////////////////
 
     @PostMapping(value = "/{modelId}/save")
     @ApiOperation("保存流程模型")

@@ -49,7 +49,7 @@ public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, EST
     }
 
     @Override
-    public List<ESTestUser> selectSearchHitsByScrollAndFrom(Map<String, Object> params, DataPage<ESTestUser> dataPage) {
+    public List<ESTestUser> selectSearchHitsByFrom(Map<String, Object> params, DataPage<ESTestUser> dataPage) {
         List<QueryBuilder> queryBuilders = new ArrayList<>(10);
         BoolQueryBuilder booQueryBuilder = QueryBuilders.boolQuery();
         if (params.containsKey("nameLike") && ObjectUtil.isNotEmpty(params.get("nameLike"))) {
@@ -67,7 +67,7 @@ public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, EST
         List<SortBuilder<?>> sortBuilders = new ArrayList<>(10);
         sortBuilders.add(SortBuilders.fieldSort("createTime").order(SortOrder.DESC));
 
-        return selectSearchHitsByScrollAndFrom(queryBuilders, sortBuilders, dataPage, ESTestUser.class);
+        return selectSearchHitsByFrom(queryBuilders, sortBuilders, dataPage, ESTestUser.class);
     }
 
     @Override

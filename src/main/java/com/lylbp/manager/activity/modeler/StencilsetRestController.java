@@ -19,7 +19,7 @@ import java.io.InputStream;
 @Api(tags = "StencilsetRest相关(前端无需接入)")
 public class StencilsetRestController {
     /**
-     * 修改源码解决Activiti6.0.0及以上版本与activiti-modeler冲突
+     * 获取stencilset.json
      *
      * @return String
      */

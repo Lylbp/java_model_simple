@@ -43,7 +43,7 @@ public class HBaseBeanService<T> {
 
     private DefaultHandler<T> defaultHandler = new DefaultHandler<>(new DefaultConversionService());
 
-    //////////////////////////////////////////1对表进行操作////////////////////////////////////////////////////////////
+    //////////////////////////////////////////1.对表进行操作////////////////////////////////////////////////////////////
 
     /**
      * 判断表是否存在
@@ -85,7 +85,7 @@ public class HBaseBeanService<T> {
         List<String> list = new ArrayList<>(10);
         for (FieldMapper<T> fieldMapper : columnMappers) {
             String columnFamily = Bytes.toString(fieldMapper.getFamily());
-            if (!list.contains(columnFamily)){
+            if (!list.contains(columnFamily)) {
                 list.add(columnFamily);
             }
         }
@@ -107,9 +107,9 @@ public class HBaseBeanService<T> {
     /**
      * 预分区创建表
      *
-     * @param tableName    表名
+     * @param tableName      表名
      * @param columnFamilies 列簇
-     * @param keys         分区集合
+     * @param keys           分区集合
      * @return true/false
      */
     public boolean createTable(TableName tableName, List<String> columnFamilies, List<String> keys) throws Exception {
@@ -325,6 +325,7 @@ public class HBaseBeanService<T> {
 
     //////////////////////////////////////////5.查////////////////////////////////////////////////////////////
     //////////////////////////////////////////5.1使用对象操作/////////////////////////////////////////////////////////////
+
     /**
      * 获取数据
      * rowKey过滤器 str$ 末尾匹配，相当于sql中的 %str  ^str开头匹配，相当于sql中的str%

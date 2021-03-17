@@ -16,7 +16,136 @@ spring:
     url: jdbc:oracle:thin:@192.168.1.151:1521:cdb1
   #redis配置（无则不配）
   redis:
-    #Redis服务器地址
+    #Redis服务器地址#服务器端口号
+               server:
+                 port: 8073
+
+               #spring基本配置
+               spring:
+                 #数据库配置
+                 datasource:
+                   #oracle驱动
+                   driver-class-name: oracle.jdbc.driver.OracleDriver
+                   #oracle数据库用户名
+                   username:
+                   #oracle数据库密码
+                   password:
+                   #oracle数据库url
+                   url: jdbc:oracle:thin:@192.168.1.151:1521:cdb1
+                 #redis配置（无则不配）
+                 redis:
+                   #Redis服务器地址
+                   host: 127.0.0.1
+                   #Redis服务器连接端口
+                   port: 6379
+                   #Redis服务器密码
+                   password:
+                   #连接超时时间（毫秒）
+                   timeout: 10000
+                   #Redis数据库索引（默认为0）
+                   database: 0
+                   jedis:
+                     pool:
+                       #连接池中的最小空闲连接
+                       min-idle: 2
+                       #连接池中的最大空闲连接
+                       max-idle: 20
+                       #连接池最大连接数（使用负值表示没有限制）
+                       max-active: 50
+                       #连接池最大阻塞等待时间（使用负值表示没有限制）
+                       max-wait: -1ms
+                 #es（无则不配 并删除manger中的包）
+                 elasticsearch:
+                   rest:
+                     uris: http://localhost:9200
+                     read-timeout: 10000
+                 data:
+                   elasticsearch:
+                     repositories:
+                       #开启仓库(默认值:true)
+                       enabled: true
+                 kafka:
+                     bootstrap-servers: localhost:9092
+                     producer:
+                       # 发生错误后， 消息重发的次数。
+                       retries: 0
+                       #当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算。
+                       batch-size: 16384
+                       # 设置生产者内存缓冲区的大小。
+                       buffer-memory: 33554432
+                       # 键的序列化方式
+                       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                       # 值的序列化方式
+                       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+                       # acks=0 ： 生产者在成功写入消息之前不会等待任何来自服务器的响应。
+                       # acks=1 ： 只要集群的首领节点收到消息，生产者就会收到一个来自服务器成功响应。
+                       # acks=all ：只有当所有参与复制的节点全部收到消息时，生产者才会收到一个来自服务器的成功响应。
+                       acks: 1
+                     consumer:
+                       # 自动提交的时间间隔 在spring boot 2.X 版本中这里采用的是值的类型为Duration 需要符合特定的格式，如1S,1M,2H,5D
+                       auto-commit-interval: 1S
+                       # 该属性指定了消费者在读取一个没有偏移量的分区或者偏移量无效的情况下该作何处理：
+                       # latest（默认值）在偏移量无效的情况下，消费者将从最新的记录开始读取数据（在消费者启动之后生成的记录）
+                       # earliest ：在偏移量无效的情况下，消费者将从起始位置读取分区的记录
+                       auto-offset-reset: earliest
+                       # 是否自动提交偏移量，默认值是true,为了避免出现重复数据和数据丢失，可以把它设置为false,然后手动提交偏移量
+                       enable-auto-commit: false
+                       # 键的反序列化方式
+                       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                       # 值的反序列化方式
+                       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+                     listener:
+                       # 在侦听器容器中运行的线程数。
+                       concurrency: 5
+                       #listner负责ack，每调用一次，就立即commit
+                       ack-mode: manual_immediate
+
+               #knife4j文档注释
+               knife4j:
+                 # 开启增强配置
+                 enable: true
+                 # 开启生产环境屏蔽
+                 production: false
+
+               #地址相关
+               project:
+                 #日志存储地址[必须配置]
+                 log-save-path: /home/alex/logs/java_model
+                 #超级管理员id
+                 super-admin-id: 475B24EB704145D3B858AD8F76D98BBE
+
+               #minio
+               minio:
+                 accessKey: BCIAIOSFODNN7EXAMPLE
+                 secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+                 endpoint: http://192.168.1.192:9000/
+                 notAllow: php,java,class
+
+               #hbase（无则不配 并删除manger中的包）
+               hbase:
+                 zookeeper:
+                   quorum: Alex
+                   property:
+                     clientPort: 2181
+               zookeeper:
+                 znode:
+                   parent: /hbase
+
+               #极光推送配置（无则不配）
+               jpush:
+                 appKey: 417f19361216299f3f2c45d0
+                 masterKey: 40c46b13eaf5f6ea0d307669
+
+               #权限管理配置
+               security:
+                 #是否开启
+                 enabled: true
+                 #权限管理security-open为true需配置所有用户都可访问的静态资源路径
+                 allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
+                   /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
+                   classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
+                 #权限管理-security-open为true需配置所有用户都可访问的api路径
+                 allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**,
     host: 127.0.0.1
     #Redis服务器连接端口
     port: 6379

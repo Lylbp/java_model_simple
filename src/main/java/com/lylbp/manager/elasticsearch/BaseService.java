@@ -116,44 +116,46 @@ public interface BaseService<T, ID> {
     long count();
 
     /**
-     * 自定义：深分页与浅分页联合使用
+     * 浅分页
      * 缺点:es必须配置max_result_window,且数据量必须小于max_result_window
      * 优点:分页查询快
      *
      * @param nativeSearchQueryBuilder nativeSearchQueryBuilder
-     * @param dataPage                   分页
+     * @param dataPage                 分页
      * @param clazz                    clazz
      * @return Object
      */
-    Object selectSearchHitsByScrollAndFrom(NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz);
+    Object selectSearchHitsByFrom(NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage,
+                                  Class<T> clazz);
 
     /**
-     * 自定义：深分页与浅分页联合使用
+     * 浅分页
      * 缺点:es必须配置max_result_window,且数据量必须小于max_result_window
      * 优点:分页查询快
      *
      * @param queryBuilders 查询条件
      * @param sortBuilders  sortBuilders
-     * @param dataPage        分页
+     * @param dataPage      分页
      * @param clazz         clazz
      * @return List<SearchHit < T>>
      */
-    List<T> selectSearchHitsByScrollAndFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz);
+    List<T> selectSearchHitsByFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders,
+                                   DataPage<T> dataPage, Class<T> clazz);
 
     /**
-     * 自定义 深分页查询
+     * 深分页查询
      * 缺点:分页慢
      * 优点:无数据量限制
      *
      * @param nativeSearchQueryBuilder nativeSearchQueryBuilder
-     * @param dataPage                   分页
+     * @param dataPage                 分页
      * @param clazz                    clazz
      * @return List<SearchHit < T>>
      */
     Object selectSearchHitsByScroll(NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz);
 
     /**
-     * 自定义 深分页查询
+     * 深分页查询
      * 缺点:分页慢
      * 优点:无数据量限制
      *
@@ -162,7 +164,8 @@ public interface BaseService<T, ID> {
      * @param clazz         clazz
      * @return List<SearchHit < T>>
      */
-    List<T> selectSearchHitsByScroll(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz);
+    List<T> selectSearchHitsByScroll(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders,
+                                     DataPage<T> dataPage, Class<T> clazz);
 
     /**
      * 获取NativeSearchQueryBuilder

@@ -16,12 +16,16 @@ public enum PlatformEnum {
     PLATFORM_ALL("1", "所有平台"),
     PLATFORM_IOS("2", "ios平台"),
     PLATFORM_ANDROID("3", "安卓平台"),
-    PLATFORM_IOS_ANDROID("4", "安卓平台"),
+    PLATFORM_IOS_ANDROID("4", "安卓与ios平台");
 
-    ;
-
+    /**
+     * code
+     */
     private String code;
 
+    /**
+     * msg
+     */
     private String msg;
 
     PlatformEnum(String code, String msg) {

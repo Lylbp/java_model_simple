@@ -74,10 +74,6 @@ public class MyModelerController {
     @ApiOperation("删除模型")
     @ResponseBody
     public ResResult<Boolean> removeByModelIds(@PathVariable("modelId") String modelId) {
-        if (modelId.equals("52501")) {
-            return ResResultUtil.error(false);
-        }
-
         return ResResultUtil.success(modelService.removeByModelId(modelId));
     }
 

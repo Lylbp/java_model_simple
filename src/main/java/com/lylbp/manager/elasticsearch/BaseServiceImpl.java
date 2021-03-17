@@ -120,36 +120,13 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
 
 
     @Override
-    public Object selectSearchHitsByScrollAndFrom(
-            NativeSearchQueryBuilder nativeSearchQueryBuilder, DataPage<T> dataPage, Class<T> clazz) {
+    public Object selectSearchHitsByFrom(NativeSearchQueryBuilder nativeSearchQueryBuilder,
+                                                  DataPage<T> dataPage, Class<T> clazz) {
         //获取index
         String indexName = clazz.getAnnotation(Document.class).indexName();
         IndexCoordinates indexCoordinates = IndexCoordinates.of(indexName);
 
-        if (null == dataPage) {
-            //构建查询query
-            NativeSearchQuery query = nativeSearchQueryBuilder.build();
-            //游标集合
-            List<String> scrollIds = new ArrayList<>();
-            //获取第一次游标
-            SearchScrollHits<T> searchScrollHits = elasticsearchTemplate.searchScrollStart(
-                    5000, query, clazz, indexCoordinates);
-            //当前游标
-            String scrollId = searchScrollHits.getScrollId();
-            //数据
-            List<SearchHit<T>> dataList = new ArrayList<>();
-            while (searchScrollHits.hasSearchHits()) {
-                List<SearchHit<T>> searchHits = searchScrollHits.getSearchHits();
-                dataList.addAll(searchHits);
-                searchScrollHits = elasticsearchTemplate.searchScrollContinue(scrollId, 5000, clazz, indexCoordinates);
-                scrollId = searchScrollHits.getScrollId();
-                scrollIds.add(scrollId);
-            }
-            //清除游标
-            elasticsearchTemplate.searchScrollClear(scrollIds);
-
-            return dataList;
-        } else {
+        if (dataPage != null){
             long current = dataPage.getCurrent();
             long size = dataPage.getSize();
             if (current > 0) {
@@ -157,21 +134,25 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
             }
             //添加分页
             nativeSearchQueryBuilder.withPageable(PageRequest.of((int) current, (int) size));
-            //构建查询query
-            NativeSearchQuery query = nativeSearchQueryBuilder.build();
-            //查询
-            SearchHits<T> search = elasticsearchTemplate.search(query, clazz, indexCoordinates);
-            dataPage.setTotal(operations.count(query, clazz));
-
-            return search;
         }
+        //构建查询query
+        NativeSearchQuery query = nativeSearchQueryBuilder.build();
+        //查询
+        SearchHits<T> search = elasticsearchTemplate.search(query, clazz, indexCoordinates);
+
+        if (dataPage != null){
+            dataPage.setTotal(operations.count(query, clazz));
+        }
+
+        return search;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<T> selectSearchHitsByScrollAndFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders, DataPage<T> dataPage, Class<T> clazz) {
+    public List<T> selectSearchHitsByFrom(List<QueryBuilder> queryBuilders, List<SortBuilder<?>> sortBuilders,
+                                                   DataPage<T> dataPage, Class<T> clazz) {
         NativeSearchQueryBuilder nativeSearchQueryBuilder = getNativeSearchQueryBuilder(queryBuilders, sortBuilders);
-        Object result = selectSearchHitsByScrollAndFrom(nativeSearchQueryBuilder, dataPage, clazz);
+        Object result = selectSearchHitsByFrom(nativeSearchQueryBuilder, dataPage, clazz);
         List<T> list = (List<T>) SearchHitSupport.unwrapSearchHits(result);
 
         //有分页设置数据
@@ -197,14 +178,14 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
         if (null != dataPage) {
             nativeSearchQueryBuilder.withPageable(PageRequest.of(0, (int) size));
         }
-        //构建查询query
-        NativeSearchQuery query = nativeSearchQueryBuilder.build();
         //获取index
         String indexName = clazz.getAnnotation(Document.class).indexName();
         IndexCoordinates indexCoordinates = IndexCoordinates.of(indexName);
-
+        //构建查询query
+        NativeSearchQuery query = nativeSearchQueryBuilder.build();
         SearchScrollHits<T> searchScrollHits = elasticsearchTemplate.searchScrollStart(
                 5000, query, clazz, indexCoordinates);
+
         //总数
         long totalHits = searchScrollHits.getTotalHits();
         //当前游标
@@ -223,11 +204,14 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
         }
         //游标集合
         List<String> scrollIds = new ArrayList<>();
-        //数据
-        List<SearchHit<T>> searchHits = null;
+        //单次数据
+        List<SearchHit<T>> searchHits = new ArrayList<>();
+        //所有数据
+        List<SearchHit<T>> dataList = new ArrayList<>();
         int i = 0;
         while (searchScrollHits.hasSearchHits()) {
             searchHits = searchScrollHits.getSearchHits();
+            dataList.addAll(searchHits);
             searchScrollHits = elasticsearchTemplate.searchScrollContinue(scrollId, 5000, clazz, indexCoordinates);
             scrollId = searchScrollHits.getScrollId();
             scrollIds.add(scrollId);
@@ -241,9 +225,10 @@ public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements 
         //有分页设置总数
         if (null != dataPage) {
             dataPage.setTotal(totalHits);
+            return searchHits;
         }
 
-        return searchHits;
+        return dataList;
     }
 
 

@@ -35,17 +35,6 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket bg() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo("后台", "后台", "韦文彬"))
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller.bg"))
-                .build()
-                .groupName("后台")
-                .pathMapping("/");
-    }
-
-    @Bean
     public Docket activity() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("activityDemo", "activityDemo", "韦文彬"))
@@ -57,6 +46,17 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public Docket es() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("esDemo", "esDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.elasticsearch.demo.controller"))
+                .build()
+                .groupName("esDemo")
+                .pathMapping("/");
+    }
+
+    @Bean
     public Docket minio() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("minioDemo", "minioDemo", "韦文彬"))
@@ -64,6 +64,39 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.minio.demo.controller"))
                 .build()
                 .groupName("minioDemo")
+                .pathMapping("/");
+    }
+
+    @Bean
+    public Docket hbaseDemo() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("hbaseDemo", "hbaseDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.hbase.demo.controller"))
+                .build()
+                .groupName("hbaseDemo")
+                .pathMapping("/");
+    }
+
+    @Bean
+    public Docket jpushDemo() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("jpushDemo", "JpushDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.jpush.demo.controller"))
+                .build()
+                .groupName("jpushDemo")
+                .pathMapping("/");
+    }
+
+    @Bean
+    public Docket kafkaDemo() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("kafkaDemo", "kafkaDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.kafka.demo.controller"))
+                .build()
+                .groupName("kafkaDemo")
                 .pathMapping("/");
     }
 
@@ -80,6 +113,6 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(String name, String description, String contactName) {
         Contact contact = new Contact(contactName, "", "");
-        return new ApiInfoBuilder().title(name).description(description).version("1.0").contact(contact).build();
+        return new ApiInfoBuilder().title(name).description(description).contact(contact).build();
     }
 }

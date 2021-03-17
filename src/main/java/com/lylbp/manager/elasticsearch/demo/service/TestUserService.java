@@ -28,7 +28,7 @@ public interface TestUserService extends BaseService<ESTestUser, String> {
      * @param dataPage 分页参数
      * @return List<TestUser>
      */
-    List<ESTestUser> selectSearchHitsByScrollAndFrom(Map<String, Object> params, DataPage<ESTestUser> dataPage);
+    List<ESTestUser> selectSearchHitsByFrom(Map<String, Object> params, DataPage<ESTestUser> dataPage);
     /**
      * 通过手机查询
      *

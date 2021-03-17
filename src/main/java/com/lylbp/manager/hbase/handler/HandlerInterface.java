@@ -22,7 +22,7 @@ public interface HandlerInterface<T> {
     T convert(Result result, Class<T> clazz, HRowHandler<T> hRowHandler) throws HandlerException;
 
     /**
-     * avaBean转Put
+     * javaBean转Put
      *
      * @param t           javaBean
      * @param hRowHandler hRowHandler
