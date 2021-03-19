@@ -2,10 +2,11 @@ package com.lylbp.common.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.enums.ResResultEnum;
+import com.lylbp.common.exception.ResResultException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * token生成与解析工具依赖于JwtUtil
@@ -68,11 +69,21 @@ public class TokenUtil {
     /**
      * 验证token字符串
      *
-     * @param token
-     * @return
+     * @param token token
+     * @return Boolean
      */
     public static Boolean verifyToken(String token) {
         return !ObjectUtil.isEmpty(JwtUtil.verifyToken(token));
+    }
+
+    /**
+     * 获取token过期时间
+     *
+     * @param token
+     * @return Date
+     */
+    public static Date getTokenExp(String token) {
+        return JwtUtil.getExp(token);
     }
 
     /**

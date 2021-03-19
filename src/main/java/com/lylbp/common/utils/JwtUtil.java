@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Date;
 
 /**
+ * jwt工具类
+ *
  * @author weiwenbin
  * @date 2020-2-12 10:43
  */
@@ -50,6 +52,17 @@ public class JwtUtil {
         } catch (JWTVerificationException exception) {
             return null;
         }
+    }
+
+    /**
+     * 获取jwt过期时间
+     *
+     * @param token token
+     * @return Date
+     */
+    public static Date getExp(String token) {
+        DecodedJWT jwt = JWT.decode(token);
+        return jwt.getExpiresAt();
     }
 
     /**
