@@ -1,15 +1,19 @@
 package com.lylbp.project.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lylbp.common.utils.TokenUtil;
 import com.lylbp.common.constant.ProjectConstant;
+import com.lylbp.manager.redis.service.RedisService;
 import com.lylbp.manager.security.interfaces.MyUserDetailsService;
 import com.lylbp.manager.security.entity.PermissionAuthority;
 import com.lylbp.project.entity.Admin;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.enums.TrueOrFalseEnum;
 import com.lylbp.project.service.AdminService;
+import com.lylbp.project.service.AuthService;
 import com.lylbp.project.service.PermissionService;
 import com.lylbp.project.service.RoleService;
 import com.lylbp.project.vo.PermissionVO;
@@ -34,6 +38,12 @@ import java.util.*;
  */
 @Service
 public class UserDetailServiceImpl implements MyUserDetailsService {
+    @Resource
+    private AuthService authService;
+
+    @Resource
+    private RedisService redisService;
+
     @Resource
     private AdminService adminService;
 
@@ -74,18 +84,27 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
 
     @Override
     public SecurityUser token2SecurityUser(HttpServletRequest request) {
+        String auth = request.getHeader(ProjectConstant.AUTHENTICATION);
         //验证token
-        String token = request.getHeader(ProjectConstant.AUTHENTICATION);
-        if (ObjectUtil.isEmpty(token)) {
+        String token = authService.getRedisToken(auth);
+        if (StrUtil.isEmpty(token)) {
             return null;
         }
 
-        Boolean verifyTokenFromHeader = TokenUtil.verifyToken(token);
-        if (!verifyTokenFromHeader) {
+        if (!TokenUtil.verifyToken(token)) {
             return null;
         }
+        SecurityUser securityUser = TokenUtil.getClazzByToken(token, SecurityUser.class);
 
-        return TokenUtil.getClazzByToken(token, SecurityUser.class);
+        //token续命
+        long expireTime = TokenUtil.getTokenExp(token).getTime();
+        long currentTime = DateUtil.date().getTime();
+        if (expireTime - currentTime < ProjectConstant.JWT_EXPIRE_TIME / 2) {
+            token = TokenUtil.createToken(securityUser, ProjectConstant.JWT_EXPIRE_TIME);
+            redisService.strSet(ProjectConstant.REDIS_USER_TOKEN_PRE + auth, token, ProjectConstant.JWT_EXPIRE_TIME);
+        }
+
+        return securityUser;
     }
 
     @Override

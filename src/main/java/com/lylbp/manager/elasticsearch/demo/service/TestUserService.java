@@ -1,6 +1,6 @@
 package com.lylbp.manager.elasticsearch.demo.service;
 
-import com.lylbp.manager.elasticsearch.BaseService;
+import com.lylbp.manager.elasticsearch.service.BaseService;
 import com.lylbp.common.entity.DataPage;
 import com.lylbp.manager.elasticsearch.demo.entity.ESTestUser;
 

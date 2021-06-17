@@ -19,6 +19,7 @@ import org.apache.hadoop.hbase.client.coprocessor.AggregationClient;
 import org.apache.hadoop.hbase.client.coprocessor.LongColumnInterpreter;
 import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ import java.util.*;
 @Slf4j
 @Service
 @Data
+@ConditionalOnProperty(prefix = "hbase", name = "enabled", havingValue = "true")
 public class HBaseBeanService<T> {
     @Resource
     private Connection connection;

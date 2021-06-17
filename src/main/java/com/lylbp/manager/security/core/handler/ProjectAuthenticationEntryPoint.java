@@ -14,15 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 未认证用户访问需要权限的url
+ *
  * @author weiwenbin
  * @date 2020/5/11 下午11:08
  */
-public class ProjectAuthenticationEntryPoint implements AuthenticationEntryPoint{
+public class ProjectAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) {
         ResponseUtil.outJson(
-                response,JSON.toJSONString(ResResultUtil.makeRsp(ResResultEnum.NO_LOGIN),
+                response, JSON.toJSONString(ResResultUtil.makeRsp(ResResultEnum.NO_LOGIN),
                         SerializerFeature.WriteMapNullValue)
         );
     }

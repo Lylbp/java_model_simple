@@ -59,7 +59,7 @@ public class WebSocketService {
     /**
      * 当前服务器连接的session
      */
-    public static final Map<String, Session> sessionMap = new ConcurrentHashMap();
+    public static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
 
     /**
      * 当前服务器连接的UserSession
@@ -70,11 +70,6 @@ public class WebSocketService {
      * 在线数
      */
     private static int onlineCount = 0;
-
-    /**
-     * 连接的session
-     */
-    private Session session;
 
     /**
      * 连接的用户
@@ -91,16 +86,18 @@ public class WebSocketService {
     @OnOpen
     public void onOpen(@PathParam("username") String username, Session session) {
         this.username = username;
-        this.session = session;
         //添加用户数
-        addOnlineCount();
+        addOnlineCount(getInfoByKey(username).getUserFlag());
         //sessionMap
-        sessionMap.put(username, this.session);
+        sessionMap.put(username, session);
         //userSessionMap
-        UserSession userSession = sessionToUserSession(username, this.session);
+        UserSession userSession = sessionToUserSession(username, session);
         userSessionMap.put(username, userSession);
     }
 
+    /**
+     * 监听断开连接
+     */
     @OnClose
     public void onClose() {
         sessionMap.remove(username);
@@ -110,7 +107,7 @@ public class WebSocketService {
     }
 
     /**
-     * 接受到信息
+     * 监听接受到信息
      *
      * @param jsonWsMessage 信息对象
      */
@@ -119,7 +116,7 @@ public class WebSocketService {
         try {
             WSMessage wsMessage = checkJsonMessage(jsonWsMessage);
             if (null == wsMessage) {
-                return;
+                throw new ResResultException(ResResultEnum.SYSTEM_ERR.getCode(), "信息格式错误");
             }
             String toUser = wsMessage.getToUser();
             if (!toUser.equalsIgnoreCase(WebSocketConstant.SEND_ALL_USER)) {
@@ -129,7 +126,7 @@ public class WebSocketService {
                 sendMessageAll(wsMessage);
             }
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage() + ":" + jsonWsMessage);
         }
     }
 
@@ -156,7 +153,6 @@ public class WebSocketService {
             //发送
             send(wsMessage, false);
             //pm要求一个用户可以多端接受信息(a用户分别在web和app都要接到推送)顾无论怎样都提醒其他服务器开始查找
-            //2020-12-16关闭集群
             stringRedisTemplate.convertAndSend(WebSocketConstant.REDIS_TOPIC, JSON.toJSONString(wsMessage));
         } catch (Exception e) {
             log.info(e.getMessage());
@@ -172,7 +168,6 @@ public class WebSocketService {
     public void sendMessageAll(WSMessage wsMessage) {
         wsMessage.setConvertAddress(serverConfig.getUrl());
         send(wsMessage, true);
-        //2020-12-16关闭集群
         stringRedisTemplate.convertAndSend(WebSocketConstant.REDIS_TOPIC, JSON.toJSONString(wsMessage));
     }
 
@@ -188,25 +183,22 @@ public class WebSocketService {
     /**
      * 添加在线用户数字
      */
-    public static synchronized void addOnlineCount() {
-        onlineCount++;
+    public static synchronized void addOnlineCount(String toUser) {
+        List<UserSession> userSessions = sessionHas(toUser, "");
+        if (userSessions.size() == 0) {
+            //若为集群这里可能需要更改为对库进行操作
+            onlineCount++;
+        }
     }
 
     /**
      * 减少当前用户数
      */
     public static synchronized void subOnlineCount() {
+        //若为集群这里可能需要更改为对库进行操作
         onlineCount--;
     }
 
-    /**
-     * 获取连接用户sessionMap
-     *
-     * @return Map<String, Session>
-     */
-    public static synchronized Map<String, Session> getClients() {
-        return sessionMap;
-    }
 
     /**
      * 检测数据
@@ -254,6 +246,7 @@ public class WebSocketService {
      * 发送个人消息
      *
      * @param wsMessage 消息对象
+     * @param isSendAll 是否发送所有人
      * @return 发送成功的UserSession集合
      */
     public static List<UserSession> send(WSMessage wsMessage, Boolean isSendAll) {
@@ -334,7 +327,7 @@ public class WebSocketService {
                     continue;
                 }
 
-                if (!userSession.getPushTypeList().contains(pushType)) {
+                if (StrUtil.isNotEmpty(pushType) && !userSession.getPushTypeList().contains(pushType)) {
                     continue;
                 }
 

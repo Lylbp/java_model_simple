@@ -1,4 +1,4 @@
-package com.lylbp.manager.elasticsearch;
+package com.lylbp.manager.elasticsearch.service;
 
 import com.lylbp.common.entity.DataPage;
 import org.elasticsearch.index.query.QueryBuilder;

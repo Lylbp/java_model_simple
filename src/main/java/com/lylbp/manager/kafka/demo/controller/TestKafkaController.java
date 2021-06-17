@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -29,14 +30,15 @@ import java.util.*;
 @RequestMapping("/test/kafka")
 @Api(tags = "测试kafka")
 @Slf4j
+@ConditionalOnProperty(prefix = "kafka", name = "bootstrap-servers")
 public class TestKafkaController {
     @Resource
-    private KafkaService kafkaProducer;
+    private KafkaService kafkaService;
 
     @PostMapping("/send")
     @ApiOperation(value = "发送信息")
     public ResResult<Boolean> send(@RequestParam String msg, @RequestParam String topic) {
-        kafkaProducer.send(msg, topic);
+        kafkaService.send(msg, topic);
 
         return ResResultUtil.success(true);
     }

@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 @Data
 public class JPushProperties {
     /**
+     * 是否开启
+     */
+    private Boolean enabled;
+
+    /**
      * appKey
      */
     private String appKey;

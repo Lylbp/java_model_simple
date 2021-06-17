@@ -1,9 +1,11 @@
-package com.lylbp.manager.elasticsearch;
+package com.lylbp.manager.elasticsearch.service;
 
 import cn.hutool.core.collection.ListUtil;
 import com.lylbp.common.entity.DataPage;
+import com.lylbp.manager.elasticsearch.BaseRepository;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -13,6 +15,7 @@ import org.springframework.data.elasticsearch.core.*;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ import java.util.Optional;
  * @author weiwenbin
  * @date 2020/11/13 上午9:45
  */
+@ConditionalOnProperty(prefix = "spring.data.elasticsearch.repositories", name = "enabled", havingValue = "true")
 public class BaseServiceImpl<R extends BaseRepository<T, ID>, T, ID> implements BaseService<T, ID> {
     @Resource
     protected R baseRepository;

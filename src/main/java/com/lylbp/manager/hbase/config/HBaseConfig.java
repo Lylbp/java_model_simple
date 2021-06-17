@@ -6,6 +6,8 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,8 @@ import java.io.IOException;
  * @date 2020/11/2 上午10:49
  */
 @Configuration
-@EnableConfigurationProperties(HbaseProperties.class)
+@EnableConfigurationProperties({HbaseProperties.class, ZookeeperProperties.class})
+@ConditionalOnProperty(prefix = "hbase", name = "enabled", havingValue = "true")
 public class HBaseConfig {
     @Resource
     private HbaseProperties hbaseProperties;

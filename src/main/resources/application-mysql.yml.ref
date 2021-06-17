@@ -10,7 +10,7 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-  #redis配置（无则不配）
+  #redis配置
   redis:
     #Redis服务器地址
     host: 127.0.0.1
@@ -32,18 +32,20 @@ spring:
         max-active: 50
         #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
-  #es（无则不配 并删除manger中的包）
+  #es
   elasticsearch:
     rest:
-      uris: http://localhost:9200
+      uris: localhost:9200
       read-timeout: 10000
+  #Data配置
   data:
     elasticsearch:
       repositories:
         #开启仓库(默认值:true)
-        enabled: true
+        enabled: false
+  #kafka
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers:
     producer:
       # 发生错误后， 消息重发的次数。
       retries: 0
@@ -77,6 +79,51 @@ spring:
       concurrency: 5
       #listner负责ack，每调用一次，就立即commit
       ack-mode: manual_immediate
+  #quartz定时任务调度框架
+  quartz:
+    #持久化到数据库
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: NEVER
+    properties:
+      org:
+        quartz:
+          scheduler:
+            #调度器实例名称
+            instancName: clusteredScheduler
+            #默认主机名和时间戳生成实例ID,可以是任何字符串，但对于所有调度程序来说，必须是唯一的 对应qrtz_scheduler_state INSTANCE_NAME字段
+            instanceId: AUTO
+          jobStore:
+            #调度信息存储处理类
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            #数据库方言(使用完全兼容JDBC的驱动)
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            #数据库表前缀
+            tablePrefix: QRTZ_
+            #是否打开群集功能
+            isClustered: true
+            #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
+            clusterCheckinInterval: 10000
+            #是否将JobDataMap中的属性转为字符串存储
+            useProperties: false
+          threadPool:
+            #指定线程池实现类，对调度器提供固定大小的线程池
+            class: org.quartz.simpl.SimpleThreadPool
+            #设置并发线程数量
+            threadCount: 10
+            #指定线程优先级
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+  #activiti工作流
+  activiti:
+    #自动更新数据库结构 不配置代表不启动activiti
+    database-schema-update: true
+    #自动检查、部署流程定义文件
+    check-process-definitions: false
+    # 检测身份信息表是否存在
+    db-identity-used: false
+#    #流程定义文件存放目录
+#    process-definition-location-prefix: classpath:/processes/
 
 #knife4j文档注释
 knife4j:
@@ -94,13 +141,15 @@ project:
 
 #minio
 minio:
+  enabled: false
   accessKey: BCIAIOSFODNN7EXAMPLE
   secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
   endpoint: http://192.168.1.192:9000/
   notAllow: php,java,class
 
-#hbase（无则不配 并删除manger中的包）
+#hbase
 hbase:
+  enabled: false
   zookeeper:
     quorum: Alex
     property:
@@ -109,8 +158,9 @@ zookeeper:
   znode:
     parent: /hbase
 
-#极光推送配置（无则不配）
+#极光推送配置
 jpush:
+  enabled: false
   appKey: 417f19361216299f3f2c45d0
   masterKey: 40c46b13eaf5f6ea0d307669
 

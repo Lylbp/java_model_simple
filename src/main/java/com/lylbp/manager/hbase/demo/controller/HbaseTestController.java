@@ -15,6 +15,7 @@ import com.lylbp.manager.hbase.handler.exception.HbaseAnnotationException;
 import com.lylbp.manager.hbase.service.HBaseBeanService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequestMapping("/test/hbase")
 @RestController
+@ConditionalOnProperty(prefix = "hbase", name = "enabled", havingValue = "true")
 public class HbaseTestController {
     @Resource
     private HBaseBeanService<HbaseTestUser> hbaseService;

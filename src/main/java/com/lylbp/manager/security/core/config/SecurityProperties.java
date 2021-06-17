@@ -12,7 +12,6 @@ import java.util.List;
  * @date 2020/9/1 上午11:28
  */
 @ConfigurationProperties(prefix = "security")
-@Component
 @Data
 public class SecurityProperties {
     /**

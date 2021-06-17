@@ -6,6 +6,7 @@ import io.minio.MinioClient;
 import io.minio.errors.InvalidEndpointException;
 import io.minio.errors.InvalidPortException;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
  */
 @AllArgsConstructor
 @Configuration
+@ConditionalOnProperty(prefix = "minio", name = "enabled")
 public class MinioConfiguration {
     @Resource
     private MinioProperties minioProperties;

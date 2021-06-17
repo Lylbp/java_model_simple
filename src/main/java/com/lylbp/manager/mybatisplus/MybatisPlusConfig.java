@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
+ * MybatisPlusConfig
+ *
  * @author weiwenbin
  */
 @Configuration

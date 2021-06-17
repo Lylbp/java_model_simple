@@ -6,6 +6,7 @@ import com.lylbp.manager.jpush.enums.PlatformEnum;
 import com.lylbp.manager.jpush.service.JPUshService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/test/jpush")
 @Api(tags = "jpushTest")
+@ConditionalOnProperty(prefix = "jpush", name = "enabled", havingValue = "true")
 public class JpushTestController {
     @Resource
     private JPUshService jPUshService;

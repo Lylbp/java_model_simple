@@ -21,4 +21,9 @@ public class ProjectConstant {
      * redis所有权限
      */
     public static final String REDIS_ALL_PERMISSION = "all_permission";
+
+    /**
+     * 用户token存储前坠
+     */
+    public static final String REDIS_USER_TOKEN_PRE = "JAVA_MODEL_SIMPLE:USER:TOKEN:";
 }

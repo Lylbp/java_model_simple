@@ -4,6 +4,7 @@ import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.entity.ResResult;
 import com.lylbp.manager.minio.service.MinioService;
 import io.swagger.annotations.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/demo/minio")
 @Api(tags = "文件存储相关")
+@ConditionalOnProperty(prefix = "minio", name = "enabled")
 public class MinioController {
     @Resource
     private MinioService minioService;

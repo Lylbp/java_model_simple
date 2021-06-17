@@ -5,6 +5,7 @@ import com.lylbp.common.utils.TokenUtil;
 import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.enums.ResResultEnum;
+import com.lylbp.manager.redis.service.RedisService;
 import com.lylbp.project.dto.AdminLoginDTO;
 import com.lylbp.manager.security.core.config.SecurityProperties;
 import com.lylbp.project.entity.SecurityUser;
@@ -31,7 +32,10 @@ public class AuthController {
     private AuthService authService;
 
     @Resource
-    SecurityProperties securityProperties;
+    private RedisService redisService;
+
+    @Resource
+    private SecurityProperties securityProperties;
 
     @PostMapping("/login")
     @ApiOperation("后台用户登录")
@@ -39,13 +43,14 @@ public class AuthController {
         SecurityUser securityUser = authService.login(adminLoginDTO.getLoginName(), adminLoginDTO.getPwd());
 
         //不为超级管理员且权限验证已开启且当前权限为空
-        if (!securityUser.getIsSupperAdmin()){
+        if (!securityUser.getIsSupperAdmin()) {
             if (securityProperties.getEnabled() && securityUser.getAuthorities().size() == 0) {
                 return ResResultUtil.error(ResResultEnum.NO_ANY_AUTHENTICATION);
             }
         }
-
+        //token存redis
         String token = TokenUtil.createToken(securityUser, ProjectConstant.JWT_EXPIRE_TIME);
+        redisService.strSet(ProjectConstant.REDIS_USER_TOKEN_PRE + token, token, ProjectConstant.JWT_EXPIRE_TIME);
         return ResResultUtil.success(token);
     }
 }

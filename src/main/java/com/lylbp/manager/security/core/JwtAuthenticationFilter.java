@@ -60,6 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
+        //token转SecurityUser
         SecurityUser securityUser = myUserDetailsService.token2SecurityUser(request);
         if (ObjectUtil.isEmpty(securityUser)) {
             ResponseUtil.outJson(
@@ -69,10 +70,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-
-        if (!securityProperties.getEnabled()) {
-            chain.doFilter(request, response);
-        } else {
+        //若安全验证开放
+        if (securityProperties.getEnabled()) {
             //设置权限
             Collection<? extends GrantedAuthority> authorities = securityUser.getAuthorities();
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -83,8 +82,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             //设置用户登录状态
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            chain.doFilter(request, response);
         }
+
+        chain.doFilter(request, response);
     }
 }

@@ -20,6 +20,7 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -38,6 +39,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@ConditionalOnProperty(prefix = "spring.activiti", name = "database-schema-update", havingValue = "true")
 public class ModelServiceImpl implements ModelService, ModelDataJsonConstants {
     @Resource
     private RepositoryService repositoryService;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lylbp.manager.activity.service.ModelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping(value = "/modeler/model")
 @Api(tags = "模型相关(前端无需接入)")
+@ConditionalOnProperty(prefix = "spring.activiti", name = "database-schema-update", havingValue = "true")
 public class ModelerController {
     @Resource
     private ModelService modelService;

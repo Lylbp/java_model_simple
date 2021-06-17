@@ -2,6 +2,7 @@ package com.lylbp.manager.swagger;
 
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -35,6 +36,7 @@ public class SwaggerConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "spring.activiti", name = "database-schema-update", havingValue = "true")
     public Docket activity() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("activityDemo", "activityDemo", "韦文彬"))
@@ -46,6 +48,7 @@ public class SwaggerConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "spring.data.elasticsearch.repositories", name = "enabled", havingValue = "true")
     public Docket es() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("esDemo", "esDemo", "韦文彬"))
@@ -57,6 +60,7 @@ public class SwaggerConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "minio", name = "enabled")
     public Docket minio() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("minioDemo", "minioDemo", "韦文彬"))
@@ -68,6 +72,7 @@ public class SwaggerConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "hbase", name = "enabled", havingValue = "true")
     public Docket hbaseDemo() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("hbaseDemo", "hbaseDemo", "韦文彬"))
@@ -79,6 +84,7 @@ public class SwaggerConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "jpush", name = "enabled", havingValue = "true")
     public Docket jpushDemo() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("jpushDemo", "JpushDemo", "韦文彬"))
@@ -90,6 +96,7 @@ public class SwaggerConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "kafka", name = "bootstrap-servers")
     public Docket kafkaDemo() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("kafkaDemo", "kafkaDemo", "韦文彬"))
@@ -97,17 +104,6 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.kafka.demo.controller"))
                 .build()
                 .groupName("kafkaDemo")
-                .pathMapping("/");
-    }
-
-    @Bean
-    public Docket test() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo("测试", "测试", "韦文彬"))
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller.test"))
-                .build()
-                .groupName("测试")
                 .pathMapping("/");
     }
 

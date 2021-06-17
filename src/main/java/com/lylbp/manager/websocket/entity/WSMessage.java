@@ -47,10 +47,10 @@ public class WSMessage {
     @ApiModelProperty("实际信息")
     private String message;
 
-    @ApiModelProperty("要发送的平台")
+    @ApiModelProperty("要发送的平台 为null发送所有")
     private List<PlatformEnum> platformEnums;
 
-    @ApiModelProperty("唤醒地址")
+    @ApiModelProperty("唤醒地址 集群时当唤醒地址与当前服务器地址一致时不再重复发送")
     private String convertAddress;
 
     @ApiModelProperty("是否发送成功")

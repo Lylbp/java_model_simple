@@ -18,6 +18,8 @@ import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.manager.jpush.config.JPushConfig;
 import com.lylbp.manager.jpush.enums.PlatformEnum;
 import com.lylbp.manager.jpush.service.JPUshService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
@@ -27,6 +29,8 @@ import java.util.Map;
  * @author weiwenbin
  * @date 2020/5/28 上午9:50
  */
+@ConditionalOnProperty(prefix = "jpush", name = "enabled", havingValue = "true")
+@Service
 public class JPUshServiceImp implements JPUshService {
     protected JPushConfig jPushConfig;
 

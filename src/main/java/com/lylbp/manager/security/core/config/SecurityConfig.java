@@ -3,6 +3,7 @@ package com.lylbp.manager.security.core.config;
 import com.lylbp.manager.security.core.JwtAuthenticationFilter;
 import com.lylbp.manager.security.core.handler.ProjectAccessDeniedHandler;
 import com.lylbp.manager.security.core.handler.ProjectAuthenticationEntryPoint;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,12 +21,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.annotation.Resource;
 
 /**
- * springsecurity 配置文件
+ * spring-security 配置文件
  *
  * @author weiwenbin
  * @date 2020/7/1 上午11:18
  */
 @Configuration
+@EnableConfigurationProperties({SecurityProperties.class})
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
@@ -52,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 忽略拦截url或静态资源文件夹 - web.ignoring(): 会直接过滤该url - 将不会经过Spring Security过滤器链
      * http.permitAll(): 不会绕开springsecurity验证，相当于是允许该路径通过
      *
-     * @param web
+     * @param web WebSecurity
      * @throws Exception
      */
     @Override
@@ -66,7 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * @param http
+     * configure
+     *
+     * @param http http
      * @throws Exception
      */
     @Override
@@ -102,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             //前面没有匹配上的请求，全部需要认证
             http.authorizeRequests().anyRequest().authenticated().and();
-            // 禁用缓存
+            //禁用缓存
             http.headers().cacheControl();
             //token过滤器
             http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

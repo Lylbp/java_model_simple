@@ -12,6 +12,11 @@ import java.util.List;
 @Data
 public class MinioProperties {
     /**
+     * 是否开启
+     */
+    private Boolean enabled;
+
+    /**
      * accessKey
      */
     private String accessKey;

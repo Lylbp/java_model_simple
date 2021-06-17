@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.activiti.engine.repository.Model;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/myModeler")
 @Api(tags = "自定义模型相关")
+@ConditionalOnProperty(prefix = "spring.activiti", name = "database-schema-update", havingValue = "true")
 public class MyModelerController {
     @Resource
     private ModelService modelService;

@@ -2,7 +2,7 @@ package com.lylbp.manager.elasticsearch.demo.service.impl;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.manager.elasticsearch.BaseServiceImpl;
+import com.lylbp.manager.elasticsearch.service.BaseServiceImpl;
 import com.lylbp.common.entity.DataPage;
 import com.lylbp.manager.elasticsearch.demo.entity.ESTestUser;
 import com.lylbp.manager.elasticsearch.demo.repository.TestUserRepository;
@@ -13,6 +13,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.Map;
  * @date 2020/11/12 下午5:23
  */
 @Service
+@ConditionalOnProperty(prefix = "spring.data.elasticsearch.repositories", name = "enabled", havingValue = "true")
 public class TestUserServiceImpl extends BaseServiceImpl<TestUserRepository, ESTestUser, String> implements TestUserService {
     @Override
     public List<ESTestUser> selectSearchHitsByScroll(Map<String, Object> params, DataPage<ESTestUser> dataPage) {
