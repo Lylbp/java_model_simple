@@ -1,6 +1,6 @@
 #服务器端口号
 server:
-  port: 8073
+  port: 8074
 
 #spring基本配置
 spring:
@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
   #redis配置
   redis:
     #Redis服务器地址
@@ -45,13 +45,16 @@ spring:
         enabled: false
   #kafka
   kafka:
-    bootstrap-servers:
+    #是否开启
+    enable: false
+    bootstrap-servers: 192.168.1.203:9092
     producer:
       # 发生错误后， 消息重发的次数。
       retries: 0
       #当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算。
       batch-size: 16384
       # 设置生产者内存缓冲区的大小。
+
       buffer-memory: 33554432
       # 键的序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -84,7 +87,7 @@ spring:
     #持久化到数据库
     job-store-type: jdbc
     jdbc:
-      initialize-schema: NEVER
+      initialize-schema: ALWAYS
     properties:
       org:
         quartz:
@@ -116,7 +119,11 @@ spring:
             threadsInheritContextClassLoaderOfInitializingThread: true
   #activiti工作流
   activiti:
-    #自动更新数据库结构 不配置代表不启动activiti
+    #    自动更新数据库结构 不配置代表不启动activiti
+    #    flase：默认值。activiti在启动时，对比数据库表中保存的版本，如果没有表或者版本不匹配，将抛出异常
+    #    true： activiti会对数据库中所有表进行更新操作。如果表不存在，则自动创建
+    #    create_drop： 在activiti启动时创建表，在关闭时删除表（必须手动关闭引擎，才能删除表）
+    #    drop-create： 在activiti启动时删除原来的旧表，然后在创建新表（不需要手动关闭引擎）
     database-schema-update: true
     #自动检查、部署流程定义文件
     check-process-definitions: false
@@ -168,9 +175,14 @@ jpush:
 security:
   #是否开启
   enabled: true
-  #权限管理security-open为true需配置所有用户都可访问的静态资源路径
+  #权限管理-enabled为true需配置所有用户都可访问的静态资源路径
   allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
     /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
     classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
-  #权限管理-security-open为true需配置所有用户都可访问的api路径
+  #权限管理-enabled为true需配置所有用户都可访问的api路径
   allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**
+
+logging:
+  #线上环境配置INFO模式
+  level:
+    com.lylbp: DEBUG

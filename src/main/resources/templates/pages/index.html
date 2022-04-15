@@ -1,78 +1,203 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Test My WebSocket</title>
+    <title th:text="${name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" th:src="@{/js/jquery_v3.3.1.js}"></script>
 </head>
-
-
 <body>
-TestWebSocket
-<input  id="text" type="text" />
-<button onclick="send()">SEND MESSAGE</button>
-<button onclick="closeWebSocket()">CLOSE</button>
-<div id="message"></div>
-</body>
+<div>
+    ws连接地址:<input type="text" id="url" style="width: 300px" th:value="${url}"><br/>
+    当前用户:<input type="text" id="currentUser" style="width: 300px" th:value="${userFlag}"><br/>
+    <button id="connectWs">连接ws</button>
+    <br/>
+    <br/>
+    发给:<input type="text" id="toUser"><br/>
+    消息:<input type="text" id="msgInput" style="width: 400px;"><br/>
+    推送类型:<input type="text" id="pushType" style="width: 400px;"><br/>
+    <input type="submit" id="sendMsg" value="发送"/>
+</div>
+<div id="messages"></div>
 
 <script type="text/javascript">
-    var websocket = null;
+    //避免重复连接
+    let lockReconnect = false;
+    //webSocket对象
+    let webSocket;
+    //wsUrl
+    let wsUrl;
+    //时间间隔
+    let tt;
 
-
-    //判断当前浏览器是否支持WebSocket
-    if('WebSocket' in window){
-        //连接WebSocket节点
-        websocket = new WebSocket("ws://localhost:8072/webSocket/001");
-    }
-    else{
-        alert('Not support websocket')
-    }
-
-
-    //连接发生错误的回调方法
-    websocket.onerror = function(){
-        setMessageInnerHTML("error");
-    };
-
-
-    //连接成功建立的回调方法
-    websocket.onopen = function(event){
-        setMessageInnerHTML("open");
-    }
-
-
-    //接收到消息的回调方法
-    websocket.onmessage = function(event){
-        setMessageInnerHTML(event.data);
-    }
-
-
-    //连接关闭的回调方法
-    websocket.onclose = function(){
-        setMessageInnerHTML("close");
-    }
-
-
-    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-    window.onbeforeunload = function(){
-        websocket.close();
+    //心跳检测
+    let heartCheck = {
+        timeout: 3000,
+        timeoutObj: null,
+        serverTimeoutObj: null,
+        start: function () {
+            let self = this;
+            this.timeoutObj && clearTimeout(this.timeoutObj);
+            this.serverTimeoutObj && clearTimeout(this.serverTimeoutObj);
+            this.timeoutObj = setTimeout(function () {
+                //这里发送一个心跳，后端收到后，返回一个心跳消息
+                if (webSocket.readyState === 1) {
+                    const map = {};
+                    map['from'] = "ping";
+                    map['toUser'] = "test";
+                    map['message'] = "发送一个心跳成功";
+                    map['pushType'] = "test";
+                    map['fromUser'] = "test";
+                    const jsonStr = JSON.stringify(map);
+                    webSocket.send(jsonStr);
+                    console.log('发送一个心跳成功');
+                }
+                //超时重连
+                self.serverTimeoutObj = setTimeout(function () {
+                    reconnect(wsUrl);
+                }, self.timeout);
+            }, this.timeout)
+        }
     }
 
+    //重连机制
+    function reconnect(wsUrl) {
+        if (lockReconnect) {
+            return;
+        }
+        lockReconnect = true;
+        //没连接上会一直重连，设置延迟避免请求过多
+        tt && clearTimeout(tt);
+        tt = setTimeout(function () {
+            console.log('执行重置');
+            createWebSocket(wsUrl, false);
+            lockReconnect = false;
+        }, 3000);
+    }
 
-    //将消息显示在网页上
-    function setMessageInnerHTML(innerHTML){
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    /**
+     * 创建WebSocket
+     */
+    function createWebSocket(wsUrl, closeBefore) {
+        //页面未刷新直接再次连接新用户，将前webSocket关闭并重置为null
+        if (webSocket && closeBefore) {
+            webSocket.close();
+            webSocket = null;
+        }
+        try {
+            //建立websocket对象
+            webSocket = new WebSocket(wsUrl);
+        } catch (e) {
+            alert('websocket连接失败');
+        }
+        //报错触发
+        webSocket.onerror = function (event) {
+            onError(event)
+        };
+        //连接触发
+        webSocket.onopen = function (event) {
+            onOpen(event)
+        };
+        //接收到信息触发
+        webSocket.onmessage = function (event) {
+            onMessage(event)
+        };
+        //关闭时触发
+        webSocket.onclose = function (event) {
+            onClose(event)
+        };
     }
 
 
-    //关闭连接
-    function closeWebSocket(){
-        websocket.close();
+    /**
+     * 接收到信息触发
+     */
+    function onMessage(event) {
+        let msg = event.data
+        $("#messages").append('<br />' + msg);
+        heartCheck.start();
+    }
+
+    /**
+     * 连接触发
+     */
+    function onOpen(event) {
+        heartCheck.start();
+    }
+
+    /**
+     * 报错触发
+     */
+    function onError(event) {
+        const wsUrl = $('#wsUrl').val();
+        let userName = $('#currentUser').val();
+        $("#messages").append('<br />' + userName + '已退出连接');
+        if (event.data === undefined || event.data == null) {
+            alert(wsUrl + userName + '连接失败');
+        } else {
+            alert(event.data);
+            alert(wsUrl + userName + '连接失败');
+        }
+        webSocket.close();
+    }
+
+    /**
+     * 关闭触发
+     */
+    function onClose(event) {
+        console.log("关闭触发")
     }
 
 
-    //发送消息
-    function send(){
-        var message = document.getElementById('text').value;
-        websocket.send(message);
-    }
+    /**
+     * 连接WebSocket
+     */
+    $("#connectWs").on("click", function () {
+        let url = $('#url').val();
+        let userName = $('#currentUser').val();
+        if (url === '') {
+            alert("ws连接地址不能为空");
+            return;
+        }
+        if (userName === '') {
+            alert("当前用户不能为空");
+            return;
+        }
+        wsUrl = url + userName;
+        //建立websocket对象
+        createWebSocket(wsUrl, true);
+        $("#messages").text($('#currentUser').val() + '连接成功');
+    });
+
+    /**
+     * 发送信息
+     */
+    $("#sendMsg").on("click", function () {
+        if (webSocket == null) {
+            alert("请先连接websocket");
+            return;
+        }
+        let msg = $('#msgInput').val();
+        let toUser = $('#toUser').val();
+        let pushType = $('#pushType').val();
+        let userName = $('#currentUser').val();
+        if (!toUser || toUser === '') {
+            toUser = "All";
+        }
+        if (msg && msg !== '' && toUser && toUser !== '') {
+            const map = {};
+            map['from'] = "ping";
+            map['toUser'] = toUser;
+            map['message'] = msg;
+            map['pushType'] = pushType;
+            map['fromUser'] = userName;
+            const jsonStr = JSON.stringify(map);
+            alert(jsonStr);
+            webSocket.send(jsonStr);
+        } else {
+            alert("参数不能为空");
+        }
+    })
 </script>
+</body>
 </html>

@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Component
 @Slf4j
-@ConditionalOnProperty(prefix = "kafka", name = "bootstrap-servers")
+@ConditionalOnProperty(prefix = "spring.kafka", name = "bootstrap-servers")
 public class KafkaService {
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;

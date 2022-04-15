@@ -30,7 +30,7 @@ import java.util.*;
 @RequestMapping("/test/kafka")
 @Api(tags = "测试kafka")
 @Slf4j
-@ConditionalOnProperty(prefix = "kafka", name = "bootstrap-servers")
+@ConditionalOnProperty(prefix = "spring.kafka", name = "enable", havingValue = "true" )
 public class TestKafkaController {
     @Resource
     private KafkaService kafkaService;

@@ -1,10 +1,10 @@
 package com.lylbp.project.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.lylbp.common.interfaces.IBaseEnum;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -34,6 +34,10 @@ public enum TaskStatusEnum {
         this.code = code;
         this.name = name;
     }
+
+    public static Map<String, String> enumMap =
+            Arrays.stream(TaskStatusEnum.values()).collect(Collectors.toMap(TaskStatusEnum::getCode, TaskStatusEnum::getName));
+
 
     public static String getByCode(String pCode) {
         TaskStatusEnum enumByCode = getEnumByCode(pCode);
