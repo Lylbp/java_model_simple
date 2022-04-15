@@ -14,6 +14,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
+ * FileUtil
+ *
  * @author weiwenbin
  * @date 2020-03-31 09:53
  */

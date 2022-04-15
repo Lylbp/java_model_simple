@@ -45,7 +45,7 @@ public class MessageReceiver {
                 sendMessageAll(wsMessage);
             }
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
@@ -67,6 +67,6 @@ public class MessageReceiver {
         WebSocketService.send(wsMessage, true);
 
         String ipAddr = serverConfig.getUrl();
-        log.info("[all]redis收到广播消息，已发送给{}服务所所连接人 ", ipAddr);
+        log.debug("[all]redis收到广播消息，已发送给{}服务所所连接人 ", ipAddr);
     }
 }

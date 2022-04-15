@@ -7,24 +7,30 @@ import com.lylbp.manager.hbase.entity.HClazzMapping;
 import com.lylbp.manager.hbase.entity.HPage;
 import com.lylbp.manager.hbase.handler.DefaultHandler;
 import com.lylbp.manager.hbase.handler.FieldMapper;
+import com.lylbp.manager.hbase.handler.HRowHandler;
 import com.lylbp.manager.hbase.handler.exception.HandlerException;
 import com.lylbp.manager.hbase.handler.exception.HbaseAnnotationException;
 import com.lylbp.manager.hbase.util.HBaseUtil;
-import com.lylbp.manager.hbase.handler.HRowHandler;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.hadoop.hbase.*;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.client.coprocessor.AggregationClient;
 import org.apache.hadoop.hbase.client.coprocessor.LongColumnInterpreter;
-import org.apache.hadoop.hbase.filter.*;
+import org.apache.hadoop.hbase.filter.Filter;
+import org.apache.hadoop.hbase.filter.FilterList;
+import org.apache.hadoop.hbase.filter.PageFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * HbaseService
@@ -68,7 +74,7 @@ public class HBaseBeanService<T> {
         try {
             tableExists = hBaseAdmin.tableExists(tableName);
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
         return tableExists;
     }
@@ -513,7 +519,7 @@ public class HBaseBeanService<T> {
      */
     public HClazzMapping<T> getHClazzMapping(Class<T> clazz) throws HbaseAnnotationException, InstantiationException {
         //获取表名
-        com.lylbp.manager.hbase.annotion.HTable hTableAnnotation = clazz.getAnnotation(HTable.class);
+        HTable hTableAnnotation = clazz.getAnnotation(HTable.class);
         if (null == hTableAnnotation) {
             throw new HbaseAnnotationException(String.format("%s中无法通过HTable注解确认表名", clazz));
         }

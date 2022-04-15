@@ -2,7 +2,6 @@ package com.lylbp.manager.hbase.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * Zookeeper的配置项
@@ -16,7 +15,7 @@ public class ZookeeperProperties {
     /**
      * Znode配置
      */
-    private ZookeeperProperties.Znode znode = new ZookeeperProperties.Znode();
+    private Znode znode = new Znode();
 
     public static class Znode {
         /**

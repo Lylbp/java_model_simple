@@ -155,7 +155,7 @@ public class WebSocketService {
             //pm要求一个用户可以多端接受信息(a用户分别在web和app都要接到推送)顾无论怎样都提醒其他服务器开始查找
             stringRedisTemplate.convertAndSend(WebSocketConstant.REDIS_TOPIC, JSON.toJSONString(wsMessage));
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
 
     }
@@ -291,12 +291,12 @@ public class WebSocketService {
                 Session session = userSession.getSession();
                 session.getAsyncRemote().sendText(jsonWsMessage);
 
-                log.info("[toUser]发送消息成功: {},给用户:{}", wsMessage.getMessage(), userSession.getUserName());
+                log.debug("[toUser]发送消息成功: {},给用户:{}", wsMessage.getMessage(), userSession.getUserName());
             }
 
             return successUserSessions;
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             return new ArrayList<>(10);
         }
     }

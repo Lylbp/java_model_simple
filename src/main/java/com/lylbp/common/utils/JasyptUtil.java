@@ -1,6 +1,5 @@
 package com.lylbp.common.utils;
 
-import cn.hutool.core.util.StrUtil;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 
@@ -58,5 +57,4 @@ public class JasyptUtil {
         System.out.println(encPwd);
         System.out.println(decPwd);
     }
-
 }

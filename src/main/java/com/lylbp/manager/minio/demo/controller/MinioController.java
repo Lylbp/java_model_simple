@@ -1,9 +1,10 @@
 package com.lylbp.manager.minio.demo.controller;
 
-import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.entity.ResResult;
+import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.manager.minio.service.MinioService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

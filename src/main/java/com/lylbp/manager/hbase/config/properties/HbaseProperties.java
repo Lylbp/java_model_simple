@@ -20,7 +20,7 @@ public class HbaseProperties {
     /**
      * zookeeper配置
      */
-    private HbaseProperties.Zookeeper zookeeper = new HbaseProperties.Zookeeper();
+    private Zookeeper zookeeper = new Zookeeper();
 
     @Data
     public static class Zookeeper {
@@ -32,7 +32,7 @@ public class HbaseProperties {
         /**
          * zookeeper的Property配置
          */
-        private HbaseProperties.Property property = new HbaseProperties.Property();
+        private Property property = new Property();
     }
 
     @Data

@@ -1,12 +1,12 @@
 package com.lylbp.manager.quartz.util;
 
 
-import java.util.Date;
-import java.util.Set;
-
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
+
+import java.util.Date;
+import java.util.Set;
 
 /**
  * Quartz工具类
@@ -67,8 +67,6 @@ public class QuartzUtils {
                                  String jobGroupName, String triggerName, String triggerGroupName)
             throws SchedulerException {
         Class<? extends Job> jobClazz = getClass(jobClassName).getClass();
-        //启动调度器
-        scheduler.start();
         //构造任务
         JobDetail jobDetail = JobBuilder.newJob(jobClazz)
                 .withIdentity(jobName, jobGroupName)
@@ -81,7 +79,12 @@ public class QuartzUtils {
         try {
             //将作业添加到调度器,返回为null添加失败
             Date date = scheduler.scheduleJob(jobDetail, trigger);
-            return null != date;
+            boolean isSuccess = null != date;
+            if (isSuccess){
+                //启动调度器
+                scheduler.start();
+            }
+            return isSuccess;
         } catch (SchedulerException e) {
             log.error(e.getMessage());
             return false;

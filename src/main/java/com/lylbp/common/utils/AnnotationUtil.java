@@ -13,7 +13,9 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 注解工具类
@@ -40,7 +42,7 @@ public class AnnotationUtil {
         MetadataReaderFactory metaReader = new CachingMetadataReaderFactory(resourceLoader);
         Resource[] resources = resolver.getResources(classPath);
 
-        for (org.springframework.core.io.Resource r : resources) {
+        for (Resource r : resources) {
             MetadataReader reader = metaReader.getMetadataReader(r);
             resMap = resolveClass(reader, resMap, tagAnnotationClass);
         }

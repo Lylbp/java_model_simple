@@ -60,12 +60,12 @@ public class FfmpegUtil {
         commands.add("-y");
         commands.add("-i");
         commands.add(videoPath);
-//        commands.add("-vcodec");
-//        commands.add("copy");
-//        commands.add("-acodec");
-//        commands.add("copy");
-//        commands.add("-vbsf");
-//        commands.add("h264_mp4toannexb");
+        commands.add("-vcodec");
+        commands.add("copy");
+        commands.add("-acodec");
+        commands.add("copy");
+        commands.add("-vbsf");
+        commands.add("h264_mp4toannexb");
         commands.add(savePath);
 
         Process process = startCommand(commands, new ProcessBuilder());
@@ -310,11 +310,11 @@ public class FfmpegUtil {
             Process p = builder.start();
             String errMsg = readErr(p.getErrorStream());
             if (ObjectUtil.isNotEmpty(errMsg)) {
-                log.info(errMsg);
+                log.debug(errMsg);
             }
             return p;
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }

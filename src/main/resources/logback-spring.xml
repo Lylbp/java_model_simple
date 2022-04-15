@@ -8,14 +8,20 @@
     <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
 
     <contextName>logback</contextName>
+
+    <!-- 定义全局参数常量 -->
     <!-- name的值是变量的名称，value的值时变量定义的值。通过定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。 -->
     <springProperty scope="context" name="logSavePath" source="project.log-save-path"/>
-    <property name="logPath" value="${logSavePath}" />
-
+    <property name="logPath" value="${logSavePath}"/>
+    <!-- 控制台输出格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <!-- 文件日志输出格式 -->
+    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39}:%line : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <!--    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} [%file:%line] - %msg%n"/>-->
     <!-- 配置日志文件大小 -->
-    <property name="logSize" value="50MB" />
+    <property name="logSize" value="50MB"/>
     <!-- 设置日志保留的时间，单位为天 -->
-    <property name="maxHistory" value="100" />
+    <property name="maxHistory" value="100"/>
 
 
     <!-- 彩色日志 -->
@@ -25,10 +31,6 @@
                     converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
     <conversionRule conversionWord="wEx"
                     converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
-    <!-- 彩色日志格式 -->
-    <property name="CONSOLE_LOG_PATTERN"
-              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
-
 
     <!--输出到控制台-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -37,6 +39,7 @@
             <level>debug</level>
         </filter>
         <encoder>
+            <!-- 输出格式 -->
             <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
             <!-- 设置字符集 -->
             <charset>UTF-8</charset>
@@ -52,16 +55,17 @@
         <file>${logPath}/log_debug.log</file>
         <!--日志文件输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 设置字符集 -->
+            <!-- 输出格式 -->
+            <Pattern>${FILE_LOG_PATTERN}</Pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 日志归档 -->
-            <fileNamePattern>${logPath}/debug/log-debug-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${logSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>${logPath}/debug/log-debug-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <!--归档大小-->
+            <maxFileSize>${logSize}</maxFileSize>
             <!--日志文件保留天数-->
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
@@ -79,16 +83,17 @@
         <file>${logPath}/log_info.log</file>
         <!--日志文件输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- 输出格式 -->
+            <Pattern>${FILE_LOG_PATTERN}</Pattern>
+            <!-- 设置字符集 -->
             <charset>UTF-8</charset>
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 每天日志归档路径以及格式 -->
-            <fileNamePattern>${logPath}/info/log-info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${logSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>${logPath}/info/log-info-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <!--归档大小-->
+            <maxFileSize>${logSize}</maxFileSize>
             <!--日志文件保留天数-->
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
@@ -106,15 +111,16 @@
         <file>${logPath}/log_warn.log</file>
         <!--日志文件输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
+            <!-- 输出格式 -->
+            <Pattern>${FILE_LOG_PATTERN}</Pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logPath}/warn/log-warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${logSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/warn/log-warn-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <!--归档大小-->
+            <maxFileSize>${logSize}</maxFileSize>
             <!--日志文件保留天数-->
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
@@ -133,15 +139,16 @@
         <file>${logPath}/log_error.log</file>
         <!--日志文件输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
+            <!-- 输出格式 -->
+            <Pattern>${FILE_LOG_PATTERN}</Pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
         </encoder>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logPath}/error/log-error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${logSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/error/log-error-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <!--归档大小-->
+            <maxFileSize>${logSize}</maxFileSize>
             <!--日志文件保留天数-->
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
@@ -155,6 +162,7 @@
 
     <!-- 时间滚动输出  操作日志 -->
     <appender name="ACTION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志记录器的滚动策略，按日期记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${logPath}/actionLog/actionLog.%d{yyyy-MM-dd}.log</FileNamePattern>
             <maxHistory>${maxHistory}</maxHistory>
@@ -175,8 +183,8 @@
     </logger>
 
     <!--开发环境:打印控制台-->
-    <logger name="com.lylbp.project.mapper" level="debug">
-    </logger>
+    <!--    <logger name="com.dar.project.mapper" level="debug">-->
+    <!--    </logger>-->
 
     <root level="info">
         <appender-ref ref="CONSOLE" />

@@ -2,11 +2,11 @@ package com.lylbp.manager.elasticsearch.demo.service.impl;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.manager.elasticsearch.service.BaseServiceImpl;
 import com.lylbp.common.entity.DataPage;
 import com.lylbp.manager.elasticsearch.demo.entity.ESTestUser;
 import com.lylbp.manager.elasticsearch.demo.repository.TestUserRepository;
 import com.lylbp.manager.elasticsearch.demo.service.TestUserService;
+import com.lylbp.manager.elasticsearch.service.BaseServiceImpl;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;

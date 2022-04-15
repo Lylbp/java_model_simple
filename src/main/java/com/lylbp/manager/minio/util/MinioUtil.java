@@ -1,7 +1,7 @@
 package com.lylbp.manager.minio.util;
 
-import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.enums.ResResultEnum;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.utils.FileUtil;
 import io.minio.MinioClient;
 import io.minio.errors.*;
@@ -10,7 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.InvalidKeyException;

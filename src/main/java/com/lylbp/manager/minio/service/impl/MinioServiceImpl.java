@@ -2,15 +2,14 @@ package com.lylbp.manager.minio.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.lylbp.common.enums.ResResultEnum;
-import com.lylbp.common.utils.FileUtil;
 import com.lylbp.common.exception.ResResultException;
+import com.lylbp.common.utils.FileUtil;
 import com.lylbp.manager.minio.config.MinioProperties;
 import com.lylbp.manager.minio.enums.FileEnum;
 import com.lylbp.manager.minio.service.MinioService;
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,6 @@ import java.util.List;
  * @author weiwenbin
  * @date 2020/12/12 下午3:02
  */
-@Service
 @ConditionalOnProperty(prefix = "minio", name = "enabled")
 @Slf4j
 public class MinioServiceImpl implements MinioService {

@@ -6,7 +6,10 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lylbp.common.utils.UserAgentUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -30,7 +33,7 @@ public class LogAspect {
      */
     private long end;
 
-    @Pointcut("execution(public * com.lylbp.project.controller.*.*.*(..))")
+    @Pointcut("execution(public * com.dar.project.controller.*.*.*(..))")
     public void log() {
     }
 
@@ -41,7 +44,7 @@ public class LogAspect {
      */
     @Before("log()")
     public void doBefore(JoinPoint joinPoint) {
-        System.out.println("日志前置通知");
+        log.debug("日志前置通知");
         start = System.currentTimeMillis();
 
         // 接收到请求，记录请求内容
@@ -53,9 +56,9 @@ public class LogAspect {
         UserAgentUtil userAgentUtil = new UserAgentUtil(request);
 
         // 记录下请求内容
-        log.info("请求URL ： {}", request.getRequestURL());
-        log.info("请求IP  ： {}", userAgentUtil.getIpAddr());
-        log.info("请求方法 ： {}", joinPoint.getSignature().getDeclaringTypeName()
+        log.debug("请求URL ： {}", request.getRequestURL());
+        log.debug("请求IP  ： {}", userAgentUtil.getIpAddr());
+        log.debug("请求方法 ： {}", joinPoint.getSignature().getDeclaringTypeName()
                 + "." + joinPoint.getSignature().getName());
         // 获取参数, 只取自定义的参数, 自带的HttpServletRequest, HttpServletResponse不管
         Object[] args = joinPoint.getArgs();
@@ -66,7 +69,7 @@ public class LogAspect {
                             || o instanceof MultipartFile) {
                         continue;
                     }
-                    log.info("请求参数 : " + JSON.toJSONString(o, SerializerFeature.WriteNullStringAsEmpty));
+                    log.debug("请求参数 : " + JSON.toJSONString(o, SerializerFeature.WriteNullStringAsEmpty));
                 }
             }
         }
@@ -81,8 +84,8 @@ public class LogAspect {
     public void doAfterReturning(Object object) {
         System.out.println("日志结束返回通知");
         end = System.currentTimeMillis();
-        log.info("执行时间  ：{}ms", (end - start));
-        log.info("返回 : " + JSON.toJSONString(object));
+        log.debug("执行时间  ：{}ms", (end - start));
+        log.debug("返回 : " + JSON.toJSONString(object));
 
     }
 }

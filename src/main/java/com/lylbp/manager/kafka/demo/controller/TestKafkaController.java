@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Optional;
 
 
 /**
@@ -55,7 +55,7 @@ public class TestKafkaController {
         Optional message = Optional.ofNullable(record.value());
         if (message.isPresent()) {
             Object msg = message.get();
-            log.info("topic_test 消费了： Topic:" + topic + ",Message:" + msg);
+            log.debug("topic_test 消费了： Topic:" + topic + ",Message:" + msg);
             ack.acknowledge();
         }
     }

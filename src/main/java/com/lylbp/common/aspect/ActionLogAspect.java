@@ -77,8 +77,9 @@ public class ActionLogAspect {
             String device = userAgentUtil.getDevice();
             //请求参数
             String params = JSON.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteNullStringAsEmpty);
+            logger.debug("开始记录系统日志");
         } catch (Exception exception) {
-            logger.info(exception.getMessage());
+            logger.error(exception.getMessage());
         }
     }
 
