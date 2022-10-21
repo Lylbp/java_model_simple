@@ -370,6 +370,12 @@
             <artifactId>Java-WebSocket</artifactId>
             <version>1.5.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>4.1.1</version>
+        </dependency>
         <!-- 自己添加的依赖结束 -->
 
         <dependency>
