@@ -5,11 +5,44 @@ server:
 #spring基本配置
 spring:
   #数据库配置
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: root
+#    url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+  shardingsphere:
+    enabled: true
+    props:
+      sql:
+        show: true
+    datasource:
+      names: master   #支持从哪些库读，分多个库的话，用逗号分隔。 如ds1,ds2,ds3
+      master: #这里连接的名称，自定义，我这里为master,分库则配置多个连接
+        url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: root
+        type: com.alibaba.druid.pool.DruidDataSource
+    rules:
+      sharding:
+        sharding-algorithms:
+          older-algorithms:
+            type: HASH_MOD
+            props:
+              sharding-count: '2'
+        key-generators:
+          snowflake:
+            type: SNOWFLAKE
+        tables:
+          older: #要分表的名称
+            actual-data-nodes: master.older_$->{0..1}   #表示 从连接名为master的库中的sys_user_0到sys_user_1号表查询
+            table-strategy:
+              standard:
+                sharding-column: id     #用id这列来取模
+                sharding-algorithm-name: older-algorithms   #取模的算法名称
+            key-generate-strategy: # 主键生成策略
+              column: id  # 主键列
+              key-generator-name: snowflake  # 策略算法名称(推荐使用雪花算法)
   #redis配置
   redis:
     #Redis服务器地址

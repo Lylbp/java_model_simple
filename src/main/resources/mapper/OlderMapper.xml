@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.project.mapper.OlderMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lylbp.project.entity.Older">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_valid" property="isValid"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        t.id,
+                t.name,
+                t.create_by,
+                t.create_time,
+                t.update_by,
+                t.update_time,
+                t.is_valid
+    </sql>
+
+    <!-- 通用编辑语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Base_Set">
+        <set>
+            <if test="entity.id != null ">
+                id = #{entity.id},
+            </if>
+            <if test="entity.name != null ">
+                name = #{entity.name},
+            </if>
+            <if test="entity.createBy != null ">
+                create_by = #{entity.createBy},
+            </if>
+            <if test="entity.createTime != null ">
+                create_time = #{entity.createTime},
+            </if>
+            <if test="entity.updateBy != null ">
+                update_by = #{entity.updateBy},
+            </if>
+            <if test="entity.updateTime != null ">
+                update_time = #{entity.updateTime},
+            </if>
+            <if test="entity.isValid != null ">
+                is_valid = #{entity.isValid},
+            </if>
+        </set>
+    </sql>
+
+    <!-- 通用查询语句(数据库comment中含有?则不显示字段注释)) -->
+    <sql id="Base_Where_List">
+
+        <if test="params.containsKey('id')">
+            AND t.id = #{params.id}
+        </if>
+
+
+        <if test="params.name != null and params.name != ''">
+            AND t.name = #{params.name}
+        </if>
+
+        <if test="params.nameLike != null and params.nameLike != ''">
+            AND t.name LIKE CONCAT('%', #{params.nameLike}, '%')
+        </if>
+
+
+        <if test="params.createBy != null and params.createBy != ''">
+            AND t.create_by = #{params.createBy}
+        </if>
+
+        <if test="params.createByLike != null and params.createByLike != ''">
+            AND t.create_by LIKE CONCAT('%', #{params.createByLike}, '%')
+        </if>
+
+
+        <if test="params.createTimeStart != null and params.createTimeStart != ''">
+            AND t.create_time &gt;= #{params.createTimeStart}
+        </if>
+
+        <if test="params.createTimeEnd != null and params.createTimeEnd != ''">
+            AND t.create_time &lt;= #{params.createTimeEnd}
+        </if>
+
+
+        <if test="params.updateBy != null and params.updateBy != ''">
+            AND t.update_by = #{params.updateBy}
+        </if>
+
+        <if test="params.updateByLike != null and params.updateByLike != ''">
+            AND t.update_by LIKE CONCAT('%', #{params.updateByLike}, '%')
+        </if>
+
+
+        <if test="params.updateTimeStart != null and params.updateTimeStart != ''">
+            AND t.update_time &gt;= #{params.updateTimeStart}
+        </if>
+
+        <if test="params.updateTimeEnd != null and params.updateTimeEnd != ''">
+            AND t.update_time &lt;= #{params.updateTimeEnd}
+        </if>
+
+        <!-- 删除状态查询 -->
+        AND t.is_valid = 1
+
+
+    </sql>
+
+    <!-- OlderVO查询语句 -->
+    <select id="queryOlderVOByParams" parameterType="java.util.Map" resultType="com.lylbp.project.vo.OlderVO">
+<!--        SELECT-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        FROM older t-->
+<!--        <where>-->
+<!--            <include refid="Base_Where_List"/>-->
+<!--        </where>-->
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM older_test te left join older t ON t.id = te.older_id
+    </select>
+
+
+    <!-- 根据id编辑Older -->
+    <update id="updateEntityById">
+        update older
+        <include refid="Base_Set"/>
+        where id = #{id}
+    </update>
+</mapper>

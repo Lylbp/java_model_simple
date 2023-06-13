@@ -149,6 +149,7 @@
             AND t.is_valid = 1
             <include refid="Base_Where_List"/>
         </where>
+        order by t.create_time DESC
     </select>
 
     <!-- 用户分配权限查询 -->

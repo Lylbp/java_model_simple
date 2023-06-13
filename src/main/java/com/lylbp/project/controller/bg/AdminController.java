@@ -1,6 +1,10 @@
 package com.lylbp.project.controller.bg;
 
+import cn.hutool.core.lang.func.Func1;
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.lylbp.common.annotation.ActionLog;
 import com.lylbp.common.annotation.CheckPermission;
 import com.lylbp.common.constant.ProjectConstant;
@@ -10,6 +14,7 @@ import com.lylbp.common.entity.PageResResult;
 import com.lylbp.core.properties.ProjectProperties;
 import com.lylbp.manager.security.core.config.SecurityProperties;
 import com.lylbp.project.dto.AdminRoleBatchEditDTO;
+import com.lylbp.project.entity.Menu;
 import com.lylbp.project.entity.SecurityUser;
 import com.lylbp.project.enums.TrueOrFalseEnum;
 import com.lylbp.project.qo.AdminQO;
@@ -86,16 +91,21 @@ public class AdminController {
     })
     @CheckPermission(description = "管理员-获取管理员分页列表")
     @ActionLog(description = "管理员-获取管理员分页列表")
-    public ResResult<PageResResult<AdminVO>> getList(@RequestBody AdminQO query,
-                                                     @RequestParam(defaultValue = "1") Integer current,
-                                                     @RequestParam(defaultValue = "10") Integer size) {
+    public ResResult<IPage<AdminVO>> getList(@RequestBody AdminQO query,
+                                             @RequestParam(defaultValue = "1") Integer current,
+                                             @RequestParam(defaultValue = "10") Integer size) {
+        Admin admin = new Admin();
+        admin.setAdminId("123123");
+        QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>(admin);
+        adminService.getBaseMapper().selectList(adminQueryWrapper);
+        Func1<Menu, String> getMenuId = Menu::getMenuId;
         Map<String, Object> params = BeanUtil.beanToMap(query);
 
         Page<AdminVO> page = new Page<>(current, size);
         List<AdminVO> list = adminService.getAdminVOListByParams(page, params);
         page.setRecords(list);
 
-        return ResResultUtil.makePageRsp(page);
+        return ResResultUtil.success(page);
     }
 
     @PostMapping(value = "/admin/getAllList")

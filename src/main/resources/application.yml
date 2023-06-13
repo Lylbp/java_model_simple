@@ -78,7 +78,7 @@ mybatis-plus:
     #数据库配置
     db-config:
       #主键类型
-      id-type: UUID
+      id-type: ASSIGN_UUID
       select-strategy: not_empty
       #数据库大写下划线转换
       capital-mode: true
