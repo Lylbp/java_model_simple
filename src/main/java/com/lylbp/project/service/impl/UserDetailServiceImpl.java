@@ -79,6 +79,7 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
 
         List<PermissionAuthority> permissionAuthorities = new ArrayList<>();
         userHasPermission.forEach(permissionVO -> permissionAuthorities.add(new PermissionAuthority(permissionVO.getPermissionUrl())));
+        permissionAuthorities.add(new PermissionAuthority("ROLE_adminInfo"));
         return new SecurityUser(supperAdmin, admin, roleVOList, permissionAuthorities);
     }
 

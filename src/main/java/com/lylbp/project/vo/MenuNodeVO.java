@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="AdminVO对象")
+@ApiModel
 public class MenuNodeVO extends MenuVO{
     @ApiModelProperty(value = "子菜单信息")
     private List<MenuNodeVO> sonMenuVOS;

@@ -26,6 +26,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
     @Bean
+    public Docket testApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("默认", "ceshi", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller.test2"))
+                .build()
+                .groupName("ceshi")
+                .pathMapping("/");
+    }
+
+    @Bean
     public Docket defaultApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("默认", "默认", "韦文彬"))

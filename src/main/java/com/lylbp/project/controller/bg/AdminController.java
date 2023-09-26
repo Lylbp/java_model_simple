@@ -25,6 +25,7 @@ import com.lylbp.project.vo.AdminVO;
 import com.lylbp.project.vo.MenuNodeVO;
 import com.lylbp.project.vo.MenuVO;
 import com.lylbp.project.vo.RoleVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -115,6 +116,7 @@ public class AdminController {
         return ResResultUtil.success(adminService.getAdminVOListByParams(null, params));
     }
 
+    @PreAuthorize(value = "hasRole('ROLE_adminInfo')")
     @GetMapping(value = "/admin/info/{id}")
     @ApiOperation("管理员-通过管理员id获取管理员信息")
     @CheckPermission(description = "管理员-通过管理员id获取管理员信息")
