@@ -4,7 +4,6 @@ import cn.hutool.core.util.ArrayUtil;
 import com.lylbp.manager.security.core.JwtAuthenticationFilter;
 import com.lylbp.manager.security.core.ProjectAccessDecisionManager;
 import com.lylbp.manager.security.core.ProjectFilterInvocationSecurityMetadataSource;
-//import com.lylbp.manager.security.core.ProjectSecurityInterceptor;
 import com.lylbp.manager.security.core.handler.ProjectAccessDeniedHandler;
 import com.lylbp.manager.security.core.handler.ProjectAuthenticationEntryPoint;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -92,18 +91,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 由于使用的是JWT，我们这里不需要csrf
         http.csrf().disable();
 
-//            http
-//                    .authorizeRequests()   // 设置URL的授权
-//                    .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//                        @Override
-//                        public <T extends FilterSecurityInterceptor> T postProcess(T o) {
-//                            //SecurityMetadataSource的实现类
-//                            o.setSecurityMetadataSource(projectFilterInvocationSecurityMetadataSource);
-//                            //投票器的实现类
-//                            o.setAccessDecisionManager(projectAccessDecisionManager);
-//                            return o;
-//                        }
-//                    });
+        http
+                .authorizeRequests()   // 设置URL的授权
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <T extends FilterSecurityInterceptor> T postProcess(T o) {
+                        //SecurityMetadataSource的实现类
+                        o.setSecurityMetadataSource(projectFilterInvocationSecurityMetadataSource);
+                        //投票器的实现类
+                        o.setAccessDecisionManager(projectAccessDecisionManager);
+                        return o;
+                    }
+                });
         /**
          *   基于token，所以不需要session
          *   ALWAYS 总是会新建一个Session。
