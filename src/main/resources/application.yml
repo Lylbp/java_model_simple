@@ -3,12 +3,12 @@ spring:
   #配置文件相关配置
   profiles:
     active: mysql
-    #jackson:
-    #查询数据是否去掉null(因为自定义了configureMessageConverters所以这里不配)
-    #    default-property-inclusion: non_null
-    #配置时间格式化(因为自定义了configureMessageConverters所以这里不配)
-    #date-format: yyyy-MM-dd HH:mm:ss
-    #time-zone: GMT+8
+#  jackson:
+#    #查询数据是否去掉null(因为自定义了configureMessageConverters所以这里不配)
+#    default-property-inclusion: non_null
+#    #配置时间格式化(因为自定义了configureMessageConverters所以这里不配)
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
   #资源相关配置
   resources:
     static-locations: classpath:/resources/,classpath:/static/
