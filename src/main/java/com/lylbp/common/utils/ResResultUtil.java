@@ -6,6 +6,8 @@ import com.lylbp.common.entity.PageResResult;
 import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.enums.ResResultEnum;
 
+import java.util.List;
+
 /**
  * 结果集工具类
  *
@@ -69,6 +71,10 @@ public class ResResultUtil {
 
     public static <T> ResResult<PageResResult<T>> makePageRsp(DataPage<T> dataPage) {
         return makePageRsp( new PageResResult<T>(dataPage));
+    }
+
+    public static <T> ResResult<PageResResult<T>> makePageRsp(List<T> records, long totalCount, long pageNum, long pageSize) {
+        return makePageRsp(new PageResResult<T>(records, totalCount, pageSize, pageNum));
     }
 
     public static <T> ResResult<PageResResult<T>> makePageRsp(PageResResult<T> pageResult) {

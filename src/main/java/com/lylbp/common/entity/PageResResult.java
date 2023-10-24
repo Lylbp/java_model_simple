@@ -24,12 +24,12 @@ import java.util.List;
 public class PageResResult<T> {
     @ApiModelProperty(value = "当页数据")
     private List<T> records;
-    @ApiModelProperty(value = "当前页")
-    private Long pageNum;
-    @ApiModelProperty(value = "每页显示数")
-    private Long pageSize;
     @ApiModelProperty(value = "总数据量")
-    private Long totalCount;
+    private long totalCount;
+    @ApiModelProperty(value = "当前页")
+    private long pageNum;
+    @ApiModelProperty(value = "每页显示数")
+    private long pageSize;
 
     public PageResResult(Page<T> page) {
         this.setRecords(page.getRecords());
