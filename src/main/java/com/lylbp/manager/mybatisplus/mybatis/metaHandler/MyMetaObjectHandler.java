@@ -34,7 +34,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "createAt", Date.class, new Date());
+        this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "isValid", String.class, TrueOrFalseEnum.TRUE.getCode());
 
         String actionId;
@@ -49,7 +49,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.strictUpdateFill(metaObject, "updateAt", Date.class, new Date());
+        this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
         String actionId;
         try {
             request.getHeader(ProjectConstant.AUTHENTICATION);
