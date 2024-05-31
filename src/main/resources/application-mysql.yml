@@ -18,7 +18,7 @@ spring:
     datasource:
       names: master   #支持从哪些库读，分多个库的话，用逗号分隔。 如ds1,ds2,ds3
       master: #这里连接的名称，自定义，我这里为master,分库则配置多个连接
-        url: jdbc:mysql://localhost:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+        url: jdbc:mysql://192.168.150.129:3306/java_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         password: root
@@ -46,7 +46,7 @@ spring:
   #redis配置
   redis:
     #Redis服务器地址
-    host: 127.0.0.1
+    host: 192.168.150.129
     #Redis服务器连接端口
     port: 6379
     #Redis服务器密码
