@@ -216,6 +216,7 @@ security:
   allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**
 
 logging:
+  config: classpath:logback-custom.xml
   #线上环境配置INFO模式
   level:
     com.lylbp: DEBUG

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 已认证用户访问无权限接口处理
+ * 自定义返回结果-没有权限访问时
  *
  * @author weiwenbin
  * @date 2020/5/11 下午11:14

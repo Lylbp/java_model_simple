@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * 未认证用户访问需要权限的url
+ * ca认证失败的自定义返回结果
  *
  * @author weiwenbin
  * @date 2020/5/11 下午11:08

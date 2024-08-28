@@ -7,11 +7,12 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import javax.annotation.PostConstruct;
 import java.net.URI;
+import java.util.Map;
 
 @Slf4j
 public class MyWebSocketClient extends WebSocketClient {
-    public MyWebSocketClient(URI uri) {
-        super(uri);
+    public MyWebSocketClient(URI uri, Map<String, String> httpHeaders) {
+        super(uri, httpHeaders);
     }
 
     @PostConstruct
