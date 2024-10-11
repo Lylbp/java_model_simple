@@ -3,8 +3,8 @@ package com.lylbp.core.configure;
 import com.lylbp.core.interceptor.ApiInterceptor;
 import com.lylbp.core.interceptor.NewCrossDomainInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -68,5 +68,7 @@ public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/modeler/**")
+                .addResourceLocations("classpath:/static/modeler/");
     }
 }

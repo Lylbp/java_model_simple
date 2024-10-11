@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * 项目全局异常处理
@@ -53,26 +54,26 @@ public class ProjectExceptionHandler {
         return ResResultUtil.makeRsp(ResResultEnum.SYSTEM_ERR.getCode(), ex.getMessage());
     }
 
-//    /**
-//     * 处理 SpringMVC 请求地址不存在
-//     * <p>
-//     * 注意，它需要设置如下两个配置项：
-//     * 1. spring.mvc.throw-exception-if-no-handler-found 为 true
-//     * 2.spring.resources.add-mappings 为false
-//     * <p>
-//     * 配置完spring.resources.add-mappings 为false后spring.resources.add-mapping.static-locations、spring.mvc.static-path-pattern 失效
-//     * 重写WebMvcConfigurer.addResourceHandlers
-//     *
-//     * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//     * registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-//     * //下面集成swagger需要处理
-//     * registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
-//     * registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-//     * registry.addResourceHandler("/swagger-resources/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-//     * }
-//     */
-//    @ExceptionHandler(NoHandlerFoundException.class)
-//    public Object noHandlerFoundExceptionHandler() {
-//        return ResResultUtil.makeRsp(ResResultEnum.NOT_FOUND);
-//    }
+    /**
+     * 处理 SpringMVC 请求地址不存在
+     * <p>
+     * 注意，它需要设置如下两个配置项：
+     * 1. spring.mvc.throw-exception-if-no-handler-found 为 true
+     * 2.spring.resources.add-mappings 为false
+     * <p>
+     * 配置完spring.resources.add-mappings 为false后spring.resources.add-mapping.static-locations、spring.mvc.static-path-pattern 失效
+     * 重写WebMvcConfigurer.addResourceHandlers
+     *
+     * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
+     * registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+     * //下面集成swagger需要处理
+     * registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
+     * registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+     * registry.addResourceHandler("/swagger-resources/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+     * }
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public Object noHandlerFoundExceptionHandler() {
+        return ResResultUtil.makeRsp(ResResultEnum.NOT_FOUND);
+    }
 }
