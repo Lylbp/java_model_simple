@@ -3,9 +3,11 @@ package com.lylbp.core.configure;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lylbp.core.configure.jackson.DynamicBeanSerializerModifier;
+import com.lylbp.core.configure.jackson.JacksonObjectMapper;
 import com.lylbp.core.interceptor.ApiInterceptor;
 import com.lylbp.core.interceptor.NewCrossDomainInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -85,7 +87,7 @@ public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
         converters.stream().filter(c -> c instanceof MappingJackson2HttpMessageConverter)
                 .map(c -> (MappingJackson2HttpMessageConverter) c)
                 .forEach(c -> {
-                    ObjectMapper mapper = c.getObjectMapper();
+                    ObjectMapper mapper = new JacksonObjectMapper(c.getObjectMapper());
                     JsonInclude.Include valueInclusion = mapper.getSerializationConfig().getDefaultPropertyInclusion().getValueInclusion();
                     if (valueInclusion == JsonInclude.Include.ALWAYS) {
                         // 为mapper注册一个带有SerializerModifier的Factory，此modifier主要做的事情为：当序列化类型为array，list、set时，当值为空时，序列化成[]
