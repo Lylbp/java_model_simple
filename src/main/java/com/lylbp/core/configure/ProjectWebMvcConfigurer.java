@@ -1,15 +1,23 @@
 package com.lylbp.core.configure;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lylbp.core.configure.jackson.DynamicBeanSerializerModifier;
 import com.lylbp.core.interceptor.ApiInterceptor;
 import com.lylbp.core.interceptor.NewCrossDomainInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 
 /**
@@ -70,5 +78,20 @@ public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/modeler/**")
                 .addResourceLocations("classpath:/static/modeler/");
+    }
+
+    @Override
+    public void extendMessageConverters(@Nonnull List<HttpMessageConverter<?>> converters) {
+        converters.stream().filter(c -> c instanceof MappingJackson2HttpMessageConverter)
+                .map(c -> (MappingJackson2HttpMessageConverter) c)
+                .forEach(c -> {
+                    ObjectMapper mapper = c.getObjectMapper();
+                    JsonInclude.Include valueInclusion = mapper.getSerializationConfig().getDefaultPropertyInclusion().getValueInclusion();
+                    if (valueInclusion == JsonInclude.Include.ALWAYS) {
+                        // 为mapper注册一个带有SerializerModifier的Factory，此modifier主要做的事情为：当序列化类型为array，list、set时，当值为空时，序列化成[]
+                        mapper.setSerializerFactory(mapper.getSerializerFactory().withSerializerModifier(new DynamicBeanSerializerModifier()));
+                        c.setObjectMapper(mapper);
+                    }
+                });
     }
 }
